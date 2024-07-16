@@ -3,6 +3,7 @@ import { IoMdClose } from 'react-icons/io';
 import styled from 'styled-components';
 import { WikiData } from '../../type/api/wiki';
 import { getWikiAPI } from '../../api/openai';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 interface KabaWikiProps {
   bookId: string;
@@ -12,10 +13,13 @@ interface KabaWikiProps {
 
 const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
   const [wiki, setWiki] = useState<WikiData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchWikiData = async () => {
+    setIsLoading(true);
     const data = await getWikiAPI(bookId, 0, 100, search);
     setWiki(data);
+    setIsLoading(false);
   };
   useEffect(() => {
     fetchWikiData();
@@ -30,7 +34,8 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
 
         <Content>
           <Title>{search}</Title>
-          {wiki && <span>{wiki.information}</span>}
+          {isLoading && <LoadingSpinner color="black" />}
+          {!isLoading && wiki && <span>{wiki.information}</span>}
         </Content>
       </Container>
     </>
@@ -58,7 +63,7 @@ const Header = styled.div`
 
 const Title = styled.span`
   display: flex;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   justify-content: center;
   width: 100%;
   overflow: hidden;
@@ -66,6 +71,8 @@ const Title = styled.span`
 `;
 
 const Content = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
   margin-top: 1rem;
   padding: 1rem;

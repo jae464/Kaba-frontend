@@ -1,5 +1,8 @@
 @import './reset.css';
 
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+@import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+
 @font-face {
   font-family: 'MangoDdobak-B';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2')
@@ -24,6 +27,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Galmetgol';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/naverfont_04@1.0/Galmetgol.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -31,6 +42,7 @@
 body {
   width: 100%;
   /* font-family: 'MangoDdobak-R'; */
+  /* font-family: 'nanumsquare'; */
 }
 
 #root {

@@ -5,6 +5,7 @@ import { getDiaryPictureAPI } from '../../api/openai';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { IoMdRefresh } from 'react-icons/io';
 import CustomSelector from '../CustomSelector/CustomSelector';
+import { fontFamily } from 'html2canvas/dist/types/css/property-descriptors/font-family';
 
 interface PictureDiaryProps {
   bookId: string;
@@ -19,8 +20,12 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     x: number;
     y: number;
     color: string;
+    fontSize: string;
   } | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>('#000000');
+  const [selectedFontSize, setSelectedFontSize] = useState<string>('24px');
+  const [selectedFontFamily, setSelectedFontFamily] =
+    useState<string>('nanumsquare');
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
@@ -56,16 +61,12 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     const data = e.dataTransfer.getData('text/plain');
 
     const rect = imageContainerRef.current!.getBoundingClientRect();
-    // console.log(
-    //   `rect : ${rect.top} ${rect.bottom} ${rect.left} ${rect.right} ${rect.height}`,
-    // );
-    // console.log(e.clientX, e.clientY);
-
     setDroppedText({
       text: data,
       x: e.clientX - rect.left - dragOffset.x,
       y: e.clientY - rect.top - dragOffset.y,
       color: selectedColor,
+      fontSize: selectedFontSize,
     });
 
     // console.log(
@@ -82,6 +83,37 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     e.preventDefault();
   };
 
+  const handleFontSize = (fontSize: string) => {
+    switch (fontSize) {
+      case '작게':
+        setSelectedFontSize('16px');
+        break;
+      case '보통':
+        setSelectedFontSize('24px');
+        break;
+      case '크게':
+        setSelectedFontSize('36px');
+        break;
+    }
+  };
+
+  const handleFontFamily = (fontFamily: string) => {
+    switch (fontFamily) {
+      case '나눔고딕':
+        setSelectedFontFamily('nanumgothic');
+        break;
+      case '나눔스퀘어':
+        setSelectedFontFamily('nanumsquare');
+        break;
+      case '망고또박':
+        setSelectedFontFamily('MangoDdobak-R');
+        break;
+      case '갈메골':
+        setSelectedFontFamily('Galmetgol');
+        break;
+    }
+  };
+
   const fetchDiaryImage = async () => {
     setImage('');
     const data = await getDiaryPictureAPI(bookId, sentence, '');
@@ -89,7 +121,13 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   };
 
   useEffect(() => {
-    setDroppedText({ text: sentence, x: 20, y: 20, color: 'black' });
+    setDroppedText({
+      text: sentence,
+      x: 20,
+      y: 20,
+      color: selectedColor,
+      fontSize: selectedFontSize,
+    });
   }, [sentence]);
 
   useEffect(() => {
@@ -112,7 +150,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
               alt=""
               width={'100%'}
               height={'100%'}
-              style={{ zIndex: -1 }}
+              style={{ zIndex: 1000 }}
             />
           )}
           {image && droppedText && (
@@ -123,6 +161,8 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
                 left: droppedText.x,
                 top: droppedText.y,
                 color: droppedText.color,
+                fontSize: selectedFontSize,
+                fontFamily: selectedFontFamily,
               }}
             >
               {droppedText.text}
@@ -139,7 +179,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
           <OptionContainer>
             <CustomLabel>그림체</CustomLabel>
             <CustomSelector
-              options={['애니메이션', '2', '3', '4']}
+              options={['애니메이션', '명화', '실사화']}
               defaultOption="애니메이션"
               onSelect={(s) => {
                 console.log(s);
@@ -149,16 +189,23 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
           <OptionContainer>
             <CustomLabel>텍스트</CustomLabel>
             <CustomSelector
-              options={['나눔글꼴체', '2', '3', '4']}
-              defaultOption="나눔글꼴체"
+              options={['나눔고딕', '나눔스퀘어', '망고또박', '갈메골']}
+              defaultOption="나눔고딕"
               onSelect={(s) => {
-                console.log(s);
+                handleFontFamily(s);
               }}
             />
             <ColorPicker
               type="color"
               value={selectedColor}
               onChange={handleColorChange}
+            />
+            <CustomSelector
+              options={['작게', '보통', '크게']}
+              defaultOption="보통"
+              onSelect={(s) => {
+                handleFontSize(s);
+              }}
             />
           </OptionContainer>
         </EditContainer>
@@ -233,8 +280,10 @@ const ColorPicker = styled.input`
 `;
 
 const ImageContainer = styled.div`
+  display: flex;
   width: 500px;
   height: 500px;
+  background-color: #ffd953;
   position: relative;
   border-radius: 1rem;
   > img {
@@ -243,7 +292,7 @@ const ImageContainer = styled.div`
 `;
 
 const DroppedText = styled.div`
-  font-size: 24px;
+  font-size: 12px;
   font-weight: bold;
   color: #dbc4c4;
   position: absolute;

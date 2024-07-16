@@ -58,7 +58,7 @@ export async function getDiaryPictureAPI(
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * diaryImages.length);
       resolve(diaryImages[randomIndex]);
-    }, 5000);
+    }, 500);
   });
 }
 

@@ -22,9 +22,10 @@ const LoadingSpinner = ({ color = 'white' }: LoadingSpinnerProps) => {
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+  /* height: 100%; */
   justify-content: center;
+  margin: auto;
   align-items: center;
 
   /* background-color: black; */

@@ -10,7 +10,7 @@ import Layout from '../../components/Layout/Layout';
 import { getBookAPI, getNetworkGraphDataAPI } from '../../api/openai';
 import { PersonData } from '../../type/api/network';
 import PictureDiary from '../../components/PictureDiary/PictureDiary';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import StorySummary from '../../components/StorySummary/StorySummary';
 import KabaWiki from '../../components/KabaWiki/KabaWiki';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
@@ -30,6 +30,7 @@ const Book = () => {
   const [openWiki, setOpenWiki] = useState<boolean>(false);
 
   const { bookId } = useParams();
+  const navigate = useNavigate();
 
   const fetchBook = async () => {
     if (bookId != null) {
@@ -111,7 +112,7 @@ const Book = () => {
           <LeftArea width={width} isOpened={isOpened}>
             <PDFContainer>
               <TopBar>
-                <StyledFaChevronLeft size={48} />
+                <StyledFaChevronLeft size={48} onClick={() => navigate('/')} />
                 <Menu>
                   <MenuIcon onClick={toggleDropdown}>
                     <StyledFaBars size={48} />
