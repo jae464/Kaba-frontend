@@ -280,13 +280,15 @@ const SubContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 10px;
+  width: 100%;
+  height: 100%;
   gap: 1rem;
   /* background-color: green; */
 `;
 
 const PDFWrapper = styled.div`
   position: relative;
-  height: 75vh;
+  max-height: 75vh;
   min-width: 30%;
   max-width: 80%;
   border-radius: 15px;
@@ -296,7 +298,6 @@ const PDFWrapper = styled.div`
   overflow-x: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   /* margin: 0 auto; */
   background-color: lightgray;
