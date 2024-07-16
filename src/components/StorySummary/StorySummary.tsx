@@ -84,7 +84,7 @@ const SummaryBox = styled.div`
   align-items: center;
   overflow: auto;
   border-radius: 15px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   background-color: #ffe898;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;

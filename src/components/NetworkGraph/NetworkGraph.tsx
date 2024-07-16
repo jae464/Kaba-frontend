@@ -29,7 +29,7 @@ const Container = styled.div`
   // flex-grow: 1;
   background-color: #ffe898;
   border-radius: 15px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 

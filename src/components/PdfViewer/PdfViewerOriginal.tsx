@@ -9,6 +9,8 @@ import {
   FaBook,
   FaChevronLeft,
   FaChevronRight,
+  FaMinus,
+  FaPlus,
   FaSearch,
   FaShareSquare,
   FaSpinner,
@@ -151,6 +153,26 @@ const PDFViewerOriginal = ({
   return (
     <>
       <Container>
+        <TopContainer>
+          <PageContainer>
+            {pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}
+          </PageContainer>
+          <ZoomContainer>
+            <StyledFaMinus
+              size={48}
+              onClick={() => {
+                setScale((prev) => prev - 0.1);
+              }}
+            />
+
+            <StyledFaPlus
+              size={48}
+              onClick={() => {
+                setScale((prev) => prev + 0.1);
+              }}
+            />
+          </ZoomContainer>
+        </TopContainer>
         <SubContainer>
           {pageNumber > 1 && (
             <StyledFaChevronLeft size={48} onClick={previousPage} />
@@ -219,36 +241,6 @@ const PDFViewerOriginal = ({
             <StyledFaChevronRight size={48} onClick={nextPage} />
           )}
         </SubContainer>
-
-        <div
-          style={{
-            marginTop: '2rem',
-            alignItems: 'center',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <p>
-            {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
-          </p>
-
-          <div>
-            <button
-              onClick={() => {
-                setScale((prev) => prev - 0.1);
-              }}
-            >
-              -
-            </button>
-            <button
-              onClick={() => {
-                setScale((prev) => prev + 0.1);
-              }}
-            >
-              +
-            </button>
-          </div>
-        </div>
       </Container>
     </>
   );
@@ -259,6 +251,27 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
+`;
+
+const TopContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
+
+const PageContainer = styled.div`
+  display: flex;
+  font-size: 1.2rem;
+  color: #fad346;
+`;
+
+const ZoomContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
 `;
 
 const SubContainer = styled.div`
@@ -277,7 +290,7 @@ const PDFWrapper = styled.div`
   min-width: 30%;
   max-width: 80%;
   border-radius: 15px;
-  border: 1px solid #ccc;
+
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   overflow-x: auto;
@@ -313,7 +326,22 @@ const StyledFaChevronRight = styled(FaChevronRight)`
     background-color: #282c34;
   }
 `;
-
+const StyledFaMinus = styled(FaMinus)`
+  /* background-color: #fad346; */
+  border: 2px solid #fad346;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  color: #fad346;
+  cursor: pointer;
+`;
+const StyledFaPlus = styled(FaPlus)`
+  /* background-color: #fad346; */
+  border: 2px solid #fad346;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  color: #fad346;
+  cursor: pointer;
+`;
 const InfoWindowContainer = styled.div`
   display: flex;
   flex-direction: row;
