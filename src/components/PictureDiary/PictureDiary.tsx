@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import html2canvas from 'html2canvas';
 import { getDiaryPictureAPI } from '../../api/openai';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { IoMdRefresh } from 'react-icons/io';
 
 interface PictureDiaryProps {
   bookId: string;
@@ -54,10 +55,10 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     const data = e.dataTransfer.getData('text/plain');
 
     const rect = imageContainerRef.current!.getBoundingClientRect();
-    console.log(
-      `rect : ${rect.top} ${rect.bottom} ${rect.left} ${rect.right} ${rect.height}`,
-    );
-    console.log(e.clientX, e.clientY);
+    // console.log(
+    //   `rect : ${rect.top} ${rect.bottom} ${rect.left} ${rect.right} ${rect.height}`,
+    // );
+    // console.log(e.clientX, e.clientY);
 
     setDroppedText({
       text: data,
@@ -65,6 +66,15 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
       y: e.clientY - rect.top - dragOffset.y,
       color: selectedColor,
     });
+
+    // console.log(
+    //   `현재 창의 너비와 높이 : ${window.innerWidth}, ${window.innerHeight}`,
+    // );
+    // console.log(`마우스의 위치 : ${e.clientX} ${e.clientY}`);
+    // console.log(`이미지 컨테이너의 위치 : ${rect.left}, ${rect.top}`);
+    // console.log(
+    //   `드랍되는 위치 ${e.clientX - rect.left - dragOffset.x}, ${e.clientY - rect.top - dragOffset.y}`,
+    // );
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -77,7 +87,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   };
 
   useEffect(() => {
-    setDroppedText(null);
+    setDroppedText({ text: sentence, x: 20, y: 20, color: 'black' });
   }, [sentence]);
 
   useEffect(() => {
@@ -87,19 +97,6 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   return (
     <>
       <Container ref={containerRef}>
-        {!droppedText && (
-          <TextContainer draggable onDragStart={handleDragStart}>
-            {sentence}
-          </TextContainer>
-        )}
-        <ColorPickerContainer>
-          <ColorPickerLabel>색상 :</ColorPickerLabel>
-          <ColorPicker
-            type="color"
-            value={selectedColor}
-            onChange={handleColorChange}
-          />
-        </ColorPickerContainer>
         <ImageContainer
           ref={imageContainerRef}
           onDrop={handleDrop}
@@ -130,7 +127,26 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
             </DroppedText>
           )}
         </ImageContainer>
-        <Button onClick={handleDownloadImage}>저장하기</Button>
+
+        <EditContainer>
+          {!droppedText && (
+            <TextContainer draggable onDragStart={handleDragStart}>
+              {sentence}
+            </TextContainer>
+          )}
+          <ColorPickerContainer>
+            <ColorPickerLabel>색상 :</ColorPickerLabel>
+            <ColorPicker
+              type="color"
+              value={selectedColor}
+              onChange={handleColorChange}
+            />
+          </ColorPickerContainer>
+        </EditContainer>
+        <ButtonContainer>
+          <Button>재생성</Button>
+          <Button onClick={handleDownloadImage}>저장하기</Button>
+        </ButtonContainer>
       </Container>
     </>
   );
@@ -146,16 +162,33 @@ const Container = styled.div`
   align-items: center;
   background-color: #ffe898;
   border-radius: 15px;
-  border: 1px solid #ccc;
+
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: auto;
 `;
 
 const TextContainer = styled.div`
+  display: flex;
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin: 0 auto;
   cursor: grab;
+`;
+
+const EditContainer = styled.div`
+  width: 500px;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 15px;
+  background-color: #fef7da;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  width: 500px;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 1rem;
 `;
 
 const ColorPickerContainer = styled.div`
@@ -177,16 +210,19 @@ const ColorPicker = styled.input`
 `;
 
 const ImageContainer = styled.div`
-  width: 600px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   position: relative;
   border-radius: 1rem;
+  > img {
+    border-radius: 1rem;
+  }
 `;
 
 const DroppedText = styled.div`
   font-size: 24px;
   font-weight: bold;
-  color: black;
+  color: #dbc4c4;
   position: absolute;
   z-index: 1000;
   cursor: pointer;
