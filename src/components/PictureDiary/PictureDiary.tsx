@@ -82,6 +82,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   };
 
   const fetchDiaryImage = async () => {
+    setImage('');
     const data = await getDiaryPictureAPI(bookId, sentence, '');
     setImage(data.picture_url);
   };
@@ -113,7 +114,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
               style={{ zIndex: -1 }}
             />
           )}
-          {droppedText && (
+          {image && droppedText && (
             <DroppedText
               draggable
               onDragStart={handleDragStart}
@@ -144,7 +145,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
           </ColorPickerContainer>
         </EditContainer>
         <ButtonContainer>
-          <Button>재생성</Button>
+          <Button onClick={() => fetchDiaryImage()}>재생성</Button>
           <Button onClick={handleDownloadImage}>저장하기</Button>
         </ButtonContainer>
       </Container>

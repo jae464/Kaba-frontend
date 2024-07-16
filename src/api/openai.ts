@@ -3,6 +3,7 @@ import { PersonData } from '../type/api/network';
 import {
   books,
   diaryImage,
+  diaryImages,
   peopleDatas,
   sampleChats,
   storyData,
@@ -55,7 +56,8 @@ export async function getDiaryPictureAPI(
 ): Promise<DiaryData> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(diaryImage);
+      const randomIndex = Math.floor(Math.random() * diaryImages.length);
+      resolve(diaryImages[randomIndex]);
     }, 5000);
   });
 }

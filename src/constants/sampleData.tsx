@@ -104,7 +104,14 @@ export const storyData = {
   ],
 };
 
-export const diaryImage = { picture_url: '/src/assets/fox.png' };
+export const diaryImages = [
+  { picture_url: '/src/assets/diary_image_1.png' },
+  { picture_url: '/src/assets/diary_image_2.png' },
+  { picture_url: '/src/assets/diary_image_3.png' },
+  { picture_url: '/src/assets/diary_image_4.png' },
+  { picture_url: '/src/assets/diary_image_5.png' },
+  { picture_url: '/src/assets/diary_image_6.png' },
+];
 
 export const profilesData: Profile[] = [
   {
