@@ -11,7 +11,7 @@ const Connection = () => {
     <>
       <Layout>
         <Container>
-          <h1 style={{ margin: 'auto', fontSize: '4rem' }}>준비중</h1>
+          <h1 style={{ margin: 'auto', fontSize: '4rem' }}>준비중.</h1>
         </Container>
       </Layout>
     </>
