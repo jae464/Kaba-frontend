@@ -1,0 +1,33 @@
+import { useEffect, useRef, useState } from 'react';
+import { PersonData } from '../type/api/network';
+import { Link, Node } from '../components/NetworkGraph/NetworkGraph';
+
+export default function useGraphData(data: PersonData | null) {
+  const [links, setLinks] = useState<Link[]>([]);
+  const mainNode = useRef<Node>({ name: '주인공' });
+  const nodes = useRef<Node[]>([]);
+
+  useEffect(() => {
+    if (data == null) {
+      return;
+    }
+    const newNodes = [
+      mainNode.current,
+      ...data.persons.map((v) => ({
+        name: v.name,
+      })),
+    ] as Node[];
+
+    nodes.current = newNodes;
+
+    const newLinks = newNodes.map((node) => ({
+      source: mainNode.current.name,
+      target: node.name,
+      description: '관계 1',
+    }));
+
+    setLinks(newLinks);
+  }, [data]);
+
+  return { nodes: nodes.current, links };
+}
