@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { FaBars, FaChevronLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaBars, FaChevronLeft } from 'react-icons/fa';
 import PDFViewerOriginal from '../../components/PdfViewer/PdfViewerOriginal';
 
 import NetworkGraph from '../../components/NetworkGraph/NetworkGraph';
@@ -121,6 +121,7 @@ const Book = () => {
                     <DropdownMenu>
                       <DropdownItem
                         onClick={() => {
+                          setIsDropdownOpen(false);
                           setIsOpened(true);
                           setSelectedTab('인물관계도');
                           fetchPeopleData();
@@ -130,6 +131,7 @@ const Book = () => {
                       </DropdownItem>
                       <DropdownItem
                         onClick={() => {
+                          setIsDropdownOpen(false);
                           setIsOpened(true);
                           setSelectedTab('지난줄거리');
                         }}
@@ -177,11 +179,6 @@ const Book = () => {
               isOpened={isOpened}
             >
               <NetworkGraph data={networkData} />
-              {/* {networkData ? (
-                <NetworkGraph data={networkData} />
-              ) : (
-                <LoadingSpinner />
-              )} */}
             </GenAIContainer>
           )}
           {isOpened && selectedTab === '그림일기' && diaryKeyword && (
@@ -231,7 +228,7 @@ const LeftArea = styled.div<{ width: number; isOpened: boolean }>`
 `;
 
 const PDFContainer = styled.div`
-  position: relative;
+  /* position: relative; */
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -260,7 +257,7 @@ const MenuIcon = styled.div`
   cursor: pointer;
 `;
 
-const StyledFaChevronLeft = styled(FaChevronLeft)`
+const StyledFaChevronLeft = styled(FaArrowLeft)`
   color: #ffd953;
   margin: 1rem;
   padding: 0.5rem;

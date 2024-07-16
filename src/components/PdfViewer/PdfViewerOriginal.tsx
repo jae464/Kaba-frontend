@@ -5,7 +5,14 @@ import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
 import ebang from './1377342678.pdf';
 import styled from 'styled-components';
-import { FaBook, FaSearch, FaShareSquare, FaSpinner } from 'react-icons/fa';
+import {
+  FaBook,
+  FaChevronLeft,
+  FaChevronRight,
+  FaSearch,
+  FaShareSquare,
+  FaSpinner,
+} from 'react-icons/fa';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -44,11 +51,6 @@ const PDFViewerOriginal = ({
   const pdfRef = useRef<HTMLDivElement>(null);
   const [pdfLoading, setPdfLoading] = useState<boolean>(true);
   const [openInfo, setOpenInfo] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log('file path : ' + path);
-    console.log('import file path : ' + ebang);
-  }, []);
 
   const handleMouseUp = (e: any) => {
     const selection = window.getSelection();
@@ -92,8 +94,8 @@ const PDFViewerOriginal = ({
 
   const onDocumentLoadSuccess = ({ numPages }: pdfjs.PDFDocumentProxy) => {
     console.log('load success');
-    setNumPages(numPages);
     setPageNumber(1);
+    setNumPages(numPages);
     setPdfLoading(false);
   };
 
@@ -106,86 +108,117 @@ const PDFViewerOriginal = ({
     console.log('onDocumentLocked');
   };
 
-  function changePage(offset: number) {
+  const changePage = (offset: number) => {
     setPageNumber((prevPageNumber) => prevPageNumber + offset);
-  }
+  };
 
-  function previousPage() {
-    changePage(-1);
-  }
+  const previousPage = () => {
+    if (pageNumber > 1) {
+      changePage(-1);
+    }
+  };
 
-  function nextPage() {
-    changePage(1);
-  }
+  const nextPage = () => {
+    console.log(`pageNumber ${pageNumber} numPages ${numPages}`);
+    if (pageNumber < numPages) {
+      changePage(1);
+    }
+  };
+
+  useEffect(() => {
+    console.log('file path : ' + path);
+    console.log('import file path : ' + ebang);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        previousPage();
+      } else if (e.key === 'ArrowRight') {
+        nextPage();
+      }
+    };
+
+    if (numPages > 0) {
+      window.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [numPages, pageNumber]);
 
   return (
     <>
       <Container>
-        {pdfLoading && (
-          // <LoadingContainer>
-          //   <FaSpinner className="fa-spin" size={50} />
-          // </LoadingContainer>
-          <div style={{ width: '100%', height: '100%' }}></div>
-        )}
-        <PDFWrapper
-          ref={pdfRef}
-          onMouseUp={handleMouseUp}
-          onMouseDown={handleMouseDown}
-        >
-          <Document
-            options={options}
-            file={path}
-            onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={onDocumentError}
-            onPassword={onDocumentLocked}
-          >
-            <Page
-              pageNumber={pageNumber}
-              scale={scale}
-              loading={<div style={{ width: '100%', height: '100%' }}></div>}
-            />
-          </Document>
-
-          {selectedText && selectionCoords && openInfo && (
-            <InfoWindowContainer
-              style={{
-                top: `${selectionCoords.top}px`,
-                left: `${selectionCoords.left}px`,
-                // backgroundColor: 'white',
-                padding: '0.5rem 1rem',
-                borderRadius: '4rem',
-                zIndex: 1000,
-                boxShadow:
-                  '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1)', // 입체감을 위한 그림자 추가
-                transform: 'translateY(-4px)', // 살짝 떠 있는 효과
-                transition: 'transform 0.3s ease-in-out', // 부드러운 애니메이션
-
-                cursor: 'pointer',
-              }}
-            >
-              <IconContainer>
-                <FaSearch size={24} color="white" />
-                <StyledFaBook
-                  size={24}
-                  color="white"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    console.log(selectedText);
-                    onClickKabaWiki(selectedText);
-                  }}
-                />
-                <StyledFaShareSquare
-                  size={24}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    console.log(selectedText);
-                    onClickPictureDiary(selectedText);
-                  }}
-                />
-              </IconContainer>
-            </InfoWindowContainer>
+        <SubContainer>
+          {pageNumber > 1 && (
+            <StyledFaChevronLeft size={48} onClick={previousPage} />
           )}
-        </PDFWrapper>
+          {/* <button>1</button> */}
+          <PDFWrapper
+            ref={pdfRef}
+            onMouseUp={handleMouseUp}
+            onMouseDown={handleMouseDown}
+          >
+            <Document
+              options={options}
+              file={path}
+              onLoadSuccess={onDocumentLoadSuccess}
+              onLoadError={onDocumentError}
+              onPassword={onDocumentLocked}
+            >
+              <Page
+                pageNumber={pageNumber}
+                scale={scale}
+                loading={<div style={{ width: '100%', height: '100%' }}></div>}
+              />
+            </Document>
+
+            {selectedText && selectionCoords && openInfo && (
+              <InfoWindowContainer
+                style={{
+                  top: `${selectionCoords.top}px`,
+                  left: `${selectionCoords.left}px`,
+                  // backgroundColor: 'white',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '4rem',
+                  zIndex: 1000,
+                  boxShadow:
+                    '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1)', // 입체감을 위한 그림자 추가
+                  transform: 'translateY(-4px)', // 살짝 떠 있는 효과
+                  transition: 'transform 0.3s ease-in-out', // 부드러운 애니메이션
+
+                  cursor: 'pointer',
+                }}
+              >
+                <IconContainer>
+                  <FaSearch size={24} color="white" />
+                  <StyledFaBook
+                    size={24}
+                    color="white"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      console.log(selectedText);
+                      onClickKabaWiki(selectedText);
+                    }}
+                  />
+                  <StyledFaShareSquare
+                    size={24}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      console.log(selectedText);
+                      onClickPictureDiary(selectedText);
+                    }}
+                  />
+                </IconContainer>
+              </InfoWindowContainer>
+            )}
+          </PDFWrapper>
+          {pageNumber < numPages && (
+            <StyledFaChevronRight size={48} onClick={nextPage} />
+          )}
+        </SubContainer>
 
         <div
           style={{
@@ -198,33 +231,18 @@ const PDFViewerOriginal = ({
           <p>
             {pageNumber || (numPages ? 1 : '--')} of {numPages || '--'}
           </p>
-          <div>
-            <button
-              type="button"
-              disabled={pageNumber <= 1}
-              onClick={previousPage}
-            >
-              Previous
-            </button>
-            <button
-              type="button"
-              disabled={pageNumber >= numPages}
-              onClick={nextPage}
-            >
-              Next
-            </button>
-          </div>
+
           <div>
             <button
               onClick={() => {
-                setScale((prev) => prev - 0.2);
+                setScale((prev) => prev - 0.1);
               }}
             >
               -
             </button>
             <button
               onClick={() => {
-                setScale((prev) => prev + 0.2);
+                setScale((prev) => prev + 0.1);
               }}
             >
               +
@@ -240,6 +258,17 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+`;
+
+const SubContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  gap: 1rem;
+  /* background-color: green; */
 `;
 
 const PDFWrapper = styled.div`
@@ -250,19 +279,39 @@ const PDFWrapper = styled.div`
   border-radius: 15px;
   border: 1px solid #ccc;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  // border-radius: 4rem;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: auto;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-
-  margin: auto;
-  background-color: white;
+  justify-content: center;
+  /* margin: auto; */
+  background-color: lightgray;
   /* ::selection {
     background-color: #ffdec0;
     color: black;
   } */
+`;
+
+const StyledFaChevronLeft = styled(FaChevronLeft)`
+  color: #ffd953;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  &:hover {
+    background-color: #282c34;
+  }
+`;
+
+const StyledFaChevronRight = styled(FaChevronRight)`
+  color: #ffd953;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  &:hover {
+    background-color: #282c34;
+  }
 `;
 
 const InfoWindowContainer = styled.div`
