@@ -31,12 +31,16 @@ const Container = styled.div`
   border-radius: 15px;
   /* border: 1px solid #ccc; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
 `;
 
 const Graph = styled.svg`
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
+  width: 80%;
+  height: 80%;
+  background-color: #ffd953;
+  margin: 1rem auto;
+  border-radius: 2rem;
+  position: relative;
 `;
 
 const Links = styled.g`
@@ -74,18 +78,9 @@ const NetworkGraph = ({ data }: NetworkGraphProps) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const linkRef = useRef<SVGGElement | null>(null);
   const nodeRef = useRef<SVGGElement | null>(null);
-  // const [networkData, setNetworkData] = useState<PersonData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { nodes, links } = useGraphData(data);
-
-  // const fetchPeopleData = async () => {
-  //   if (bookId != null) {
-  //     const datas = await getNetworkGraphData(bookId, 0, 100);
-  //     console.log('fetchPeopleData : ' + datas);
-  //     setNetworkData(datas);
-  //   }
-  // };
 
   const addChildrensNodes = useCallback((name: string) => {
     console.log(name);
@@ -136,7 +131,12 @@ const NetworkGraph = ({ data }: NetworkGraphProps) => {
   return (
     <Container>
       <Title>인물관계도</Title>
-      {(!data || isLoading) && <LoadingSpinner />}
+      {(!data || isLoading) && (
+        <LoadingContainer>
+          <LoadingSpinner color="black" />
+        </LoadingContainer>
+      )}
+
       <Graph ref={svgRef}>
         <Links ref={linkRef}></Links>
         <Nodes ref={nodeRef}></Nodes>
@@ -146,16 +146,24 @@ const NetworkGraph = ({ data }: NetworkGraphProps) => {
 };
 
 const Title = styled.h1`
-  color: white;
   margin-top: 2rem;
   font-size: 1.7rem;
 `;
 
 const LoadingContainer = styled.div`
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  /* background-color: black; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 84vh; // Container와 같은 높이로 설정
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
 `;
 
 export default NetworkGraph;
