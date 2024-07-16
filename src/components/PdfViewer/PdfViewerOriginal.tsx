@@ -297,7 +297,8 @@ const PDFWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* margin: auto; */
+  align-items: center;
+  /* margin: 0 auto; */
   background-color: lightgray;
   /* ::selection {
     background-color: #ffdec0;
