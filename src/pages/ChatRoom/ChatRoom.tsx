@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Layout from '../../components/Layout/Layout';
 import { FaAnglesLeft } from 'react-icons/fa6';
 import {
-  diaryImage,
+  diaryImages,
   profiles,
   profilesData,
   sampleChats,
@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChatData } from '../../type/api/chat';
 import { Profile } from '../../type/profile';
 import ChatBubble from '../../components/ChatBubble/ChatBubble';
-import { getMessageAPI, sendChat } from '../../api/openai';
+import { getMessageAPI } from '../../api/openai';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { IoMdSend } from 'react-icons/io';
 
@@ -85,7 +85,7 @@ const ChatRoom = () => {
                     type={v.name === 'user' ? 'user' : 'other'}
                     profileImage={
                       v.name === 'user'
-                        ? diaryImage.picture_url
+                        ? diaryImages[0].picture_url
                         : selectedProfile?.imageSrc
                     }
                     message={v.message}

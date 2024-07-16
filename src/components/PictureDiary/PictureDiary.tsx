@@ -4,6 +4,7 @@ import html2canvas from 'html2canvas';
 import { getDiaryPictureAPI } from '../../api/openai';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { IoMdRefresh } from 'react-icons/io';
+import CustomSelector from '../CustomSelector/CustomSelector';
 
 interface PictureDiaryProps {
   bookId: string;
@@ -135,14 +136,31 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
               {sentence}
             </TextContainer>
           )}
-          <ColorPickerContainer>
-            <ColorPickerLabel>색상 :</ColorPickerLabel>
+          <OptionContainer>
+            <CustomLabel>그림체</CustomLabel>
+            <CustomSelector
+              options={['애니메이션', '2', '3', '4']}
+              defaultOption="애니메이션"
+              onSelect={(s) => {
+                console.log(s);
+              }}
+            />
+          </OptionContainer>
+          <OptionContainer>
+            <CustomLabel>텍스트</CustomLabel>
+            <CustomSelector
+              options={['나눔글꼴체', '2', '3', '4']}
+              defaultOption="나눔글꼴체"
+              onSelect={(s) => {
+                console.log(s);
+              }}
+            />
             <ColorPicker
               type="color"
               value={selectedColor}
               onChange={handleColorChange}
             />
-          </ColorPickerContainer>
+          </OptionContainer>
         </EditContainer>
         <ButtonContainer>
           <Button onClick={() => fetchDiaryImage()}>재생성</Button>
@@ -177,6 +195,8 @@ const TextContainer = styled.div`
 `;
 
 const EditContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 500px;
   margin-top: 2rem;
   padding: 1rem;
@@ -192,22 +212,24 @@ const ButtonContainer = styled.div`
   gap: 1rem;
 `;
 
-const ColorPickerContainer = styled.div`
+const OptionContainer = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
-  margin-bottom: 10px;
+  margin: 1rem 0;
+  gap: 1.5rem;
 `;
 
-const ColorPickerLabel = styled.label`
+const CustomLabel = styled.label`
   margin-right: 10px;
-  font-size: 16px;
+  font-size: 24px;
 `;
 
 const ColorPicker = styled.input`
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   border: none;
-  padding: 0;
+  border-radius: 50%;
 `;
 
 const ImageContainer = styled.div`
