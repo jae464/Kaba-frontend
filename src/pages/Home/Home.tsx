@@ -30,7 +30,14 @@ const Home = () => {
           <Layer style={{ backgroundColor: '#F7FBFF' }}>
             <Title>최근 본 작품</Title>
             {!books && (
-              <div style={{ height: '270px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  height: '270px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
                 <LoadingSpinner color="black" />
               </div>
             )}
@@ -55,7 +62,14 @@ const Home = () => {
           <Layer style={{ backgroundColor: '#FFFCF2' }}>
             <Title>떠오르는 신간</Title>
             {!books && (
-              <div style={{ height: '270px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  height: '270px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
                 <LoadingSpinner color="black" />
               </div>
             )}
@@ -80,7 +94,14 @@ const Home = () => {
           <Layer style={{ backgroundColor: '#FFF7FB' }}>
             <Title>요즘 뜨는 웹소설</Title>
             {!books && (
-              <div style={{ height: '270px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  height: '270px',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
                 <LoadingSpinner color="black" />
               </div>
             )}

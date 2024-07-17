@@ -22,7 +22,7 @@ export function getAllBooksAPI(): Promise<BooksData> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(books);
-    }, 100);
+    }, 500);
   });
 }
 
