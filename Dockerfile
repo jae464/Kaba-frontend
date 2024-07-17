@@ -8,8 +8,8 @@ RUN npm install
 
 FROM node:22-alpine
 
-RUN mkdir /run
-WORKDIR /run
-COPY --from=builder /build /run
+RUN mkdir /kaba
+WORKDIR /kaba
+COPY --from=builder /build /kaba
 
 ENTRYPOINT ["npm", "run", "dev"]
