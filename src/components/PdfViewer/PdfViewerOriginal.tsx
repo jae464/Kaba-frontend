@@ -3,7 +3,7 @@ import { Document, Page } from 'react-pdf';
 import { pdfjs } from 'react-pdf';
 import 'react-pdf/dist/Page/TextLayer.css';
 import 'react-pdf/dist/Page/AnnotationLayer.css';
-import ebang from './1377342678.pdf';
+
 import styled from 'styled-components';
 import {
   FaBook,
@@ -15,7 +15,7 @@ import {
   FaShareSquare,
   FaSpinner,
 } from 'react-icons/fa';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -129,7 +129,6 @@ const PDFViewerOriginal = ({
 
   useEffect(() => {
     console.log('file path : ' + path);
-    console.log('import file path : ' + ebang);
   }, []);
 
   useEffect(() => {

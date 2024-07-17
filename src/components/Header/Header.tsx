@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -22,6 +23,7 @@ const Logo = styled.div`
   margin: 0 auto;
   font-family: 'MangoDdobak-B';
   font-size: 24px;
+  cursor: pointer;
 `;
 
 const Nav = styled.nav`
@@ -40,9 +42,10 @@ const NavItem = styled.a`
 `;
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <HeaderContainer>
-      <Logo>KABA</Logo>
+      <Logo onClick={() => navigate('/')}>KABA</Logo>
     </HeaderContainer>
   );
 };

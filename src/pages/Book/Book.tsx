@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { FaArrowLeft, FaBars, FaChevronLeft } from 'react-icons/fa';
-import PDFViewerOriginal from '../../components/PdfViewer/PdfViewerOriginal';
 
 import NetworkGraph from '../../components/NetworkGraph/NetworkGraph';
 
@@ -14,6 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import StorySummary from '../../components/StorySummary/StorySummary';
 import KabaWiki from '../../components/KabaWiki/KabaWiki';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import PDFViewerOriginal from '../../components/PdfViewer/PdfViewerOriginal';
 
 const Book = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
