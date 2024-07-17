@@ -57,7 +57,7 @@ const ChatBubble = ({
                   style={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}
                 >
                   <FadingText>
-                    {name}가(이) {loadingMessage}
+                    {name}이(가) {loadingMessage}
                   </FadingText>
                 </div>
               </Bubble>
