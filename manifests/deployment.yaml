@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kaba-frontend
+  namespace: kaba
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kaba-frontend
+  template:
+    metadata:
+      labels:
+        app: kaba-frontend
+    spec:
+      containers:
+        - image: ktkaba.azurecr.io/frontend:latest
+          imagePullPolicy: Always
+          name: frontend
+#          envFrom:
+#            - secretRef:
+#                name: backend-secret-env
