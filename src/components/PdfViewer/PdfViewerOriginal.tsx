@@ -289,7 +289,6 @@ const SubContainer = styled.div`
 const PDFWrapper = styled.div`
   position: relative;
   max-height: 75vh;
-  min-width: 30%;
   max-width: 80%;
   border-radius: 15px;
 
@@ -298,8 +297,6 @@ const PDFWrapper = styled.div`
   overflow-x: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  /* margin: 0 auto; */
   background-color: lightgray;
   /* ::selection {
     background-color: #ffdec0;
