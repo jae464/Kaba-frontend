@@ -13,7 +13,7 @@ import { ChatData } from '../../type/api/chat';
 import { Profile } from '../../type/profile';
 import ChatBubble from '../../components/ChatBubble/ChatBubble';
 import { getMessageAPI } from '../../api/openai';
-import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+
 import { IoMdSend } from 'react-icons/io';
 
 const ChatRoom = () => {
@@ -45,7 +45,7 @@ const ChatRoom = () => {
   }, [chats, isSending]);
 
   const sendMessage = async () => {
-    if (message !== '') {
+    if (message !== '' && selectedProfile != null) {
       setChats((prev) => [...prev, { name: 'user', message: message }]);
       setMessage('');
       setIsSending(true);
@@ -83,6 +83,7 @@ const ChatRoom = () => {
                 chats.map((v) => (
                   <ChatBubble
                     type={v.name === 'user' ? 'user' : 'other'}
+                    name={selectedProfile.name}
                     profileImage={
                       v.name === 'user'
                         ? diaryImages[0].picture_url
@@ -91,7 +92,16 @@ const ChatRoom = () => {
                     message={v.message}
                   />
                 ))}
-              {isSending && <LoadingSpinner color="black" />}
+              {/* {isSending && <LoadingSpinner color="black" />} */}
+              {isSending && selectedProfile && (
+                <ChatBubble
+                  type={'other'}
+                  name={selectedProfile.name}
+                  profileImage={selectedProfile?.imageSrc}
+                  message={''}
+                  isLoading={true}
+                />
+              )}
               <div ref={chatEndRef} />
             </ChatBubbleWrapper>
             {selectedProfile && (

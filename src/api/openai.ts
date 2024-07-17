@@ -78,7 +78,7 @@ export async function getMessageAPI(
         name: character,
         message: sampleChats[randomIndex],
       });
-    }, 1000);
+    }, 7000);
   });
 }
 
