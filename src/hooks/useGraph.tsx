@@ -38,6 +38,7 @@ const useGraph = (
     (nodes: Node[]) => {
       const NORMAL_SYMBOL_SIZE = 200;
       const STAR_SYMBOL_SIZE = 100;
+      const CIRCLE_RADIUS = 40;
       const RECT_WIDTH = 80;
       const RECT_HEIGHT = 40;
 
@@ -58,19 +59,36 @@ const useGraph = (
           .interpolate(d3.interpolateRgb)(loged);
       };
 
+      // 직사각형
+      // d3.select(nodeSelector)
+      //   .selectAll('rect')
+      //   .data(nodes)
+      //   .join('rect')
+      //   .attr('x', (d) => (d.x || 0) - RECT_WIDTH / 2)
+      //   .attr('y', (d) => (d.y || 0) - RECT_HEIGHT / 2)
+      //   .attr('width', RECT_WIDTH)
+      //   .attr('height', RECT_HEIGHT)
+      //   .attr('stroke', 'black') // 경계선 색상
+      //   .attr('stroke-width', 2) // 경계선 두께
+      //   // .attr('transform', (d) => `translate(${[d.x, d.y]})`)
+      //   // .attr('d', (d) => normalSymbol)
+      //   // .attr('r', 40)
+      //   .attr('fill', (d) => convertToColor(d.index || 1))
+      //   .attr('fill-opacity', (d) => (d.name ? 1 : 0.5))
+      //   .on('mouseover', (_, d) => d.name && changeHoveredNode(d.name))
+      //   .on('mouseout', () => changeHoveredNode(''))
+      //   .on('click', (_, d) => d.name && addChildrensNodes(d.name));
+
+      // 원
       d3.select(nodeSelector)
-        .selectAll('rect')
+        .selectAll('circle')
         .data(nodes)
-        .join('rect')
-        .attr('x', (d) => (d.x || 0) - RECT_WIDTH / 2)
-        .attr('y', (d) => (d.y || 0) - RECT_HEIGHT / 2)
-        .attr('width', RECT_WIDTH)
-        .attr('height', RECT_HEIGHT)
+        .join('circle')
+        .attr('cx', (d) => d.x || 0)
+        .attr('cy', (d) => d.y || 0)
+        .attr('r', CIRCLE_RADIUS)
         .attr('stroke', 'black') // 경계선 색상
         .attr('stroke-width', 2) // 경계선 두께
-        // .attr('transform', (d) => `translate(${[d.x, d.y]})`)
-        // .attr('d', (d) => normalSymbol)
-        // .attr('r', 40)
         .attr('fill', (d) => convertToColor(d.index || 1))
         .attr('fill-opacity', (d) => (d.name ? 1 : 0.5))
         .on('mouseover', (_, d) => d.name && changeHoveredNode(d.name))

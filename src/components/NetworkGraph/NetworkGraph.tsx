@@ -46,7 +46,7 @@ const Graph = styled.svg`
 const Links = styled.g`
   line {
     stroke: #aaa;
-    stroke-width: 0.5px;
+    stroke-width: 2px;
     stroke-dasharray: 1;
   }
   path {

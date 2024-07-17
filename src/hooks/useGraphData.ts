@@ -23,7 +23,7 @@ export default function useGraphData(data: PersonData | null) {
     const newLinks = newNodes.map((node) => ({
       source: mainNode.current.name,
       target: node.name,
-      description: '관계 1',
+      description: '친구',
     }));
 
     setLinks(newLinks);
