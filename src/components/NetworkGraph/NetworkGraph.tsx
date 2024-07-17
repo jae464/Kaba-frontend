@@ -70,17 +70,17 @@ const Nodes = styled.g`
 
 interface NetworkGraphProps {
   // bookId: string;
-  // page: number;
+  page: number;
   data: PersonData | null;
 }
 
-const NetworkGraph = ({ data }: NetworkGraphProps) => {
+const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const linkRef = useRef<SVGGElement | null>(null);
   const nodeRef = useRef<SVGGElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { nodes, links } = useGraphData(data);
+  const { nodes, links } = useGraphData(data, page);
 
   const addChildrensNodes = useCallback((name: string) => {
     console.log(name);
@@ -96,6 +96,7 @@ const NetworkGraph = ({ data }: NetworkGraphProps) => {
   useGraphZoom(svgRef.current);
 
   useEffect(() => {
+    console.log('인물관계도');
     if (!svgRef.current || nodes.length === 0 || links.length === 0) return;
     console.log(nodes, links);
 
@@ -131,6 +132,7 @@ const NetworkGraph = ({ data }: NetworkGraphProps) => {
   return (
     <Container>
       <Title>인물관계도</Title>
+      <p style={{ marginTop: '1rem' }}>{page} 페이지까지의 요약입니다.</p>
       {(!data || isLoading) && (
         <LoadingContainer>
           <LoadingSpinner color="black" />

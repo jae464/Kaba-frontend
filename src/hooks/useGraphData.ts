@@ -2,13 +2,13 @@ import { useEffect, useRef, useState } from 'react';
 import { PersonData } from '../type/api/network';
 import { Link, Node } from '../components/NetworkGraph/NetworkGraph';
 
-export default function useGraphData(data: PersonData | null) {
+export default function useGraphData(data: PersonData | null, page: number) {
   const [links, setLinks] = useState<Link[]>([]);
   const mainNode = useRef<Node>({ name: '주인공' });
   const nodes = useRef<Node[]>([]);
 
   useEffect(() => {
-    if (data == null) {
+    if (data == null || page === 0) {
       return;
     }
     const newNodes = [
@@ -27,7 +27,7 @@ export default function useGraphData(data: PersonData | null) {
     }));
 
     setLinks(newLinks);
-  }, [data]);
+  }, [data, page]);
 
   return { nodes: nodes.current, links };
 }

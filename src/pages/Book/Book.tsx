@@ -25,6 +25,8 @@ const Book = () => {
   const [initialX, setInitialX] = useState(0);
   const [width, setWidth] = useState(800);
   const [pageNumber, setPageNumber] = useState(1);
+  const [networkGraphPage, setNetworkGraphPage] = useState(0);
+  const [summaryPage, setSummaryPage] = useState(0);
   const [wikiKeyword, setWikiKeyword] = useState<string>('');
   const [diaryKeyword, setDiaryKeyword] = useState<string>('');
   const [openWiki, setOpenWiki] = useState<boolean>(false);
@@ -123,6 +125,7 @@ const Book = () => {
                         onClick={() => {
                           setIsDropdownOpen(false);
                           setIsOpened(true);
+                          setNetworkGraphPage(pageNumber);
                           setSelectedTab('인물관계도');
                           fetchPeopleData();
                         }}
@@ -133,6 +136,7 @@ const Book = () => {
                         onClick={() => {
                           setIsDropdownOpen(false);
                           setIsOpened(true);
+                          setSummaryPage(pageNumber);
                           setSelectedTab('지난줄거리');
                         }}
                       >
@@ -178,7 +182,7 @@ const Book = () => {
               width={`calc(100% - ${width}px)`}
               isOpened={isOpened}
             >
-              <NetworkGraph data={networkData} />
+              <NetworkGraph page={networkGraphPage} data={networkData} />
             </GenAIContainer>
           )}
           {isOpened && selectedTab === '그림일기' && diaryKeyword && (
@@ -196,7 +200,7 @@ const Book = () => {
               width={`calc(100% - ${width}px)`}
               isOpened={isOpened}
             >
-              {bookId && <StorySummary bookId={bookId} page={pageNumber} />}
+              {bookId && <StorySummary bookId={bookId} page={summaryPage} />}
             </GenAIContainer>
           )}
         </Container>

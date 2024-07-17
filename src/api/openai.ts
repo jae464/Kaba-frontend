@@ -28,6 +28,7 @@ export function getAllBooksAPI(): Promise<BooksData> {
 
 // 책리더 : 책 파일 가져오기
 export function getBookAPI(bookId: string): Promise<Book> {
+  console.log('getBookAPI 요청');
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(books.books[Number(bookId) - 1]);
@@ -41,6 +42,7 @@ export async function getNetworkGraphDataAPI(
   startPage: number,
   endPage: number,
 ): Promise<PersonData> {
+  console.log('getNetworkGraphDataAPI 요청');
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(peopleDatas);
@@ -55,6 +57,7 @@ export async function getDiaryPictureAPI(
   theme: string, // 그림체?
 ): Promise<DiaryData> {
   return new Promise((resolve) => {
+    console.log('getDiaryPictureAPI 요청');
     setTimeout(() => {
       const randomIndex = Math.floor(Math.random() * diaryImages.length);
       resolve(diaryImages[randomIndex]);
@@ -85,6 +88,7 @@ export async function getSummaryAPI(
   startPage: number,
   endPage: number,
 ): Promise<StoryData> {
+  console.log('getSummaryAPI 요청');
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(storyData);
@@ -99,6 +103,7 @@ export async function getWikiAPI(
   endPage: number,
   searchText: string,
 ): Promise<WikiData> {
+  console.log('getWikiAPI 요청');
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(wikiData);

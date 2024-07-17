@@ -24,7 +24,7 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
 
   useEffect(() => {
     getSummary();
-  }, []);
+  }, [page]);
 
   return (
     <>
@@ -44,6 +44,9 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
           {isLoading && <LoadingSpinner />}
           {!isLoading && summary && (
             <>
+              <p style={{ marginBottom: '1rem' }}>
+                {page}페이지 까지의 줄거리입니다.
+              </p>
               <ImageContainer src={summary.stories[summaryPage].picture} />
               <TextContainer>
                 {summary.stories[summaryPage].story}
