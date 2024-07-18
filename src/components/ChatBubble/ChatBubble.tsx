@@ -111,6 +111,7 @@ const Bubble = styled.p<{ type: 'user' | 'other' }>`
   border-radius: 1rem;
   padding: 1rem;
   background-color: ${({ type }) => (type === 'user' ? '#FFE17E' : 'white')};
+  line-height: 1.5;
 `;
 
 const FadingText = styled.span`
