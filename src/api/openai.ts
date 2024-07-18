@@ -70,13 +70,20 @@ export async function getDiaryPictureAPI(
   text: string,
   theme: string, // 그림체?
 ): Promise<DiaryData> {
-  return new Promise((resolve) => {
-    console.log('getDiaryPictureAPI 요청');
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * diaryImages.length);
-      resolve(diaryImages[randomIndex]);
-    }, 500);
-  });
+  console.log('getDiaryPictureAPI 요청');
+  const res = await axios.get(
+    `${BASE_URL}/diary-img-url/${bookId}?sentence=${text}`,
+  );
+
+  console.log('결과 : ' + res.data);
+
+  return res.data;
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     const randomIndex = Math.floor(Math.random() * diaryImages.length);
+  //     resolve(diaryImages[randomIndex]);
+  //   }, 500);
+  // });
 }
 
 // 등장인물 대화
@@ -107,8 +114,8 @@ export async function getSummaryAPI(
   const res = await axios.get(
     `${BASE_URL}/recap-generator/${bookId}?end_page=${endPage}&img_style=${imgStyle}`,
   );
-  console.log(res.data.response);
-  const data = res.data.response;
+  console.log(res.data);
+  const data = res.data;
   return data;
   // return new Promise((resolve) => {
   //   setTimeout(() => {

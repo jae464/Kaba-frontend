@@ -117,7 +117,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   const fetchDiaryImage = async () => {
     setImage('');
     const data = await getDiaryPictureAPI(bookId, sentence, '');
-    setImage(data.picture_url);
+    setImage(data.urls[0]);
   };
 
   useEffect(() => {

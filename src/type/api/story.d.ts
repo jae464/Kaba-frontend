@@ -1,5 +1,5 @@
 export interface StoryData {
-  stories: Story[];
+  response: Story[];
 }
 
 export interface Story {
