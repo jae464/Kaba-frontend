@@ -71,7 +71,7 @@ export const books: BooksData = {
       author: '알베르 카뮈',
       description: '알베르 카뮈의 소설',
       thumbnail_image: 'public/ebang.jpeg',
-      file_path: '/src/assets/1377342678.pdf',
+      file_path: '/src/assets/pdfs/1377342678.pdf',
       is_exist: true, // 실제 존재하는 파일인지 여부
     },
     {
@@ -80,7 +80,7 @@ export const books: BooksData = {
       author: '생텍쥐베리',
       description: '생텍쥐베리의 소설',
       thumbnail_image: 'public/prince.jpeg',
-      file_path: '/src/assets/little_prince.pdf',
+      file_path: '/src/assets/pdfs/little_prince.pdf',
       is_exist: true,
     },
     {
@@ -88,8 +88,8 @@ export const books: BooksData = {
       title: '로미오와 줄리엣',
       author: '작가 1',
       description: '고전명작',
-      thumbnail_image: '/src/assets/romeo.jpg',
-      file_path: '/src/assets/romeo_and_juliet.pdf',
+      thumbnail_image: '/src/assets/images//romeo.jpg',
+      file_path: '/src/assets/pdfs/romeo_and_juliet.pdf',
       is_exist: true,
     },
     {
@@ -98,7 +98,7 @@ export const books: BooksData = {
       author: '작가 1',
       description: '감정에 대한 이해를 돕는 책',
       thumbnail_image: 'public/emotions.jpeg',
-      file_path: '/src/assets/1377342678.pdf',
+      file_path: '/src/assets/pdfs/1377342678.pdf',
       is_exist: false,
     },
     {
@@ -107,7 +107,7 @@ export const books: BooksData = {
       author: '히가시노 게이고',
       description: '히가시노 게이고의 소설',
       thumbnail_image: 'public/namiya.jpeg',
-      file_path: '/src/assets/1377342678.pdf',
+      file_path: '/src/assets/pdfs/1377342678.pdf',
       is_exist: false,
     },
     {
@@ -116,7 +116,7 @@ export const books: BooksData = {
       author: '작가 2',
       description: '과거에 얽매인 사람들을 위한 책',
       thumbnail_image: 'public/ptsd.jpeg',
-      file_path: '/src/assets/1377342678.pdf',
+      file_path: '/src/assets/pdfs/1377342678.pdf',
       is_exist: false,
     },
     // 추가 책 데이터...
@@ -149,23 +149,27 @@ export const storyData = {
 };
 
 export const diaryImages = [
-  { picture_url: '/src/assets/diary_image_1.png' },
-  { picture_url: '/src/assets/diary_image_2.png' },
-  { picture_url: '/src/assets/diary_image_3.png' },
-  { picture_url: '/src/assets/diary_image_4.png' },
-  { picture_url: '/src/assets/diary_image_5.png' },
-  { picture_url: '/src/assets/diary_image_6.png' },
+  { picture_url: '/src/assets/images/diary_image_1.png' },
+  { picture_url: '/src/assets/images/diary_image_2.png' },
+  { picture_url: '/src/assets/images/diary_image_3.png' },
+  { picture_url: '/src/assets/images/diary_image_4.png' },
+  { picture_url: '/src/assets/images/diary_image_5.png' },
+  { picture_url: '/src/assets/images/diary_image_6.png' },
 ];
 
 export const profilesData: Profile[] = [
   {
-    imageSrc: '/src/assets/profile_prince.jpeg',
+    imageSrc: '/src/assets/images/profile_prince.jpeg',
     name: '어린왕자',
     highlight: false,
   },
-  { imageSrc: '/src/assets/profile_fox.png', name: '여우', highlight: false },
   {
-    imageSrc: '/src/assets/profile_sneak.png',
+    imageSrc: '/src/assets/images/profile_fox.png',
+    name: '여우',
+    highlight: false,
+  },
+  {
+    imageSrc: '/src/assets/images/profile_sneak.png',
     name: '보아뱀',
     highlight: false,
   },
