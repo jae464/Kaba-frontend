@@ -129,7 +129,9 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   const fetchDiaryImage = async () => {
     setImage('');
     const data = await getDiaryPictureAPI(bookId, sentence, selectedImageStyle);
-    setImage(data.urls[0]);
+    if (data.urls.length > 0) {
+      setImage(data.urls[0]);
+    }
   };
 
   useEffect(() => {

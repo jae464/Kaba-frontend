@@ -18,7 +18,10 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
     setIsLoading(true);
     const datas = await getSummaryAPI(bookId, 1, page, '애니메이션');
     console.log('summary : ' + datas.response);
-    setSummary(datas);
+    if (datas) {
+      setSummary(datas);
+    }
+
     setIsLoading(false);
   };
 
@@ -42,7 +45,7 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
 
         <SummaryBox>
           {isLoading && <LoadingSpinner />}
-          {!isLoading && summary && (
+          {!isLoading && summary && summary.response.length > 0 && (
             <>
               <p style={{ marginBottom: '1rem' }}>
                 {page}페이지 까지의 줄거리입니다.
