@@ -214,24 +214,29 @@ const PDFViewerOriginal = ({
                 }}
               >
                 <IconContainer>
-                  <FaSearch size={24} color="white" />
-                  <StyledFaBook
-                    size={24}
-                    color="white"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      console.log(selectedText);
-                      onClickKabaWiki(selectedText);
-                    }}
-                  />
-                  <StyledFaShareSquare
-                    size={24}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      console.log(selectedText);
-                      onClickPictureDiary(selectedText);
-                    }}
-                  />
+                  <TooltipWrapper>
+                    <StyledFaBook
+                      size={24}
+                      color="white"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        console.log(selectedText);
+                        onClickKabaWiki(selectedText);
+                      }}
+                    />
+                    <TooltipText>KABA 위키</TooltipText>
+                  </TooltipWrapper>
+                  <TooltipWrapper>
+                    <StyledFaShareSquare
+                      size={24}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        console.log(selectedText);
+                        onClickPictureDiary(selectedText);
+                      }}
+                    />
+                    <TooltipText>그림일기</TooltipText>
+                  </TooltipWrapper>
                 </IconContainer>
               </InfoWindowContainer>
             )}
@@ -379,6 +384,45 @@ const StyledFaBook = styled(FaBook)`
   &:hover {
     background-color: black;
     cursor: pointer;
+  }
+`;
+
+const TooltipWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:hover span {
+    visibility: visible;
+    opacity: 1;
+  }
+`;
+
+const TooltipText = styled.span`
+  visibility: hidden;
+  width: 80px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Place the tooltip above the text */
+  left: 50%;
+  margin-left: -30px; /* Center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  /* Arrow */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
   }
 `;
 export default PDFViewerOriginal;
