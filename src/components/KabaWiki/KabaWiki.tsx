@@ -29,6 +29,7 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
     <>
       <Container>
         <Header>
+          <HeaderTitle>KABA 위키</HeaderTitle>
           <IoMdClose size={28} onClick={onClickClose} />
         </Header>
 
@@ -58,9 +59,17 @@ const Container = styled.div`
 
 const Header = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   cursor: pointer;
+`;
+
+const HeaderTitle = styled.div`
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-left: 12px;
 `;
 
 const Title = styled.span`
@@ -69,6 +78,7 @@ const Title = styled.span`
   justify-content: center;
   width: 100%;
   /* overflow: hidden; */
+  font-style: italic;
   margin-bottom: 1rem;
 `;
 
