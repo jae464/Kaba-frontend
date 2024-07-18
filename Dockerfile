@@ -4,7 +4,6 @@ RUN mkdir /app
 WORKDIR /app
 COPY . ./
 
-RUN npm ci
 RUN npm install
 RUN vite build
 
