@@ -1,3 +1,3 @@
 export interface WikiData {
-  information: string;
+  response: string;
 }

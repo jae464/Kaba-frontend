@@ -17,7 +17,7 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
 
   const fetchWikiData = async () => {
     setIsLoading(true);
-    const data = await getWikiAPI(bookId, 0, 100, search);
+    const data = await getWikiAPI(bookId, search);
     setWiki(data);
     setIsLoading(false);
   };
@@ -36,7 +36,7 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
           <Title>{search}</Title>
           {isLoading && <LoadingSpinner color="black" />}
           {!isLoading && wiki && (
-            <span style={{ lineHeight: '1.5rem' }}>{wiki.information}</span>
+            <div style={{ lineHeight: '1.5rem' }}>{wiki.response}</div>
           )}
         </Content>
       </Container>
@@ -68,7 +68,7 @@ const Title = styled.span`
   font-size: 1.3rem;
   justify-content: center;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   margin-bottom: 1rem;
 `;
 

@@ -110,7 +110,7 @@ export async function getSummaryAPI(
   endPage: number,
   imgStyle: string,
 ): Promise<StoryData> {
-  console.log('getSummaryAPI 요청');
+  console.log(`getSummaryAPI 요청 endPage : ${endPage}`);
   const res = await axios.get(
     `${BASE_URL}/recap-generator/${bookId}?end_page=${endPage}&img_style=${imgStyle}`,
   );
@@ -127,14 +127,18 @@ export async function getSummaryAPI(
 // 카바위키
 export async function getWikiAPI(
   bookId: string,
-  startPage: number,
-  endPage: number,
   searchText: string,
 ): Promise<WikiData> {
   console.log('getWikiAPI 요청');
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(wikiData);
-    }, 1000);
-  });
+  const res = await axios.get(
+    `${BASE_URL}/kaba-wiki/${bookId}?sentence=${searchText}`,
+  );
+  console.log(res.data);
+  const data = res.data;
+  return data;
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve(wikiData);
+  //   }, 1000);
+  // });
 }
