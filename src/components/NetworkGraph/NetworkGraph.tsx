@@ -47,11 +47,11 @@ const Graph = styled.svg`
 `;
 
 const Links = styled.g`
-  line {
+  /* line {
     stroke: #aaa;
     stroke-width: 2px;
     stroke-dasharray: 1;
-  }
+  } */
   path {
     fill: #aaa;
   }
@@ -61,7 +61,7 @@ const Nodes = styled.g`
   text {
     text-anchor: middle;
     font-family: 'Helvetica Neue', Helvetica, sans-serif;av
-    fill: #ccc;
+    /* fill: #ccc; */
     fill-opacity: 50%;
     font-size: 24px;
     cursor: default;
