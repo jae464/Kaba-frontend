@@ -5,5 +5,6 @@ export interface StoryData {
 export interface Story {
   id: number;
   sent: string;
+  keyword: string[];
   img_url: string[];
 }

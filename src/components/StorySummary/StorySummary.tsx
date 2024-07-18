@@ -17,7 +17,7 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
   const getSummary = async () => {
     setIsLoading(true);
     const datas = await getSummaryAPI(bookId, 1, page, '애니메이션');
-    console.log('summary : ' + datas.stories);
+    console.log('summary : ' + datas.response);
     setSummary(datas);
     setIsLoading(false);
   };
@@ -47,14 +47,16 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
               <p style={{ marginBottom: '1rem' }}>
                 {page}페이지 까지의 줄거리입니다.
               </p>
-              <ImageContainer src={summary.stories[summaryPage].img_url[0]} />
-              <TextContainer>{summary.stories[summaryPage].sent}</TextContainer>
+              <ImageContainer src={summary.response[summaryPage].img_url[0]} />
+              <TextContainer>
+                {summary.response[summaryPage].sent}
+              </TextContainer>
             </>
           )}
         </SummaryBox>
 
         <ChevronContainer>
-          {summary && summaryPage < summary?.stories.length - 1 && (
+          {summary && summaryPage < summary?.response.length - 1 && (
             <StyledFaChevronRight
               size={48}
               onClick={() => setSummaryPage((prev) => prev + 1)}
