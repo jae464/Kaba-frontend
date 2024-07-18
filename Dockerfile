@@ -1,15 +1,16 @@
 FROM node:22 as builder
 
-RUN mkdir /build
-WORKDIR /build
+RUN mkdir /app
+WORKDIR /app
 COPY . ./
 
 RUN npm ci
+RUN npm install
+RUN vite build
 
-FROM node:22-alpine
+FROM nginx:stable-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir /kaba
-WORKDIR /kaba
-COPY --from=builder /build /kaba
-
-ENTRYPOINT ["npm", "run", "dev"]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

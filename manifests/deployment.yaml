@@ -17,6 +17,5 @@ spec:
         - image: ktkaba.azurecr.io/frontend:latest
           imagePullPolicy: Always
           name: frontend
-#          envFrom:
-#            - secretRef:
-#                name: backend-secret-env
+
+

@@ -15,6 +15,6 @@ spec:
       route:
         - destination:
             port:
-              number: 3000
+              number: 80
             host: kaba-frontend-service
       timeout: 60s
