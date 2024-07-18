@@ -39,7 +39,7 @@ const useGraph = (
       const NORMAL_SYMBOL_SIZE = 200;
       const STAR_SYMBOL_SIZE = 100;
       const CIRCLE_RADIUS = 80;
-      const RECT_WIDTH = 100;
+      const RECT_WIDTH = 140;
       const RECT_HEIGHT = 60;
 
       const normalSymbol = d3

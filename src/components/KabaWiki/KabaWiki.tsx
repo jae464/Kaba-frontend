@@ -35,7 +35,9 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
         <Content>
           <Title>{search}</Title>
           {isLoading && <LoadingSpinner color="black" />}
-          {!isLoading && wiki && <span>{wiki.information}</span>}
+          {!isLoading && wiki && (
+            <span style={{ lineHeight: '1.5rem' }}>{wiki.information}</span>
+          )}
         </Content>
       </Container>
     </>

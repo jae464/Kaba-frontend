@@ -30,33 +30,32 @@ export const peopleDatas: PersonData = {
 };
 
 export const characterRelations: CharacterRelationShip = {
-  mainCharacter: '나',
+  mainCharacter: '어린왕자',
   characters: [
-    '어린 왕자',
     '어른들',
     '사막에서 만난 꼬마',
     '터키 천문학자',
     '소행성 B612의 꽃',
   ],
   relations: [
-    { start_character: '나', end_character: '어린 왕자', relationship: '친구' },
+    // { start_character: '나', end_character: '어린 왕자', relationship: '친구' },
     {
-      start_character: '나',
+      start_character: '어린왕자',
       end_character: '어른들',
       relationship: '무관심과 오해',
     },
     {
-      start_character: '나',
+      start_character: '어린왕자',
       end_character: '사막에서 만난 꼬마',
       relationship: '친구',
     },
     {
-      start_character: '어린 왕자',
+      start_character: '어린왕자',
       end_character: '터키 천문학자',
       relationship: '관련 이야기 등장 인물',
     },
     {
-      start_character: '어린 왕자',
+      start_character: '어린왕자',
       end_character: '소행성 B612의 꽃',
       relationship: '사랑/돌봄의 대상',
     },
@@ -126,22 +125,22 @@ export const books: BooksData = {
 export const storyData = {
   stories: [
     {
-      picture: '/src/assets/어린 왕자_anime_0.png',
+      picture: '/src/assets/images/어린 왕자_anime_0.png',
       story:
         '주인공은 어릴 때 만난 어른들의 무관심과 이해 부족으로 인해 화가의 꿈을 포기하고 비행기 조종사가 되었다.',
     },
     {
-      picture: '/src/assets/어린 왕자_anime_1.png',
+      picture: '/src/assets/images/어린 왕자_anime_1.png',
       story:
         '사막에 불시착한 주인공은 어린 왕자를 만나 그의 별과 꽃, 그리고 그의 여정에 대해 듣게 된다.',
     },
     {
-      picture: '/src/assets/어린 왕자_anime_2.png',
+      picture: '/src/assets/images/어린 왕자_anime_2.png',
       story:
         '어린 왕자는 자기 별의 꽃을 사랑했지만 서로의 오해와 복잡한 감정으로 인해 떠나게 되었다.',
     },
     {
-      picture: '/src/assets/어린 왕자_anime_3.png',
+      picture: '/src/assets/images/어린 왕자_anime_3.png',
       story:
         '주인공은 어린 왕자의 이야기를 통해 진정한 우정과 사랑의 의미를 배우게 된다.',
     },
@@ -176,7 +175,8 @@ export const profilesData: Profile[] = [
 ];
 
 export const wikiData: WikiData = {
-  information: '위키 내용 설명입니다.',
+  information:
+    '보아뱀은 대형 뱀의 일종으로, 주로 아프리카, 아시아, 아메리카의 열대 및 아열대 지역에서 서식합니다. 이 뱀들은 육식성으로, 주로 작은 포유류나 조류를 사냥합니다.',
 };
 
 export const sampleChats = [

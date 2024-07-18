@@ -109,6 +109,6 @@ export async function getWikiAPI(
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(wikiData);
-    }, 5000);
+    }, 1000);
   });
 }
