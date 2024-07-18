@@ -60,12 +60,8 @@ export async function getNetworkGraphDataAPI(
     `${BASE_URL}/character-map/${bookId}?end_page=${endPage}`,
   );
   console.log('결과 : ' + characterRelationShip);
+
   return characterRelationShip.data;
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve(characterRelations);
-  //   }, 1000);
-  // });
 }
 
 // 그림일기 : 그림 가져오기
@@ -105,13 +101,20 @@ export async function getSummaryAPI(
   bookId: string,
   startPage: number,
   endPage: number,
+  imgStyle: string,
 ): Promise<StoryData> {
   console.log('getSummaryAPI 요청');
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(storyData);
-    }, 1000);
-  });
+  const res = await axios.get(
+    `${BASE_URL}/recap-generator/${bookId}?end_page=${endPage}&img_style=${imgStyle}`,
+  );
+  console.log(res.data.response);
+  const data = res.data.response;
+  return data;
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve(storyData);
+  //   }, 1000);
+  // });
 }
 
 // 카바위키

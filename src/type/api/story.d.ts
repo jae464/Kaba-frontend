@@ -3,6 +3,7 @@ export interface StoryData {
 }
 
 export interface Story {
-  picture: string;
-  story: string;
+  id: number;
+  sent: string;
+  img_url: string[];
 }
