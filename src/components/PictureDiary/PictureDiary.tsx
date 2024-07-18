@@ -26,6 +26,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   const [selectedFontSize, setSelectedFontSize] = useState<string>('24px');
   const [selectedFontFamily, setSelectedFontFamily] =
     useState<string>('nanumsquare');
+  const [selectedImageStyle, setSelectedImageStyle] = useState<string>('anime');
   const [dragOffset, setDragOffset] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
@@ -54,6 +55,17 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     e.dataTransfer.effectAllowed = 'move';
     const rect = e.currentTarget.getBoundingClientRect();
     setDragOffset({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const handleImageStyle = (imageStyle: string) => {
+    switch (imageStyle) {
+      case '애니메이션':
+        setSelectedImageStyle('anime');
+        break;
+      case '꿈':
+        setSelectedFontSize('dreamscape');
+        break;
+    }
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
@@ -116,7 +128,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
 
   const fetchDiaryImage = async () => {
     setImage('');
-    const data = await getDiaryPictureAPI(bookId, sentence, '');
+    const data = await getDiaryPictureAPI(bookId, sentence, selectedImageStyle);
     setImage(data.urls[0]);
   };
 
@@ -179,10 +191,10 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
           <OptionContainer>
             <CustomLabel>그림체</CustomLabel>
             <CustomSelector
-              options={['애니메이션', '명화', '실사화']}
+              options={['애니메이션', '꿈']}
               defaultOption="애니메이션"
               onSelect={(s) => {
-                console.log(s);
+                handleImageStyle(s);
               }}
             />
           </OptionContainer>

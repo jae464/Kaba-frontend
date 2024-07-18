@@ -68,11 +68,11 @@ export async function getNetworkGraphDataAPI(
 export async function getDiaryPictureAPI(
   bookId: string,
   text: string,
-  theme: string, // 그림체?
+  imageStyle: string, // 그림체?
 ): Promise<DiaryData> {
   console.log('getDiaryPictureAPI 요청');
   const res = await axios.get(
-    `${BASE_URL}/diary-img-url/${bookId}?sentence=${text}`,
+    `${BASE_URL}/diary-img-url/${bookId}?sentence=${text}&img_style=${imageStyle}`,
   );
 
   console.log('결과 : ' + res.data);
