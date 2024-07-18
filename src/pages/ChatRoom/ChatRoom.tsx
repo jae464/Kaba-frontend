@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from 'react';
 import { ChatData } from '../../type/api/chat';
 import { Profile } from '../../type/profile';
 import ChatBubble from '../../components/ChatBubble/ChatBubble';
-import { getMessageAPI } from '../../api/openai';
+import { clearChatHistoryAPI, getMessageAPI } from '../../api/openai';
 
 import { IoMdSend } from 'react-icons/io';
 import { Chat } from '../../type/chat';
@@ -27,6 +27,7 @@ const ChatRoom = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
     if (selectedProfile != null) {
+      clearChatHistoryAPI(selectedProfile.name);
       setChats([
         {
           name: selectedProfile.name,

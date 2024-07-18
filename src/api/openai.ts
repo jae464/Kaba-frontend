@@ -122,3 +122,12 @@ export async function getWikiAPI(
   const data = res.data;
   return data;
 }
+
+// 등장인물 context 초기화
+export async function clearChatHistoryAPI(character: string) {
+  console.log('clearChatHistoryAPI 호출');
+  const res = await axios.post(
+    `${BASE_URL}/ai-chat/clear?character=${character}`,
+  );
+  console.log(res.data);
+}
