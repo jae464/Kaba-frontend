@@ -63,7 +63,7 @@ const Nodes = styled.g`
     font-family: 'Helvetica Neue', Helvetica, sans-serif;av
     fill: #ccc;
     fill-opacity: 50%;
-    font-size: 16px;
+    font-size: 24px;
     cursor: default;
     :hover {
       fill-opacity: 100%;

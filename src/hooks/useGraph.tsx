@@ -20,7 +20,19 @@ const useGraph = (
         .attr('y2', (d) => (d.target as Node).y || null);
 
       // link 중간에 연결관계 표시
-      d3.select(linkSelector)
+      // d3.select(linkSelector)
+      //   .selectAll('text')
+      //   .data(links)
+      //   .join('text')
+      //   .attr('x', (d) => ((d.source as Node).x + (d.target as Node).x) / 2)
+      //   .attr('y', (d) => ((d.source as Node).y + (d.target as Node).y) / 2)
+      //   .attr('dy', -5) // 텍스트의 y 위치 조정
+      //   .attr('text-anchor', 'middle')
+      //   .attr('fill', 'black')
+      //   .text((d) => d.description || '');
+      // link 중간에 연결관계 표시
+      const textSelection = d3
+        .select(linkSelector)
         .selectAll('text')
         .data(links)
         .join('text')
@@ -30,6 +42,19 @@ const useGraph = (
         .attr('text-anchor', 'middle')
         .attr('fill', 'black')
         .text((d) => d.description || '');
+
+      // 텍스트 백그라운드 추가
+      textSelection.each(function (d) {
+        const bbox = this.getBBox();
+        d3.select(this)
+          .insert('rect', ':first-child')
+          .attr('x', bbox.x - 2)
+          .attr('y', bbox.y - 2)
+          .attr('width', bbox.width + 4)
+          .attr('height', bbox.height + 4)
+          .attr('fill', 'white')
+          .attr('stroke', 'none');
+      });
     },
     [linkSelector],
   );
@@ -39,8 +64,9 @@ const useGraph = (
       const NORMAL_SYMBOL_SIZE = 200;
       const STAR_SYMBOL_SIZE = 100;
       const CIRCLE_RADIUS = 80;
-      const RECT_WIDTH = 140;
-      const RECT_HEIGHT = 60;
+      const RECT_WIDTH = 160;
+      const RECT_HEIGHT = 80;
+      const RECT_RADIUS = 10;
 
       const normalSymbol = d3
         .symbol()
@@ -70,11 +96,14 @@ const useGraph = (
         .attr('height', RECT_HEIGHT)
         .attr('stroke', 'black') // 경계선 색상
         .attr('stroke-width', 2) // 경계선 두께
+        .attr('rx', RECT_RADIUS) // x축 둥근 반경
+        .attr('ry', RECT_RADIUS) // y축 둥근 반경
         // .attr('transform', (d) => `translate(${[d.x, d.y]})`)
         // .attr('d', (d) => normalSymbol)
         // .attr('r', 40)
-        .attr('fill', (d) => convertToColor(d.index || 1))
-        .attr('fill-opacity', (d) => (d.name ? 1 : 0.5))
+        // .attr('fill', (d) => convertToColor(d.index || 1))
+        .attr('fill', 'white')
+        // .attr('fill-opacity', (d) => (d.name ? 1 : 0.5))
         .on('mouseover', (_, d) => d.name && changeHoveredNode(d.name))
         .on('mouseout', () => changeHoveredNode(''))
         .on('click', (_, d) => d.name && addChildrensNodes(d.name));
