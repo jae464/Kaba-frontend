@@ -1,11 +1,11 @@
 export interface Relation {
-  start_character: string;
-  end_character: string;
+  first: string;
+  second: string;
   relationship: string;
 }
 
 export interface CharacterRelationShip {
   mainCharacter: string;
   characters: string[];
-  relations: Relation[];
+  relationMap: Relation[];
 }

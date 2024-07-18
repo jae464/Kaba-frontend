@@ -36,27 +36,51 @@ export const characterRelations: CharacterRelationShip = {
     '사막에서 만난 꼬마',
     '터키 천문학자',
     '소행성 B612의 꽃',
+    '어른들 2',
+    '사막에서 만난 꼬마 2',
+    '터키 천문학자 2',
+    '소행성 B612의 꽃 2',
   ],
-  relations: [
+  relationMap: [
     // { start_character: '나', end_character: '어린 왕자', relationship: '친구' },
     {
-      start_character: '어린왕자',
-      end_character: '어른들',
+      first: '어린왕자',
+      second: '어른들',
       relationship: '무관심과 오해',
     },
     {
-      start_character: '어린왕자',
-      end_character: '사막에서 만난 꼬마',
+      first: '어린왕자',
+      second: '사막에서 만난 꼬마',
       relationship: '친구',
     },
     {
-      start_character: '어린왕자',
-      end_character: '터키 천문학자',
+      first: '어린왕자',
+      second: '터키 천문학자',
       relationship: '관련 이야기 등장 인물',
     },
     {
-      start_character: '어린왕자',
-      end_character: '소행성 B612의 꽃',
+      first: '어린왕자',
+      second: '소행성 B612의 꽃',
+      relationship: '사랑/돌봄의 대상',
+    },
+    {
+      first: '어린왕자',
+      second: '어른들 2',
+      relationship: '무관심과 오해',
+    },
+    {
+      first: '어린왕자',
+      second: '사막에서 만난 꼬마 2',
+      relationship: '친구',
+    },
+    {
+      first: '어린왕자',
+      second: '터키 천문학자 2',
+      relationship: '관련 이야기 등장 인물',
+    },
+    {
+      first: '어린왕자',
+      second: '소행성 B612의 꽃 2',
       relationship: '사랑/돌봄의 대상',
     },
   ],
@@ -66,15 +90,6 @@ export const books: BooksData = {
   books: [
     {
       id: '1',
-      title: '이방인',
-      author: '알베르 카뮈',
-      description: '알베르 카뮈의 소설',
-      thumbnail_image: 'public/ebang.jpeg',
-      file_path: '/src/assets/pdfs/1377342678.pdf',
-      is_exist: true, // 실제 존재하는 파일인지 여부
-    },
-    {
-      id: '2',
       title: '어린왕자',
       author: '생텍쥐베리',
       description: '생텍쥐베리의 소설',
@@ -83,13 +98,22 @@ export const books: BooksData = {
       is_exist: true,
     },
     {
-      id: '3',
+      id: '2',
       title: '로미오와 줄리엣',
       author: '작가 1',
       description: '고전명작',
       thumbnail_image: '/src/assets/images//romeo.jpg',
       file_path: '/src/assets/pdfs/romeo_and_juliet.pdf',
       is_exist: true,
+    },
+    {
+      id: '3',
+      title: '이방인',
+      author: '알베르 카뮈',
+      description: '알베르 카뮈의 소설',
+      thumbnail_image: 'public/ebang.jpeg',
+      file_path: '/src/assets/pdfs/1377342678.pdf',
+      is_exist: true, // 실제 존재하는 파일인지 여부
     },
     {
       id: '4',

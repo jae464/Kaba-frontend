@@ -15,7 +15,7 @@ export default function useGraphData(
     if (data == null || page === 0) {
       return;
     }
-    console.log(`${data.mainCharacter} ${data.characters} ${data.relations}`);
+    console.log(`${data.mainCharacter} ${data.characters} ${data.relationMap}`);
     // const newNodes = [
     //   mainNode.current,
     //   ...data.persons.map((v) => ({
@@ -39,11 +39,11 @@ export default function useGraphData(
     //   target: mainNode.current.name,
     //   description: '친구',
     // }));
-    const newLinks = data.relations.map((relation) => ({
-      source: relation.start_character,
-      target: relation.end_character,
+    const newLinks = data.relationMap.map((relation) => ({
+      source: relation.first,
+      target: relation.second,
       description: relation.relationship,
-      distance: relation.start_character === data.mainCharacter ? 400 : 200,
+      distance: relation.first === data.mainCharacter ? 400 : 200,
     }));
 
     setLinks(newLinks);

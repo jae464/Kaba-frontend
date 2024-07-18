@@ -46,7 +46,7 @@ const Book = () => {
 
   const fetchPeopleData = async () => {
     if (bookId != null) {
-      const datas = await getNetworkGraphDataAPI(bookId, 0, 100);
+      const datas = await getNetworkGraphDataAPI(bookId, 0, pageNumber);
       console.log('fetchPeopleData : ' + datas);
       setNetworkData(datas);
     }

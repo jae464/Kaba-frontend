@@ -17,7 +17,17 @@ import { WikiData } from '../type/api/wiki';
 import { ChatData } from '../type/api/chat';
 import { CharacterRelationShip } from '../type/api/relation';
 
-const BASE_URL = '';
+const BASE_URL = 'https://ai.kaba.team';
+
+axios.defaults.withCredentials = true;
+
+// const baseAPI = axios.create({
+//   baseURL: BASE_URL,
+
+//   responseType: 'json',
+//   headers: { 'Content-Type': 'application/json' },
+//   withCredentials: true,
+// });
 
 // 홈 : 모든 책 파일 가져오기
 export function getAllBooksAPI(): Promise<BooksData> {
@@ -45,11 +55,17 @@ export async function getNetworkGraphDataAPI(
   endPage: number,
 ): Promise<CharacterRelationShip> {
   console.log('getNetworkGraphDataAPI 요청');
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(characterRelations);
-    }, 1000);
-  });
+  console.log('endPage : ' + endPage);
+  const characterRelationShip = await axios.get(
+    `${BASE_URL}/character-map/${bookId}?end_page=${endPage}`,
+  );
+  console.log('결과 : ' + characterRelationShip);
+  return characterRelationShip.data;
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve(characterRelations);
+  //   }, 1000);
+  // });
 }
 
 // 그림일기 : 그림 가져오기
