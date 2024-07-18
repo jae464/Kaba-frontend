@@ -3,6 +3,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { defineConfig, normalizePath } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import svgr from 'vite-plugin-svgr';
 
 const require = createRequire(import.meta.url);
 
@@ -21,6 +22,7 @@ export default defineConfig({
         },
       ],
     }),
+    svgr(),
   ],
   // assetsInclude: ['**/*.pdf'],
 });
