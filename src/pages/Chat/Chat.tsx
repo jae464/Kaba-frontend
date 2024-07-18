@@ -29,7 +29,7 @@ const Chat = () => {
           <Layer style={{ backgroundColor: '#F7FBFF' }}>
             <Title>감상한 작품</Title>
             <BookList>
-              {books?.books.slice(0, 3).map((book, index) => (
+              {books?.books.slice(0, 1).map((book, index) => (
                 <BookThumbnail
                   key={index}
                   id={book.id}
