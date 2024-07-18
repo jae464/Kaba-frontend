@@ -5,7 +5,7 @@ WORKDIR /app
 COPY . ./
 
 RUN npm install
-RUN vite build
+RUN npm run build-vite
 
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
