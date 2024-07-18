@@ -71,18 +71,7 @@ const SideBar = () => {
         >
           <FaHome size={24} color="white" style={{ alignItems: 'center' }} />
         </SideBarItem>
-        <SideBarItem
-          selected={selectedItem === '/connection'}
-          onClick={() => handleItemClick('/connection')}
-        >
-          <FaSearch size={24} color="white" />
-        </SideBarItem>
-        <SideBarItem
-          selected={selectedItem === '/mypage'}
-          onClick={() => handleItemClick('/mypage')}
-        >
-          <CgProfile size={24} color="white" />
-        </SideBarItem>
+
         <SideBarItem
           selected={selectedItem === '/chat'}
           onClick={() => handleItemClick('/chat')}
