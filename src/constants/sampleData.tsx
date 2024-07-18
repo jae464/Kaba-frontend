@@ -183,7 +183,7 @@ export const diaryImages = [
 export const profilesData: Profile[] = [
   {
     imageSrc: '/src/assets/images/profile_prince.jpeg',
-    name: '어린왕자',
+    name: '어린 왕자',
     highlight: false,
   },
   {

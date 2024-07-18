@@ -15,11 +15,12 @@ import ChatBubble from '../../components/ChatBubble/ChatBubble';
 import { getMessageAPI } from '../../api/openai';
 
 import { IoMdSend } from 'react-icons/io';
+import { Chat } from '../../type/chat';
 
 const ChatRoom = () => {
   const [profiles, setProfiles] = useState(profilesData);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
-  const [chats, setChats] = useState<ChatData[]>([]);
+  const [chats, setChats] = useState<Chat[]>([]);
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState<boolean>(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
@@ -49,8 +50,11 @@ const ChatRoom = () => {
       setChats((prev) => [...prev, { name: 'user', message: message }]);
       setMessage('');
       setIsSending(true);
-      const answer = await getMessageAPI('1', '어린왕자', message);
-      setChats((prev) => [...prev, answer]);
+      const answer = await getMessageAPI(selectedProfile.name, message);
+      setChats((prev) => [
+        ...prev,
+        { name: selectedProfile.name, message: answer.response },
+      ]);
       setIsSending(false);
     }
   };

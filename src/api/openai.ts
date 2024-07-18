@@ -78,29 +78,19 @@ export async function getDiaryPictureAPI(
   console.log('결과 : ' + res.data);
 
   return res.data;
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     const randomIndex = Math.floor(Math.random() * diaryImages.length);
-  //     resolve(diaryImages[randomIndex]);
-  //   }, 500);
-  // });
 }
 
 // 등장인물 대화
 export async function getMessageAPI(
-  bookId: string,
   character: string,
   message: string,
 ): Promise<ChatData> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * sampleChats.length);
-      resolve({
-        name: character,
-        message: sampleChats[randomIndex],
-      });
-    }, 7000);
-  });
+  console.log('getMessageAPI 호출');
+  const res = await axios.get(
+    `${BASE_URL}/ai-chat?character=${character}&question=${message}`,
+  );
+  console.log(res.data);
+  return res.data;
 }
 
 // 지난 줄거리
@@ -117,11 +107,6 @@ export async function getSummaryAPI(
   console.log(res.data);
   const data = res.data;
   return data;
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve(storyData);
-  //   }, 1000);
-  // });
 }
 
 // 카바위키
@@ -136,9 +121,4 @@ export async function getWikiAPI(
   console.log(res.data);
   const data = res.data;
   return data;
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve(wikiData);
-  //   }, 1000);
-  // });
 }
