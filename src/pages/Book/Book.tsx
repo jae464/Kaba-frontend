@@ -14,12 +14,15 @@ import StorySummary from '../../components/StorySummary/StorySummary';
 import KabaWiki from '../../components/KabaWiki/KabaWiki';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import PDFViewerOriginal from '../../components/PdfViewer/PdfViewerOriginal';
+import { CharacterRelationShip } from '../../type/api/relation';
 
 const Book = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
   const [selectedTab, setSelectedTab] = useState<string | null>(null);
-  const [networkData, setNetworkData] = useState<PersonData | null>(null);
+  const [networkData, setNetworkData] = useState<CharacterRelationShip | null>(
+    null,
+  );
   const [filePath, setFilePath] = useState<string | null>(null);
   const [isResizing, setIsResizing] = useState(false);
   const [initialX, setInitialX] = useState(0);

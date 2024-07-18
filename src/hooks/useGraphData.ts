@@ -16,30 +16,30 @@ export default function useGraphData(
       return;
     }
     console.log(`${data.mainCharacter} ${data.characters} ${data.relationMap}`);
-    // const newNodes = [
-    //   mainNode.current,
-    //   ...data.persons.map((v) => ({
-    //     name: v.name,
-    //   })),
-    // ] as Node[];
+
+    const filteredCharacters = data.characters.filter(
+      (character) => character !== data.mainCharacter,
+    );
+
+    const filteredRelationMap = data.relationMap.filter((relation) => {
+      const { first, second } = relation;
+      const isFirstValid =
+        data.characters.includes(first) || first === data.mainCharacter;
+      const isSecondValid =
+        data.characters.includes(second) || second === data.mainCharacter;
+      return isFirstValid && isSecondValid;
+    });
 
     const newNodes = [
       { name: data.mainCharacter },
-      ...data.characters.map((v) => ({
+      ...filteredCharacters.map((v) => ({
         name: v,
       })),
     ] as Node[];
 
     nodes.current = newNodes;
 
-    // const newLinks = newNodes.map((node) => ({
-    //   // source: mainNode.current.name,
-    //   // target: node.name,
-    //   source: node.name,
-    //   target: mainNode.current.name,
-    //   description: '친구',
-    // }));
-    const newLinks = data.relationMap.map((relation) => ({
+    const newLinks = filteredRelationMap.map((relation) => ({
       source: relation.first,
       target: relation.second,
       description: relation.relationship,

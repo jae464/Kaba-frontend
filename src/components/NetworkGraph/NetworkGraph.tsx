@@ -12,6 +12,7 @@ import { CharacterRelationShip } from '../../type/api/relation';
 export interface Node extends d3.SimulationNodeDatum {
   [key: string]: string | boolean | number | null | undefined;
   name: string;
+  isCenter: boolean;
 }
 
 export interface Link {
@@ -103,6 +104,14 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
     if (!svgRef.current || nodes.length === 0 || links.length === 0) return;
     console.log(nodes, links);
 
+    const mainCharacterNode = nodes.find(
+      (node) => node.name === data.mainCharacter,
+    );
+    if (mainCharacterNode) {
+      mainCharacterNode.fx = svgRef.current.clientWidth / 2;
+      mainCharacterNode.fy = svgRef.current.clientHeight / 2;
+    }
+
     d3.forceSimulation(nodes) // Force algorithm is applied to data.nodes
       .force(
         'link',
@@ -116,7 +125,7 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
           .distance((d) => (d as Link).distance), // 각 링크의 거리를 설정하는 부분
         // .distance(400), // and this the list of links
       )
-      .force('charge', d3.forceManyBody().strength(-200).distanceMax(400))
+      .force('charge', d3.forceManyBody().strength(-200).distanceMax(600))
       .force(
         'center',
         d3.forceCenter(
@@ -124,6 +133,7 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
           svgRef.current?.clientHeight / 2,
         ),
       ) // This force attracts nodes to the center of the svg area
+      .force('collision', d3.forceCollide().radius(100))
       .on('end', () => {
         console.log('end');
         console.log(links, nodes);
