@@ -7,6 +7,7 @@ import useGraph from '../../hooks/useGraph';
 import useGraphZoom from '../../hooks/useGraphZoom';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { getNetworkGraphDataAPI } from '../../api/openai';
+import { CharacterRelationShip } from '../../type/api/relation';
 
 export interface Node extends d3.SimulationNodeDatum {
   [key: string]: string | boolean | number | null | undefined;
@@ -17,6 +18,7 @@ export interface Link {
   source: Node | string;
   target: Node | string;
   description: string;
+  distance: number;
 }
 
 const Container = styled.div`
@@ -71,7 +73,8 @@ const Nodes = styled.g`
 interface NetworkGraphProps {
   // bookId: string;
   page: number;
-  data: PersonData | null;
+  // data: PersonData | null;
+  data: CharacterRelationShip;
 }
 
 const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
@@ -110,9 +113,10 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
           })
           // This provide  the id of a node
           .links(links)
-          .distance(200), // and this the list of links
+          .distance((d) => (d as Link).distance), // 각 링크의 거리를 설정하는 부분
+        // .distance(400), // and this the list of links
       )
-      .force('charge', d3.forceManyBody().strength(-400).distanceMax(400))
+      .force('charge', d3.forceManyBody().strength(-200).distanceMax(400))
       .force(
         'center',
         d3.forceCenter(

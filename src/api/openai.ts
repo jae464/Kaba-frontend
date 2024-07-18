@@ -2,6 +2,7 @@ import axios from 'axios';
 import { PersonData } from '../type/api/network';
 import {
   books,
+  characterRelations,
   diaryImage,
   diaryImages,
   peopleDatas,
@@ -14,6 +15,7 @@ import { StoryData } from '../type/api/story';
 import { Book, BooksData } from '../type/api/book';
 import { WikiData } from '../type/api/wiki';
 import { ChatData } from '../type/api/chat';
+import { CharacterRelationShip } from '../type/api/relation';
 
 const BASE_URL = '';
 
@@ -41,11 +43,11 @@ export async function getNetworkGraphDataAPI(
   bookId: string,
   startPage: number,
   endPage: number,
-): Promise<PersonData> {
+): Promise<CharacterRelationShip> {
   console.log('getNetworkGraphDataAPI 요청');
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(peopleDatas);
+      resolve(characterRelations);
     }, 1000);
   });
 }

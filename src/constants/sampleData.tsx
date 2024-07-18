@@ -1,5 +1,6 @@
 import { BooksData } from '../type/api/book';
 import { PersonData } from '../type/api/network';
+import { CharacterRelationShip } from '../type/api/relation';
 import { WikiData } from '../type/api/wiki';
 import { Profile } from '../type/profile';
 
@@ -24,6 +25,40 @@ export const peopleDatas: PersonData = {
       name: '장미',
       connection: 'connection 3',
       group: 'group 2',
+    },
+  ],
+};
+
+export const characterRelations: CharacterRelationShip = {
+  mainCharacter: '나',
+  characters: [
+    '어린 왕자',
+    '어른들',
+    '사막에서 만난 꼬마',
+    '터키 천문학자',
+    '소행성 B612의 꽃',
+  ],
+  relations: [
+    { start_character: '나', end_character: '어린 왕자', relationship: '친구' },
+    {
+      start_character: '나',
+      end_character: '어른들',
+      relationship: '무관심과 오해',
+    },
+    {
+      start_character: '나',
+      end_character: '사막에서 만난 꼬마',
+      relationship: '친구',
+    },
+    {
+      start_character: '어린 왕자',
+      end_character: '터키 천문학자',
+      relationship: '관련 이야기 등장 인물',
+    },
+    {
+      start_character: '어린 왕자',
+      end_character: '소행성 B612의 꽃',
+      relationship: '사랑/돌봄의 대상',
     },
   ],
 };
