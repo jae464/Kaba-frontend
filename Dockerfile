@@ -4,7 +4,7 @@ RUN mkdir /build
 WORKDIR /build
 COPY . ./
 
-RUN npm install
+RUN npm ci
 
 FROM node:22-alpine
 
