@@ -63,7 +63,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
         setSelectedImageStyle('anime');
         break;
       case '꿈':
-        setSelectedFontSize('dreamscape');
+        setSelectedImageStyle('dreamscape');
         break;
     }
   };
