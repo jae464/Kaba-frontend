@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { WikiData } from '../../type/api/wiki';
 import { getWikiAPI } from '../../api/openai';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import Draggable from 'react-draggable';
 
 interface KabaWikiProps {
   bookId: string;
@@ -27,20 +28,22 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
 
   return (
     <>
-      <Container>
-        <Header>
-          <HeaderTitle>KABA 위키</HeaderTitle>
-          <IoMdClose size={28} onClick={onClickClose} />
-        </Header>
+      <Draggable>
+        <Container>
+          <Header>
+            <HeaderTitle>KABA 위키</HeaderTitle>
+            <IoMdClose size={28} onClick={onClickClose} />
+          </Header>
 
-        <Content>
-          <Title>{search}</Title>
-          {isLoading && <LoadingSpinner color="black" />}
-          {!isLoading && wiki && (
-            <div style={{ lineHeight: '1.5rem' }}>{wiki.response}</div>
-          )}
-        </Content>
-      </Container>
+          <Content>
+            <Title>{search}</Title>
+            {isLoading && <LoadingSpinner color="black" />}
+            {!isLoading && wiki && (
+              <div style={{ lineHeight: '1.5rem' }}>{wiki.response}</div>
+            )}
+          </Content>
+        </Container>
+      </Draggable>
     </>
   );
 };
