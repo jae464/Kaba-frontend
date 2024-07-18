@@ -5,7 +5,8 @@ import { Profile } from '../../type/profile';
 interface ChatProfileProps {
   profile: Profile;
   isSelected: boolean;
-  setSelectedProfile: React.Dispatch<React.SetStateAction<Profile | null>>;
+  // setSelectedProfile: React.Dispatch<React.SetStateAction<Profile | null>>;
+  onClickProfile: (profile: Profile) => void;
 }
 
 const ChatProfileContainer = styled.div<{ highlight?: boolean }>`
@@ -31,12 +32,16 @@ const ProfileName = styled.span`
 const ChatProfile = ({
   profile,
   isSelected,
-  setSelectedProfile,
+  // setSelectedProfile,
+  onClickProfile,
 }: ChatProfileProps) => {
   return (
     <ChatProfileContainer
       highlight={isSelected}
-      onClick={() => setSelectedProfile(profile)}
+      onClick={() =>
+        // setSelectedProfile(profile)
+        onClickProfile(profile)
+      }
     >
       <ProfileImage src={profile.imageSrc} alt={profile.name} />
       <ProfileName>{profile.name}</ProfileName>

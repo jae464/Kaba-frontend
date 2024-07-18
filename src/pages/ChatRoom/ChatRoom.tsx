@@ -74,6 +74,11 @@ const ChatRoom = () => {
                 profile={v}
                 isSelected={v === selectedProfile}
                 setSelectedProfile={setSelectedProfile}
+                onClickProfile={(profile) => {
+                  if (!isSending) {
+                    setSelectedProfile(profile);
+                  }
+                }}
               />
             ))}
           </CharacterList>
