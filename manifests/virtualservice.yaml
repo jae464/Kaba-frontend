@@ -5,7 +5,7 @@ metadata:
   namespace: kaba
 spec:
   hosts:
-    - "kaba.team"
+    - 'kaba.team'
   gateways:
     - kaba-gateway
   http:
@@ -15,6 +15,6 @@ spec:
       route:
         - destination:
             port:
-              number: 5173
+              number: 3000
             host: kaba-frontend-service
       timeout: 60s
