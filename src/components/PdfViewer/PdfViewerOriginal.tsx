@@ -54,7 +54,7 @@ const PDFViewerOriginal = ({
   const [pdfLoading, setPdfLoading] = useState<boolean>(true);
   const [openInfo, setOpenInfo] = useState<boolean>(false);
 
-  const handleMouseUp = (e: any) => {
+  const handleTextSelection = () => {
     const selection = window.getSelection();
     if (selection && selection.toString().length > 0) {
       console.log(selection.toString());
@@ -83,6 +83,14 @@ const PDFViewerOriginal = ({
       }
       setOpenInfo(true);
     }
+  };
+
+  const handleMouseUp = () => {
+    handleTextSelection();
+  };
+
+  const handleTouchEnd = () => {
+    handleTextSelection();
   };
 
   const handleMouseDown = () => {
@@ -181,6 +189,7 @@ const PDFViewerOriginal = ({
             ref={pdfRef}
             onMouseUp={handleMouseUp}
             onMouseDown={handleMouseDown}
+            onTouchEnd={handleTouchEnd}
           >
             <Document
               options={options}
