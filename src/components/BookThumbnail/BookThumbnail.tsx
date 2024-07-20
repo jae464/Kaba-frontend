@@ -45,7 +45,6 @@ const Container = styled.div<{ clickable: boolean }>`
   border-radius: 12px;
   padding: 16px;
 
-  margin-right: 30px;
   width: 220px;
 
   box-shadow: 4px 4px 6px 0px #e2e2e240;
