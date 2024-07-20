@@ -16,6 +16,7 @@ import {
   FaSpinner,
 } from 'react-icons/fa';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { useMediaQuery } from 'react-responsive';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   'pdfjs-dist/build/pdf.worker.min.mjs',
@@ -53,6 +54,7 @@ const PDFViewerOriginal = ({
   const pdfRef = useRef<HTMLDivElement>(null);
   const [pdfLoading, setPdfLoading] = useState<boolean>(true);
   const [openInfo, setOpenInfo] = useState<boolean>(false);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const handleTextSelection = () => {
     const selection = window.getSelection();
@@ -181,7 +183,7 @@ const PDFViewerOriginal = ({
           </ZoomContainer>
         </TopContainer>
         <SubContainer>
-          {pageNumber > 1 && (
+          {!isMobile && (
             <StyledFaChevronLeft size={48} onClick={previousPage} />
           )}
           {/* <button>1</button> */}
@@ -250,10 +252,13 @@ const PDFViewerOriginal = ({
               </InfoWindowContainer>
             )}
           </PDFWrapper>
-          {pageNumber < numPages && (
-            <StyledFaChevronRight size={48} onClick={nextPage} />
-          )}
+
+          {!isMobile && <StyledFaChevronRight size={48} onClick={nextPage} />}
         </SubContainer>
+        <NavigationContainer>
+          <StyledFaChevronLeft size={48} onClick={previousPage} />
+          <StyledFaChevronRight size={48} onClick={nextPage} />
+        </NavigationContainer>
       </Container>
     </>
   );
@@ -262,8 +267,9 @@ const PDFViewerOriginal = ({
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  max-width: 100%;
   height: 100%;
+  overflow: auto;
 `;
 
 const TopContainer = styled.div`
@@ -294,27 +300,32 @@ const SubContainer = styled.div`
   align-items: center;
   padding: 0 10px;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   gap: 1rem;
-  /* background-color: green; */
 `;
 
 const PDFWrapper = styled.div`
   position: relative;
-  max-height: 75vh;
-  max-width: 80%;
-  border-radius: 15px;
+  max-height: 65vh;
+  max-width: 75vw;
+  border-radius: 5px;
 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  overflow-x: auto;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   background-color: lightgray;
-  /* ::selection {
-    background-color: #ffdec0;
-    color: black;
-  } */
+  background-color: black;
+
+  @media (max-width: 769px) {
+    max-height: 55vh;
+  }
+
+  @media (max-width: 1224px) {
+    max-height: 65vh;
+    max-width: 65vw;
+  }
 `;
 
 const StyledFaChevronLeft = styled(FaChevronLeft)`
@@ -432,6 +443,17 @@ const TooltipText = styled.span`
     border-width: 5px;
     border-style: solid;
     border-color: black transparent transparent transparent;
+  }
+`;
+
+const NavigationContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  @media (min-width: 769px) {
+    display: none;
   }
 `;
 export default PDFViewerOriginal;

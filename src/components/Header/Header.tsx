@@ -14,7 +14,7 @@ const HeaderContainer = styled.header`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-bottom: 1px outset;
   /* background-color: black; */
-  width: 100%;
+  width: 100vw;
   overflow-x: auto;
 `;
 

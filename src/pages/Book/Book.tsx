@@ -231,7 +231,7 @@ const Container = styled.div`
 const LeftArea = styled.div<{ width: number; isOpened: boolean }>`
   display: flex;
   flex-direction: row;
-  min-width: 600px;
+  /* min-width: 300px; */
   width: ${({ width, isOpened }) => (!isOpened ? '100%' : `${width}px`)};
 `;
 

@@ -48,7 +48,6 @@ body {
 #root {
   display: flex;
   flex-direction: column;
-  min-width: 900px;
   line-height: 150%;
   /* background-color: #fff7d9; */
   background-color: white;
