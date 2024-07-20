@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-import { FaArrowLeft, FaBars, FaChevronLeft } from 'react-icons/fa';
+import {
+  FaArrowLeft,
+  FaBars,
+  FaChevronLeft,
+  FaMinus,
+  FaPlus,
+} from 'react-icons/fa';
 
 import NetworkGraph from '../../components/NetworkGraph/NetworkGraph';
 
@@ -28,6 +34,7 @@ const Book = () => {
   const [initialX, setInitialX] = useState(0);
   const [width, setWidth] = useState(800);
   const [pageNumber, setPageNumber] = useState(1);
+  const [scale, setScale] = useState<number>(1);
   const [networkGraphPage, setNetworkGraphPage] = useState(0);
   const [summaryPage, setSummaryPage] = useState(0);
   const [wikiKeyword, setWikiKeyword] = useState<string>('');
@@ -119,6 +126,21 @@ const Book = () => {
             <PDFContainer>
               <TopBar>
                 <StyledFaChevronLeft size={48} onClick={() => navigate('/')} />
+                <ZoomContainer>
+                  <StyledFaMinus
+                    size={48}
+                    onClick={() => {
+                      setScale((prev) => prev - 0.1);
+                    }}
+                  />
+
+                  <StyledFaPlus
+                    size={48}
+                    onClick={() => {
+                      setScale((prev) => prev + 0.1);
+                    }}
+                  />
+                </ZoomContainer>
                 <Menu>
                   <MenuIcon onClick={toggleDropdown}>
                     <StyledFaBars size={48} />
@@ -155,6 +177,7 @@ const Book = () => {
                 <PDFViewerOriginal
                   path={filePath}
                   pageNumber={pageNumber}
+                  scale={scale}
                   setPageNumber={setPageNumber}
                   onClickPictureDiary={handlePictureDiaryClicked}
                   onClickKabaWiki={handleKabaWikiClicked}
@@ -216,6 +239,7 @@ const Book = () => {
 const TopBar = styled.div`
   display: flex;
   flex-direction: row;
+  margin: 1rem;
   /* background-color: black; */
   justify-content: space-between;
 `;
@@ -256,7 +280,7 @@ const Menu = styled.div`
   /* position: relative; */
   right: 10px;
   display: flex;
-  padding: 1rem;
+
   flex-direction: column;
   align-items: end;
 `;
@@ -267,7 +291,7 @@ const MenuIcon = styled.div`
 
 const StyledFaChevronLeft = styled(FaArrowLeft)`
   color: #ffd953;
-  margin: 1rem;
+
   padding: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
@@ -321,5 +345,26 @@ const KabaWikiWrapper = styled.div`
   left: 45%;
   z-index: 4000;
 `;
+const ZoomContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+`;
 
+const StyledFaMinus = styled(FaMinus)`
+  /* background-color: #fad346; */
+  border: 2px solid #fad346;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  color: #fad346;
+  cursor: pointer;
+`;
+const StyledFaPlus = styled(FaPlus)`
+  /* background-color: #fad346; */
+  border: 2px solid #fad346;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  color: #fad346;
+  cursor: pointer;
+`;
 export default Book;

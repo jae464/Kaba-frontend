@@ -30,7 +30,9 @@ const options = {
 type PDFViewerProps = {
   path: string;
   pageNumber: number;
+  scale: number;
   setPageNumber: React.Dispatch<React.SetStateAction<number>>;
+
   onClickPictureDiary: (sentence: string) => void;
   onClickKabaWiki: (search: string) => void;
 };
@@ -43,14 +45,16 @@ interface Coords {
 const PDFViewerOriginal = ({
   path,
   pageNumber,
+  scale,
   setPageNumber,
+
   onClickPictureDiary,
   onClickKabaWiki,
 }: PDFViewerProps) => {
   const [numPages, setNumPages] = useState<number>(0);
   const [selectedText, setSelectedText] = useState<string>('');
   const [selectionCoords, setSelectionCoords] = useState<Coords | null>(null);
-  const [scale, setScale] = useState<number>(1);
+  // const [scale, setScale] = useState<number>(1);
   const pdfRef = useRef<HTMLDivElement>(null);
   const [pdfLoading, setPdfLoading] = useState<boolean>(true);
   const [openInfo, setOpenInfo] = useState<boolean>(false);
@@ -163,10 +167,7 @@ const PDFViewerOriginal = ({
     <>
       <Container>
         <TopContainer>
-          <PageContainer>
-            {pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}
-          </PageContainer>
-          <ZoomContainer>
+          {/* <ZoomContainer>
             <StyledFaMinus
               size={48}
               onClick={() => {
@@ -180,12 +181,12 @@ const PDFViewerOriginal = ({
                 setScale((prev) => prev + 0.1);
               }}
             />
-          </ZoomContainer>
+          </ZoomContainer> */}
         </TopContainer>
         <SubContainer>
-          {!isMobile && (
+          {/* {!isMobile && (
             <StyledFaChevronLeft size={48} onClick={previousPage} />
-          )}
+          )} */}
           {/* <button>1</button> */}
           <PDFWrapper
             ref={pdfRef}
@@ -253,10 +254,13 @@ const PDFViewerOriginal = ({
             )}
           </PDFWrapper>
 
-          {!isMobile && <StyledFaChevronRight size={48} onClick={nextPage} />}
+          {/* {!isMobile && <StyledFaChevronRight size={48} onClick={nextPage} />} */}
         </SubContainer>
         <NavigationContainer>
           <StyledFaChevronLeft size={48} onClick={previousPage} />
+          <PageContainer>
+            {pageNumber || (numPages ? 1 : '--')} / {numPages || '--'}
+          </PageContainer>
           <StyledFaChevronRight size={48} onClick={nextPage} />
         </NavigationContainer>
       </Container>
@@ -283,6 +287,8 @@ const TopContainer = styled.div`
 
 const PageContainer = styled.div`
   display: flex;
+
+  padding: 1rem;
   font-size: 1.2rem;
   color: #fad346;
 `;
@@ -319,7 +325,7 @@ const PDFWrapper = styled.div`
   background-color: black;
 
   @media (max-width: 769px) {
-    max-height: 55vh;
+    max-height: 50vh;
   }
 
   @media (max-width: 1224px) {
@@ -330,7 +336,7 @@ const PDFWrapper = styled.div`
 
 const StyledFaChevronLeft = styled(FaChevronLeft)`
   color: #ffd953;
-  margin: 1rem;
+
   padding: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
@@ -341,7 +347,6 @@ const StyledFaChevronLeft = styled(FaChevronLeft)`
 
 const StyledFaChevronRight = styled(FaChevronRight)`
   color: #ffd953;
-  margin: 1rem;
   padding: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
@@ -448,12 +453,16 @@ const TooltipText = styled.span`
 
 const NavigationContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   gap: 1rem;
   margin-top: 1rem;
+  margin-bottom: 2rem;
 
-  @media (min-width: 769px) {
+  /* @media (min-width: 769px) {
     display: none;
+  } */
+  @media (max-width: 769px) {
+    margin-bottom: 3rem;
   }
 `;
 export default PDFViewerOriginal;
