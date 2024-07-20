@@ -245,6 +245,11 @@ const Container = styled.div`
 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: auto;
+
+  @media (max-width: 1224px) {
+    width: 80vw;
+    height: 80vh;
+  }
 `;
 
 const TextContainer = styled.div`
@@ -259,10 +264,18 @@ const EditContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 500px;
+  z-index: 2000;
   margin-top: 2rem;
   padding: 1rem;
   border-radius: 15px;
   background-color: #fef7da;
+
+  @media (max-width: 1224px) {
+    width: 80%;
+    height: 30%;
+    margin: 0.4rem;
+    padding: 0.4rem;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -271,6 +284,9 @@ const ButtonContainer = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   gap: 1rem;
+  @media (max-width: 1224px) {
+    width: 80%;
+  }
 `;
 
 const OptionContainer = styled.div`
@@ -279,11 +295,20 @@ const OptionContainer = styled.div`
   align-items: center;
   margin: 1rem 0;
   gap: 1.5rem;
+  /* z-index: 1000; */
 `;
 
 const CustomLabel = styled.label`
   margin-right: 10px;
   font-size: 24px;
+
+  @media (max-width: 769px) {
+    font-size: 10px;
+  }
+
+  @media (max-width: 1224px) {
+    font-size: 16px;
+  }
 `;
 
 const ColorPicker = styled.input`
@@ -303,6 +328,15 @@ const ImageContainer = styled.div`
   > img {
     border-radius: 1rem;
   }
+
+  @media (max-width: 1224px) {
+    width: 80%;
+    height: 50%;
+    > img {
+      object-fit: contain;
+      border-radius: 1rem;
+    }
+  }
 `;
 
 const DroppedText = styled.div`
@@ -310,7 +344,7 @@ const DroppedText = styled.div`
   font-weight: bold;
   color: #dbc4c4;
   position: absolute;
-  z-index: 1000;
+  z-index: 1005;
   cursor: pointer;
 `;
 
@@ -324,5 +358,9 @@ const Button = styled.button`
   border: none;
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  @media (max-width: 1224px) {
+    font-size: 12px;
+  }
 `;
 export default PictureDiary;

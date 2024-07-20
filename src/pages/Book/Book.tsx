@@ -1,19 +1,12 @@
 import styled from 'styled-components';
 
-import {
-  FaArrowLeft,
-  FaBars,
-  FaChevronLeft,
-  FaMinus,
-  FaPlus,
-} from 'react-icons/fa';
+import { FaArrowLeft, FaBars, FaMinus, FaPlus, FaTimes } from 'react-icons/fa';
 
 import NetworkGraph from '../../components/NetworkGraph/NetworkGraph';
-
+import ReactModal from 'react-modal';
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { getBookAPI, getNetworkGraphDataAPI } from '../../api/openai';
-import { PersonData } from '../../type/api/network';
 import PictureDiary from '../../components/PictureDiary/PictureDiary';
 import { useNavigate, useParams } from 'react-router-dom';
 import StorySummary from '../../components/StorySummary/StorySummary';
@@ -21,6 +14,7 @@ import KabaWiki from '../../components/KabaWiki/KabaWiki';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import PDFViewerOriginal from '../../components/PdfViewer/PdfViewerOriginal';
 import { CharacterRelationShip } from '../../type/api/relation';
+import { useMediaQuery } from 'react-responsive';
 
 const Book = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -40,6 +34,7 @@ const Book = () => {
   const [wikiKeyword, setWikiKeyword] = useState<string>('');
   const [diaryKeyword, setDiaryKeyword] = useState<string>('');
   const [openWiki, setOpenWiki] = useState<boolean>(false);
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
   const { bookId } = useParams();
   const navigate = useNavigate();
@@ -103,6 +98,23 @@ const Book = () => {
     setWikiKeyword(search);
   };
 
+  const renderGenAIContainer = (tab: string) => {
+    switch (tab) {
+      case '인물관계도':
+        return <NetworkGraph page={networkGraphPage} data={networkData} />;
+      case '그림일기':
+        return bookId ? (
+          <PictureDiary bookId={bookId} sentence={diaryKeyword} />
+        ) : null;
+      case '지난줄거리':
+        return bookId ? (
+          <StorySummary bookId={bookId} page={summaryPage} />
+        ) : null;
+      default:
+        return null;
+    }
+  };
+
   useEffect(() => {
     if (isResizing) {
       document.addEventListener('mousemove', handleMouseMove);
@@ -121,8 +133,16 @@ const Book = () => {
   return (
     <>
       <Layout>
-        <Container>
-          <LeftArea width={width} isOpened={isOpened}>
+        <Container
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
+          <LeftArea
+            width={width}
+            isOpened={isOpened}
+            isTabletOrMobile={isTabletOrMobile}
+          >
             <PDFContainer>
               <TopBar>
                 <StyledFaChevronLeft size={48} onClick={() => navigate('/')} />
@@ -173,7 +193,7 @@ const Book = () => {
                 </Menu>
               </TopBar>
               {!filePath && <LoadingSpinner />}
-              {filePath && (
+              {filePath && !(isOpened && isTabletOrMobile) && (
                 <PDFViewerOriginal
                   path={filePath}
                   pageNumber={pageNumber}
@@ -202,33 +222,29 @@ const Book = () => {
             </PDFContainer>
           </LeftArea>
 
-          {isOpened && <SplitDivider onMouseDown={handleMouseDown} />}
-
-          {isOpened && selectedTab === '인물관계도' && (
-            <GenAIContainer
-              width={`calc(100% - ${width}px)`}
-              isOpened={isOpened}
-            >
-              <NetworkGraph page={networkGraphPage} data={networkData} />
-            </GenAIContainer>
+          {isOpened && !isTabletOrMobile && selectedTab && (
+            <>
+              <SplitDivider onMouseDown={handleMouseDown} />
+              <GenAIContainer
+                width={`calc(100% - ${width}px)`}
+                isOpened={isOpened}
+              >
+                {renderGenAIContainer(selectedTab)}
+              </GenAIContainer>
+            </>
           )}
-          {isOpened && selectedTab === '그림일기' && diaryKeyword && (
-            <GenAIContainer
-              width={`calc(100% - ${width}px)`}
-              isOpened={isOpened}
-            >
-              {bookId && (
-                <PictureDiary bookId={bookId} sentence={diaryKeyword} />
-              )}
-            </GenAIContainer>
-          )}
-          {isOpened && selectedTab === '지난줄거리' && (
-            <GenAIContainer
-              width={`calc(100% - ${width}px)`}
-              isOpened={isOpened}
-            >
-              {bookId && <StorySummary bookId={bookId} page={summaryPage} />}
-            </GenAIContainer>
+          {isOpened && isTabletOrMobile && selectedTab && (
+            <>
+              <CustomReactModal
+                isOpen={isOpened}
+                shouldCloseOnOverlayClick={false}
+              >
+                <CloseButton onClick={() => setIsOpened(false)}>
+                  <FaTimes size={32} />
+                </CloseButton>
+                {renderGenAIContainer(selectedTab)}
+              </CustomReactModal>
+            </>
           )}
         </Container>
       </Layout>
@@ -252,11 +268,15 @@ const Container = styled.div`
   background-color: #fef7da;
 `;
 
-const LeftArea = styled.div<{ width: number; isOpened: boolean }>`
+const LeftArea = styled.div<{
+  width: number;
+  isOpened: boolean;
+  isTabletOrMobile: boolean;
+}>`
   display: flex;
   flex-direction: row;
-  /* min-width: 300px; */
-  width: ${({ width, isOpened }) => (!isOpened ? '100%' : `${width}px`)};
+  width: ${({ width, isOpened, isTabletOrMobile }) =>
+    !isOpened || isTabletOrMobile ? '100%' : `${width}px`};
 `;
 
 const PDFContainer = styled.div`
@@ -267,7 +287,10 @@ const PDFContainer = styled.div`
   justify-content: center;
 `;
 
-const GenAIContainer = styled.div<{ width: string; isOpened: boolean }>`
+const GenAIContainer = styled.div<{
+  width: string;
+  isOpened: boolean;
+}>`
   display: flex;
   width: ${({ width }) => width};
   align-items: center;
@@ -365,6 +388,27 @@ const StyledFaPlus = styled(FaPlus)`
   padding: 0.5rem;
   border-radius: 2rem;
   color: #fad346;
+  cursor: pointer;
+`;
+
+const CustomReactModal = styled(ReactModal)`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  background-color: white;
+`;
+
+const CloseButton = styled.button`
+  margin-left: auto;
+  background: none;
+  border: none;
   cursor: pointer;
 `;
 export default Book;

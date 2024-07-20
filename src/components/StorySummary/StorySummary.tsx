@@ -74,11 +74,16 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 80%;
   justify-content: center;
   margin-left: 2rem;
   align-items: center;
   margin-right: 2rem;
+
+  @media (max-width: 1224px) {
+    width: 80vw;
+    height: 80vh;
+  }
 `;
 
 const SummaryBox = styled.div`
@@ -99,6 +104,14 @@ const ImageContainer = styled.img`
   width: 400px;
   height: 400px;
   border-radius: 1rem;
+  @media (max-width: 1224px) {
+    width: 80%;
+    height: 50%;
+    > img {
+      object-fit: contain;
+      border-radius: 1rem;
+    }
+  }
 `;
 
 const TextContainer = styled.p`

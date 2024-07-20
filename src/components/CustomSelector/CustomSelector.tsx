@@ -6,6 +6,18 @@ const SelectorButton = styled.button`
   width: 8rem;
   background-color: #ffe898;
   border-radius: 1rem;
+
+
+
+  @media (max-width: 769px) {
+    width: 4rem;
+    font-size: 10px;
+  }
+
+  @media (max-width: 1224px) {
+    with: 6rem
+    font-size: 16px;
+  }
 `;
 
 const OptionList = styled.ul<{ visible: boolean }>`
@@ -25,6 +37,14 @@ const OptionItem = styled.li`
   cursor: pointer;
   &:hover {
     background-color: #f0f0f0;
+  }
+
+  @media (max-width: 769px) {
+    font-size: 10px;
+  }
+
+  @media (max-width: 1224px) {
+    font-size: 16px;
   }
 `;
 

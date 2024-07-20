@@ -79,11 +79,32 @@ const PDFViewerOriginal = ({
           `wrapperRect : top ${wrapperRect.top} wrapperRect ${wrapperRect.left}`,
         );
         // todo 아래로 scroll한 위치만큼 더해줘야함.
-        const coords: Coords = {
-          top: rect.y - wrapperRect.top + (pdfRef.current?.scrollTop || 0) - 40,
-          left:
-            rect.x - wrapperRect.left + (pdfRef.current?.scrollLeft || 0) - 20,
-        };
+
+        const coords: Coords = isMobile
+          ? {
+              top:
+                rect.y -
+                wrapperRect.top +
+                (pdfRef.current?.scrollTop || 0) +
+                20,
+              left:
+                rect.x -
+                wrapperRect.left +
+                (pdfRef.current?.scrollLeft || 0) -
+                20,
+            }
+          : {
+              top:
+                rect.y -
+                wrapperRect.top +
+                (pdfRef.current?.scrollTop || 0) -
+                40,
+              left:
+                rect.x -
+                wrapperRect.left +
+                (pdfRef.current?.scrollLeft || 0) -
+                20,
+            };
         console.log(`coords top : ${coords.top}, left : ${coords.left}`);
         setSelectionCoords(coords);
       }
@@ -354,22 +375,7 @@ const StyledFaChevronRight = styled(FaChevronRight)`
     background-color: #282c34;
   }
 `;
-const StyledFaMinus = styled(FaMinus)`
-  /* background-color: #fad346; */
-  border: 2px solid #fad346;
-  padding: 0.5rem;
-  border-radius: 2rem;
-  color: #fad346;
-  cursor: pointer;
-`;
-const StyledFaPlus = styled(FaPlus)`
-  /* background-color: #fad346; */
-  border: 2px solid #fad346;
-  padding: 0.5rem;
-  border-radius: 2rem;
-  color: #fad346;
-  cursor: pointer;
-`;
+
 const InfoWindowContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -383,13 +389,6 @@ const IconContainer = styled.div`
   padding: 0.5;
   gap: 1.3rem;
   justify-content: space-between;
-`;
-
-const LoadingContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 75vh; // PDFWrapper와 같은 높이로 설정
 `;
 
 const StyledFaShareSquare = styled(FaShareSquare)`
