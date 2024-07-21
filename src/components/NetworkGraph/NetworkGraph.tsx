@@ -8,6 +8,8 @@ import useGraphZoom from '../../hooks/useGraphZoom';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { getNetworkGraphDataAPI } from '../../api/openai';
 import { CharacterRelationShip } from '../../type/api/relation';
+import Lottie from 'react-lottie';
+import animationData from '../../constants/book_loading.json';
 
 export interface Node extends d3.SimulationNodeDatum {
   [key: string]: string | boolean | number | null | undefined;
@@ -91,6 +93,15 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
 
   const { nodes, links } = useGraphData(data, page);
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   const addChildrensNodes = useCallback((name: string) => {
     console.log(name);
   }, []);
@@ -154,7 +165,8 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
       <p style={{ marginTop: '1rem' }}>{page} 페이지까지의 요약입니다.</p>
       {(!data || isLoading) && (
         <LoadingContainer>
-          <LoadingSpinner color="black" />
+          {/* <LoadingSpinner color="black" /> */}
+          <Lottie options={defaultOptions} />
         </LoadingContainer>
       )}
 

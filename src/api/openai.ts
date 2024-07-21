@@ -16,6 +16,7 @@ import { Book, BooksData } from '../type/api/book';
 import { WikiData } from '../type/api/wiki';
 import { ChatData } from '../type/api/chat';
 import { CharacterRelationShip } from '../type/api/relation';
+import { MessageRequest } from './request/MessageRequest';
 
 const BASE_URL = 'https://ai.kaba.team';
 
@@ -130,4 +131,15 @@ export async function clearChatHistoryAPI(character: string) {
     `${BASE_URL}/ai-chat/clear?character=${character}`,
   );
   console.log(res.data);
+}
+
+// 등장인물 대화 with 대화 히스토리
+export async function postMessageAPI({
+  character,
+  messages,
+}: MessageRequest): Promise<ChatData> {
+  console.log('postMessageAPI 호출');
+  const res = await axios.post(`${BASE_URL}/ai-chat`, { character, messages });
+  console.log(res.data);
+  return res.data;
 }

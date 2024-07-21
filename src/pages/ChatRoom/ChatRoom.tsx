@@ -12,26 +12,29 @@ import { useEffect, useRef, useState } from 'react';
 import { ChatData } from '../../type/api/chat';
 import { Profile } from '../../type/profile';
 import ChatBubble from '../../components/ChatBubble/ChatBubble';
-import { clearChatHistoryAPI, getMessageAPI } from '../../api/openai';
+import { postMessageAPI } from '../../api/openai';
 
 import { IoMdSend } from 'react-icons/io';
 import { Chat } from '../../type/chat';
+import { Message } from '../../api/request/MessageRequest';
 
 const ChatRoom = () => {
   const [profiles, setProfiles] = useState(profilesData);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
-  const [chats, setChats] = useState<Chat[]>([]);
+  const [chats, setChats] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState<boolean>(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
     if (selectedProfile != null) {
-      clearChatHistoryAPI(selectedProfile.name);
+      // clearChatHistoryAPI(selectedProfile.name);
       setChats([
         {
-          name: selectedProfile.name,
-          message: `안녕 나는 ${selectedProfile.name} 라고해! 반가워!`,
+          role: 'assistant',
+          content: `안녕 나는 ${selectedProfile.name} 라고해! 반가워!`,
+          // name: selectedProfile.name,
+          // message: `안녕 나는 ${selectedProfile.name} 라고해! 반가워!`,
         },
       ]);
     }
@@ -48,13 +51,19 @@ const ChatRoom = () => {
 
   const sendMessage = async () => {
     if (message !== '' && selectedProfile != null) {
-      setChats((prev) => [...prev, { name: 'user', message: message }]);
+      setChats((prev) => [...prev, { role: 'user', content: message }]);
       setMessage('');
       setIsSending(true);
-      const answer = await getMessageAPI(selectedProfile.name, message);
+
+      console.log(`보낼 메시지들 : ${chats}`);
+
+      const answer = await postMessageAPI({
+        character: selectedProfile.name,
+        messages: [...chats, { role: 'user', content: message }],
+      });
       setChats((prev) => [
         ...prev,
-        { name: selectedProfile.name, message: answer.response },
+        { role: 'assistant', content: answer.response },
       ]);
       setIsSending(false);
     }
@@ -91,20 +100,20 @@ const ChatRoom = () => {
               {selectedProfile &&
                 chats.map((v) => (
                   <ChatBubble
-                    type={v.name === 'user' ? 'user' : 'other'}
+                    type={v.role === 'user' ? 'user' : 'assistant'}
                     name={selectedProfile.name}
                     profileImage={
-                      v.name === 'user'
+                      v.role === 'user'
                         ? diaryImages[0].picture_url
                         : selectedProfile?.imageSrc
                     }
-                    message={v.message}
+                    message={v.content}
                   />
                 ))}
               {/* {isSending && <LoadingSpinner color="black" />} */}
               {isSending && selectedProfile && (
                 <ChatBubble
-                  type={'other'}
+                  type={'assistant'}
                   name={selectedProfile.name}
                   profileImage={selectedProfile?.imageSrc}
                   message={''}

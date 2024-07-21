@@ -4,7 +4,7 @@ import { BeatLoader } from 'react-spinners';
 import { useEffect, useState } from 'react';
 
 interface ChatBubbleProps {
-  type: 'user' | 'other';
+  type: 'user' | 'assistant';
   name: string;
   profileImage: string;
   message: string;
@@ -47,7 +47,7 @@ const ChatBubble = ({
   return (
     <>
       <Container type={type}>
-        {type === 'other' && (
+        {type === 'assistant' && (
           <>
             <ProfileImage src={profileImage} />
 
@@ -86,7 +86,7 @@ const fadeIn = keyframes`
   }
 `;
 
-const Container = styled.div<{ type: 'user' | 'other' }>`
+const Container = styled.div<{ type: 'user' | 'assistant' }>`
   display: flex;
   padding: 1rem;
   align-items: center;
@@ -102,7 +102,7 @@ const ProfileImage = styled.img`
   margin: 0 10px;
 `;
 
-const Bubble = styled.p<{ type: 'user' | 'other' }>`
+const Bubble = styled.p<{ type: 'user' | 'assistant' }>`
   display: flex;
   /* justify-content: ${({ type }) =>
     type === 'user' ? 'flex-end' : 'start'}; */
