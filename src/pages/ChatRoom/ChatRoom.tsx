@@ -80,9 +80,6 @@ const ChatRoom = () => {
       <Layout>
         <Container>
           <CharacterList>
-            <Header>
-              <StyledFaAnglesLeft size={36} />
-            </Header>
             {profiles.map((v) => (
               <ChatProfile
                 profile={v}
@@ -128,7 +125,7 @@ const ChatRoom = () => {
                   ref={inputRef}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyPress}
                   disabled={isSending}
                 />
                 <button onClick={sendMessage} disabled={isSending}>
@@ -187,6 +184,9 @@ const CharacterList = styled.div`
   height: 100%;
   width: 24rem;
   background-color: white;
+  @media (max-width: 767px) {
+    width: 6rem;
+  }
 `;
 
 const SendContainer = styled.div`

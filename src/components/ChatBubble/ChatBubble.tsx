@@ -100,6 +100,11 @@ const ProfileImage = styled.img`
   height: 64px;
   border-radius: 50%;
   margin: 0 10px;
+
+  @media (max-width: 767px) {
+    width: 48px;
+    height: 48px;
+  }
 `;
 
 const Bubble = styled.p<{ type: 'user' | 'assistant' }>`
@@ -112,6 +117,11 @@ const Bubble = styled.p<{ type: 'user' | 'assistant' }>`
   padding: 1rem;
   background-color: ${({ type }) => (type === 'user' ? '#FFE17E' : 'white')};
   line-height: 1.5;
+
+  @media (max-width: 767px) {
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
 `;
 
 const FadingText = styled.span`

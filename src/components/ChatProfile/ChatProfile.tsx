@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Profile } from '../../type/profile';
+import { useMediaQuery } from 'react-responsive';
 
 interface ChatProfileProps {
   profile: Profile;
@@ -35,6 +36,7 @@ const ChatProfile = ({
   // setSelectedProfile,
   onClickProfile,
 }: ChatProfileProps) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <ChatProfileContainer
       highlight={isSelected}
@@ -44,7 +46,7 @@ const ChatProfile = ({
       }
     >
       <ProfileImage src={profile.imageSrc} alt={profile.name} />
-      <ProfileName>{profile.name}</ProfileName>
+      {!isMobile && <ProfileName>{profile.name}</ProfileName>}
     </ChatProfileContainer>
   );
 };
