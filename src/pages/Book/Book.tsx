@@ -133,16 +133,8 @@ const Book = () => {
   return (
     <>
       <Layout>
-        <Container
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <LeftArea
-            width={width}
-            isOpened={isOpened}
-            isTabletOrMobile={isTabletOrMobile}
-          >
+        <Container>
+          <LeftArea width={width} isOpened={isOpened}>
             <PDFContainer>
               <TopBar>
                 <StyledFaChevronLeft size={48} onClick={() => navigate('/')} />
@@ -233,6 +225,7 @@ const Book = () => {
               </GenAIContainer>
             </>
           )}
+
           {isOpened && isTabletOrMobile && selectedTab && (
             <>
               <CustomReactModal
@@ -259,6 +252,7 @@ const TopBar = styled.div`
   /* background-color: black; */
   justify-content: space-between;
 `;
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
@@ -268,15 +262,10 @@ const Container = styled.div`
   background-color: #fef7da;
 `;
 
-const LeftArea = styled.div<{
-  width: number;
-  isOpened: boolean;
-  isTabletOrMobile: boolean;
-}>`
+const LeftArea = styled.div<{ width: number; isOpened: boolean }>`
   display: flex;
   flex-direction: row;
-  width: ${({ width, isOpened, isTabletOrMobile }) =>
-    !isOpened || isTabletOrMobile ? '100%' : `${width}px`};
+  width: ${({ width, isOpened }) => (!isOpened ? '100%' : `${width}px`)};
 `;
 
 const PDFContainer = styled.div`
@@ -287,10 +276,7 @@ const PDFContainer = styled.div`
   justify-content: center;
 `;
 
-const GenAIContainer = styled.div<{
-  width: string;
-  isOpened: boolean;
-}>`
+const GenAIContainer = styled.div<{ width: string; isOpened: boolean }>`
   display: flex;
   width: ${({ width }) => width};
   align-items: center;

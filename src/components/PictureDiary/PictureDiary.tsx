@@ -164,7 +164,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
               alt=""
               width={'100%'}
               height={'100%'}
-              style={{ zIndex: 1000 }}
+              style={{ zIndex: 1200 }}
             />
           )}
           {image && droppedText && (
@@ -264,7 +264,7 @@ const EditContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 500px;
-  z-index: 2000;
+
   margin-top: 2rem;
   padding: 1rem;
   border-radius: 15px;
@@ -295,7 +295,6 @@ const OptionContainer = styled.div`
   align-items: center;
   margin: 1rem 0;
   gap: 1.5rem;
-  /* z-index: 1000; */
 `;
 
 const CustomLabel = styled.label`
@@ -325,9 +324,7 @@ const ImageContainer = styled.div`
   background-color: #ffd953;
   position: relative;
   border-radius: 1rem;
-  > img {
-    border-radius: 1rem;
-  }
+  z-index: 1000;
 
   @media (max-width: 1224px) {
     width: 80%;
@@ -344,7 +341,7 @@ const DroppedText = styled.div`
   font-weight: bold;
   color: #dbc4c4;
   position: absolute;
-  z-index: 1005;
+  z-index: 2000;
   cursor: pointer;
 `;
 
