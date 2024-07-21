@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import html2canvas from 'html2canvas';
 import { getDiaryPictureAPI } from '../../api/openai';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { IoMdRefresh } from 'react-icons/io';
 import CustomSelector from '../CustomSelector/CustomSelector';
 import { fontFamily } from 'html2canvas/dist/types/css/property-descriptors/font-family';
 import Lottie from 'react-lottie';
 import animationData from '../../constants/drawing_loading.json';
+import FailureLottie from '../Lotties/FailureLottie';
 
 interface PictureDiaryProps {
   bookId: string;
@@ -33,6 +33,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     x: 0,
     y: 0,
   });
+  const [isFailed, setIsFailed] = useState<boolean>(false);
 
   const defaultOptions = {
     loop: true,
@@ -148,9 +149,20 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
 
   const fetchDiaryImage = async () => {
     setImage('');
-    const data = await getDiaryPictureAPI(bookId, sentence, selectedImageStyle);
-    if (data.urls.length > 0) {
-      setImage(data.urls[0]);
+    try {
+      const data = await getDiaryPictureAPI(
+        bookId,
+        sentence,
+        selectedImageStyle,
+      );
+      if (data.urls.length > 0) {
+        setImage(data.urls[0]);
+        setIsFailed(false);
+      } else {
+        setIsFailed(true);
+      }
+    } catch {
+      setIsFailed(true);
     }
   };
 
@@ -176,7 +188,22 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
-          {!image && <Lottie options={defaultOptions} />}
+          {!image && !isFailed && <Lottie options={defaultOptions} />}
+          {isFailed && (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                width: '100%',
+              }}
+            >
+              <FailureLottie />
+              <h1 style={{ margin: 'auto' }}>
+                이미지를 가져오는데 실패했습니다.
+              </h1>
+            </div>
+          )}
           {image && (
             <img
               draggable={false}
@@ -345,6 +372,7 @@ const ImageContainer = styled.div`
   position: relative;
   border-radius: 1rem;
   z-index: 1000;
+  align-items: center;
 
   @media (max-width: 1224px) {
     width: 80%;
