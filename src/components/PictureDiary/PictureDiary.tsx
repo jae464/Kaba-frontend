@@ -366,8 +366,8 @@ const ColorPicker = styled.input`
 
 const ImageContainer = styled.div`
   display: flex;
-  width: 500px;
-  height: 500px;
+  width: 512px;
+  height: 512px;
   background-color: #ffd953;
   position: relative;
   border-radius: 1rem;
@@ -375,11 +375,20 @@ const ImageContainer = styled.div`
   align-items: center;
 
   @media (max-width: 1224px) {
-    width: 80%;
-    height: 50%;
+    width: 400px;
+    height: 400px;
     > img {
       object-fit: contain;
       border-radius: 1rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    width: 256px;
+    height: 256px;
+    > img {
+      object-fit: contain;
+      border-radius: 0.5;
     }
   }
 `;

@@ -3,7 +3,6 @@ import { IoMdClose } from 'react-icons/io';
 import styled from 'styled-components';
 import { WikiData } from '../../type/api/wiki';
 import { getWikiAPI } from '../../api/openai';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Draggable from 'react-draggable';
 import Lottie from 'react-lottie';
 import animationData from '../../constants/book_loading.json';

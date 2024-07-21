@@ -59,6 +59,7 @@ const PDFViewerOriginal = ({
   const [pdfLoading, setPdfLoading] = useState<boolean>(true);
   const [openInfo, setOpenInfo] = useState<boolean>(false);
   const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
   const handleTextSelection = () => {
     const selection = window.getSelection();
@@ -80,7 +81,7 @@ const PDFViewerOriginal = ({
         );
         // todo 아래로 scroll한 위치만큼 더해줘야함.
 
-        const coords: Coords = isMobile
+        const coords: Coords = isTabletOrMobile
           ? {
               top:
                 rect.y -
