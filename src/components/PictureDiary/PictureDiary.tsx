@@ -31,9 +31,17 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     x: 0,
     y: 0,
   });
+
   const handleDownloadImage = () => {
     if (imageContainerRef.current) {
-      html2canvas(imageContainerRef.current).then((canvas) => {
+      html2canvas(imageContainerRef.current, {
+        useCORS: true,
+        allowTaint: true,
+        logging: true,
+        width: imageContainerRef.current.clientWidth,
+        height: imageContainerRef.current.clientHeight,
+        backgroundColor: null,
+      }).then((canvas) => {
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/png');
         link.download = 'picture-diary.png';
@@ -41,6 +49,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
       });
     }
   };
+
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedColor(e.target.value);
     if (droppedText) {
