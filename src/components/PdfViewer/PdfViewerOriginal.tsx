@@ -131,7 +131,8 @@ const PDFViewerOriginal = ({
 
   const onDocumentLoadSuccess = ({ numPages }: pdfjs.PDFDocumentProxy) => {
     console.log('load success');
-    setPageNumber(1);
+
+    setPageNumber(pageNumber);
     setNumPages(numPages);
     setPdfLoading(false);
   };
