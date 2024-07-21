@@ -45,7 +45,7 @@ export function getBookAPI(bookId: string): Promise<Book> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(books.books[Number(bookId) - 1]);
-    }, 300);
+    }, 100);
   });
 }
 

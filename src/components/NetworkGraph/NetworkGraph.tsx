@@ -1,15 +1,17 @@
 import * as d3 from 'd3';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { PersonData } from '../../type/api/network';
+
 import useGraphData from '../../hooks/useGraphData';
 import useGraph from '../../hooks/useGraph';
 import useGraphZoom from '../../hooks/useGraphZoom';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import { getNetworkGraphDataAPI } from '../../api/openai';
+
 import { CharacterRelationShip } from '../../type/api/relation';
 import Lottie from 'react-lottie';
 import animationData from '../../constants/book_loading.json';
+import failtAnimationData from '../../constants/server_error.json';
+import FailureLottie from '../Lotties/FailureLottie';
+import LoadingLottie from '../Lotties/LoadingLottie';
 
 export interface Node extends d3.SimulationNodeDatum {
   [key: string]: string | boolean | number | null | undefined;
@@ -82,25 +84,17 @@ interface NetworkGraphProps {
   // bookId: string;
   page: number;
   // data: PersonData | null;
-  data: CharacterRelationShip;
+  data: CharacterRelationShip | null;
+  isFail?: boolean;
 }
 
-const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
+const NetworkGraph = ({ page, data, isFail = false }: NetworkGraphProps) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const linkRef = useRef<SVGGElement | null>(null);
   const nodeRef = useRef<SVGGElement | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const { nodes, links } = useGraphData(data, page);
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  };
 
   const addChildrensNodes = useCallback((name: string) => {
     console.log(name);
@@ -117,6 +111,7 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
 
   useEffect(() => {
     console.log('인물관계도');
+    if (data == null) return;
     if (!svgRef.current || nodes.length === 0 || links.length === 0) return;
     console.log(nodes, links);
 
@@ -162,11 +157,19 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
   return (
     <Container>
       <Title>인물관계도</Title>
-      <p style={{ marginTop: '1rem' }}>{page} 페이지까지의 요약입니다.</p>
-      {(!data || isLoading) && (
+      <p style={{ marginTop: '1rem' }}>
+        <span style={{ fontWeight: 'bold' }}>{page} 페이지</span>까지의
+        관계도입니다.
+      </p>
+      {(!data || isLoading) && !isFail && (
         <LoadingContainer>
-          {/* <LoadingSpinner color="black" /> */}
-          <Lottie options={defaultOptions} />
+          <LoadingLottie />
+        </LoadingContainer>
+      )}
+      {isFail && (
+        <LoadingContainer>
+          <FailureLottie />
+          <p>서버에서 데이터를 받아오는데 실패했습니다.</p>
         </LoadingContainer>
       )}
 
@@ -179,6 +182,7 @@ const NetworkGraph = ({ page, data }: NetworkGraphProps) => {
 };
 
 const Title = styled.h1`
+  font-weight: bold;
   margin-top: 2rem;
   font-size: 1.7rem;
 `;
@@ -187,15 +191,13 @@ const LoadingContainer = styled.div`
   width: 80%;
   height: 80%;
   position: absolute;
-  /* background-color: black; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
   z-index: 1000;
 `;
 

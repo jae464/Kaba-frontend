@@ -34,6 +34,8 @@ const Book = () => {
   const [wikiKeyword, setWikiKeyword] = useState<string>('');
   const [diaryKeyword, setDiaryKeyword] = useState<string>('');
   const [openWiki, setOpenWiki] = useState<boolean>(false);
+  const [isFetchGraphDataFailed, setIsFetchGraphDataFailed] =
+    useState<boolean>(false);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
   const { bookId } = useParams();
@@ -45,16 +47,28 @@ const Book = () => {
       setFilePath(data.file_path);
     }
   };
-  useEffect(() => {
-    fetchBook();
-  }, []);
 
   const fetchPeopleData = async () => {
     if (bookId != null) {
+      console.log('fetchPeopleData 시작');
       setNetworkData(null);
-      const datas = await getNetworkGraphDataAPI(bookId, 0, pageNumber);
-      console.log('fetchPeopleData : ' + datas);
-      setNetworkData(datas);
+      try {
+        const datas = await getNetworkGraphDataAPI(bookId, 0, pageNumber);
+        console.log('fetchPeopleData : ' + datas);
+        if (
+          !datas ||
+          !datas.mainCharacter ||
+          datas.characters.length === 0 ||
+          datas.relationMap.length === 0
+        ) {
+          setIsFetchGraphDataFailed(true);
+        } else {
+          setNetworkData(datas);
+          setIsFetchGraphDataFailed(false);
+        }
+      } catch {
+        setIsFetchGraphDataFailed(true);
+      }
     }
   };
 
@@ -101,7 +115,13 @@ const Book = () => {
   const renderGenAIContainer = (tab: string) => {
     switch (tab) {
       case '인물관계도':
-        return <NetworkGraph page={networkGraphPage} data={networkData} />;
+        return (
+          <NetworkGraph
+            page={networkGraphPage}
+            data={networkData}
+            isFail={isFetchGraphDataFailed}
+          />
+        );
       case '그림일기':
         return bookId ? (
           <PictureDiary bookId={bookId} sentence={diaryKeyword} />
@@ -114,6 +134,10 @@ const Book = () => {
         return null;
     }
   };
+
+  useEffect(() => {
+    fetchBook();
+  }, []);
 
   useEffect(() => {
     if (isResizing) {
