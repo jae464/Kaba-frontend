@@ -130,6 +130,15 @@ const Book = () => {
     };
   }, [isResizing]);
 
+  // 모달이 열릴 때와 닫힐 때 배경 스크롤 제어
+  useEffect(() => {
+    if (isOpened && isTabletOrMobile) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isOpened, isTabletOrMobile]);
+
   return (
     <>
       <Layout>
