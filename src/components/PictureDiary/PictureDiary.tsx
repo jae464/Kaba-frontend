@@ -9,6 +9,7 @@ import Lottie from 'react-lottie';
 import animationData from '../../constants/drawing_loading.json';
 import FailureLottie from '../Lotties/FailureLottie';
 import Draggable from 'react-draggable';
+import { useMediaQuery } from 'react-responsive';
 
 interface PictureDiaryProps {
   bookId: string;
@@ -35,7 +36,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     y: 0,
   });
   const [isFailed, setIsFailed] = useState<boolean>(false);
-
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -204,27 +205,29 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
               }}
             />
           </OptionContainer>
-          <OptionContainer>
+          <OptionContainer style={{ display: 'flex', justifyContent: 'start' }}>
             <CustomLabel>텍스트</CustomLabel>
-            <CustomSelector
-              options={['나눔고딕', '나눔스퀘어', '망고또박', '갈메골']}
-              defaultOption="나눔고딕"
-              onSelect={(s) => {
-                handleFontFamily(s);
-              }}
-            />
-            <ColorPicker
-              type="color"
-              value={selectedColor}
-              onChange={handleColorChange}
-            />
-            <CustomSelector
-              options={['작게', '보통', '크게']}
-              defaultOption="보통"
-              onSelect={(s) => {
-                handleFontSize(s);
-              }}
-            />
+            <TextEditorContainer>
+              <CustomSelector
+                options={['나눔고딕', '나눔스퀘어', '망고또박', '갈메골']}
+                defaultOption="나눔고딕"
+                onSelect={(s) => {
+                  handleFontFamily(s);
+                }}
+              />
+              <ColorPicker
+                type="color"
+                value={selectedColor}
+                onChange={handleColorChange}
+              />
+              <CustomSelector
+                options={['작게', '보통', '크게']}
+                defaultOption="보통"
+                onSelect={(s) => {
+                  handleFontSize(s);
+                }}
+              />
+            </TextEditorContainer>
           </OptionContainer>
         </EditContainer>
         <ButtonContainer>
@@ -276,9 +279,16 @@ const EditContainer = styled.div`
 
   @media (max-width: 1224px) {
     width: 80%;
-    height: 30%;
-    margin: 0.4rem;
-    padding: 0.4rem;
+    /* height: 30%; */
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  @media (max-width: 767px) {
+    width: 80%;
+    /* height: 30%; */
+    margin: 1rem;
+    padding: 1rem;
   }
 `;
 
@@ -304,13 +314,13 @@ const OptionContainer = styled.div`
 const CustomLabel = styled.label`
   margin-right: 10px;
   font-size: 24px;
-
-  @media (max-width: 769px) {
-    font-size: 10px;
-  }
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
 
   @media (max-width: 1224px) {
-    font-size: 16px;
+    font-size: 12px;
+  }
+  @media (max-width: 767px) {
+    font-size: 10px;
   }
 `;
 
@@ -319,6 +329,22 @@ const ColorPicker = styled.input`
   height: 48px;
   border: none;
   border-radius: 50%;
+
+  @media (max-width: 767px) {
+    width: 24px;
+    height: 24px;
+  }
+`;
+
+const TextEditorContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  @media (max-width: 767px) {
+    justify-content: start;
+    /* flex-direction: column; */
+    align-items: center;
+  }
 `;
 
 const ImageContainer = styled.div`

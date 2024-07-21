@@ -119,7 +119,7 @@ const Container = styled.div`
 
   @media (max-width: 1224px) {
     width: 80vw;
-    height: 80vh;
+    height: 70vh;
   }
 `;
 
@@ -132,7 +132,7 @@ const Title = styled.h1`
 const SummaryBox = styled.div`
   display: flex;
   width: 100%;
-  height: 100%;
+  height: 90%;
   flex-direction: column;
   /* height: 84vh; */
   justify-content: center;

@@ -6,15 +6,17 @@ const SelectorButton = styled.button`
   width: 8rem;
   background-color: #ffe898;
   border-radius: 1rem;
-
-  @media (max-width: 769px) {
-    width: 4rem;
-    font-size: 10px;
-  }
+  overflow: hidden; /* 내용이 넘칠 경우 숨김 */
 
   @media (max-width: 1224px) {
     width: 6rem;
-    font-size: 16px;
+    font-size: 12px;
+  }
+
+  @media (max-width: 767px) {
+    width: 4rem;
+    font-size: 8px;
+    white-space: nowrap; /* 텍스트를 한 줄로 표시 */
   }
 `;
 
