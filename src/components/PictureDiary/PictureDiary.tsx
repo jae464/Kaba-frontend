@@ -6,6 +6,8 @@ import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { IoMdRefresh } from 'react-icons/io';
 import CustomSelector from '../CustomSelector/CustomSelector';
 import { fontFamily } from 'html2canvas/dist/types/css/property-descriptors/font-family';
+import Lottie from 'react-lottie';
+import animationData from '../../constants/drawing_loading.json';
 
 interface PictureDiaryProps {
   bookId: string;
@@ -31,6 +33,15 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
     x: 0,
     y: 0,
   });
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   const handleDownloadImage = () => {
     if (imageContainerRef.current) {
@@ -165,7 +176,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
         >
-          {!image && <LoadingSpinner />}
+          {!image && <Lottie options={defaultOptions} />}
           {image && (
             <img
               draggable={false}

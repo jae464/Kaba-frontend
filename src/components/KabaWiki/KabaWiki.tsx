@@ -5,6 +5,8 @@ import { WikiData } from '../../type/api/wiki';
 import { getWikiAPI } from '../../api/openai';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Draggable from 'react-draggable';
+import Lottie from 'react-lottie';
+import animationData from '../../constants/book_loading.json';
 
 interface KabaWikiProps {
   bookId: string;
@@ -15,6 +17,15 @@ interface KabaWikiProps {
 const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
   const [wiki, setWiki] = useState<WikiData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   const fetchWikiData = async () => {
     setIsLoading(true);
@@ -38,7 +49,7 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
 
           <Content>
             <Title>{search}</Title>
-            {isLoading && <LoadingSpinner color="black" />}
+            {isLoading && <Lottie options={defaultOptions} />}
             {!isLoading && wiki && (
               <div style={{ lineHeight: '1.5rem' }}>{wiki.response}</div>
             )}

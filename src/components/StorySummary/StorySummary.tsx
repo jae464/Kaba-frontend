@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { getSummaryAPI } from '../../api/openai';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import Lottie from 'react-lottie';
+import animationData from '../../constants/book_loading.json';
 
 interface StorySummaryProps {
   bookId: string;
@@ -13,6 +15,15 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
   const [summary, setSummary] = useState<StoryData | null>(null);
   const [summaryPage, setSummaryPage] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   const getSummary = async () => {
     setIsLoading(true);
@@ -44,7 +55,7 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
         </ChevronContainer>
 
         <SummaryBox>
-          {isLoading && <LoadingSpinner />}
+          {isLoading && <Lottie options={defaultOptions} />}
           {!isLoading && summary && summary.response.length > 0 && (
             <>
               <p style={{ marginBottom: '1rem' }}>
