@@ -1,5 +1,10 @@
+import { useState } from 'react';
+import { FaBars, FaHome } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import { selectedItemState } from '../../atoms/sidebarState';
 import styled from 'styled-components';
+import { BsChatText } from 'react-icons/bs';
 
 const HeaderContainer = styled.header`
   /* position: fixed; */
@@ -8,7 +13,6 @@ const HeaderContainer = styled.header`
   background-color: #ffffff;
   display: flex;
   flex-direction: row;
-
   align-items: center;
   padding: 0 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -24,6 +28,10 @@ const Logo = styled.div`
   font-family: 'MangoDdobak-B';
   font-size: 24px;
   cursor: pointer;
+  @media (max-width: 767px) {
+    margin: 0 auto;
+    padding-left: 5rem;
+  }
 `;
 
 const Nav = styled.nav`
@@ -41,11 +49,73 @@ const NavItem = styled.a`
   }
 `;
 
+const MenuButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  margin-left: auto;
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 4rem;
+  right: 0;
+  width: 4rem;
+  margin-right: 1rem;
+  background-color: #ffe999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  z-index: 10;
+`;
+
+const DropdownMenuItem = styled.div<{ selected: boolean }>`
+  padding: 10px;
+  cursor: pointer;
+  /* background-color: ${({ selected }) =>
+    selected ? '#282c34' : 'transparent'}; */
+`;
+
 const Header: React.FC = () => {
   const navigate = useNavigate();
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
+
+  const handleItemClick = (path: string) => {
+    setSelectedItem(path);
+    navigate(path);
+    setMenuOpen(false); // Close the menu after selection
+  };
+
   return (
     <HeaderContainer>
       <Logo onClick={() => navigate('/')}>KABA</Logo>
+      <MenuButton onClick={() => setMenuOpen(!isMenuOpen)}>
+        <FaBars />
+      </MenuButton>
+      {isMenuOpen && (
+        <DropdownMenu>
+          <DropdownMenuItem
+            selected={selectedItem === '/'}
+            onClick={() => handleItemClick('/')}
+          >
+            <FaHome size={24} color="white" />
+          </DropdownMenuItem>
+
+          <DropdownMenuItem
+            selected={selectedItem === '/chat'}
+            onClick={() => handleItemClick('/chat')}
+          >
+            <BsChatText size={24} color="white" />
+          </DropdownMenuItem>
+        </DropdownMenu>
+      )}
     </HeaderContainer>
   );
 };

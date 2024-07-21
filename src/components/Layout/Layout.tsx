@@ -1,20 +1,21 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import Header from '../Header/Header';
 import styled from 'styled-components';
 import SideBar from '../SideBar/SideBar';
+import { useMediaQuery } from 'react-responsive';
 
 interface LayoutProps {
   children: ReactElement;
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   return (
     <>
       <Container>
         <Header />
-
         <Main>
-          <SideBar />
+          {!isMobile && <SideBar />}
           <Content>{children}</Content>
         </Main>
       </Container>
