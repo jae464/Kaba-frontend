@@ -28,10 +28,11 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
 
   return (
     <>
-      <Draggable>
+      <Draggable handle=".draggable-handle">
         <Container>
           <Header>
-            <HeaderTitle>KABA 위키</HeaderTitle>
+            <HeaderTitle className="draggable-handle">KABA 위키</HeaderTitle>
+
             <IoMdClose size={28} onClick={onClickClose} />
           </Header>
 
@@ -73,6 +74,7 @@ const HeaderTitle = styled.div`
   font-size: 1.3rem;
   font-weight: bold;
   margin-left: 12px;
+  width: 100%;
 `;
 
 const Title = styled.span`
