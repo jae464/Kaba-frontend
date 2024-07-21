@@ -8,6 +8,7 @@ import { fontFamily } from 'html2canvas/dist/types/css/property-descriptors/font
 import Lottie from 'react-lottie';
 import animationData from '../../constants/drawing_loading.json';
 import FailureLottie from '../Lotties/FailureLottie';
+import Draggable from 'react-draggable';
 
 interface PictureDiaryProps {
   bookId: string;
@@ -71,12 +72,6 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
       });
     }
   };
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    e.dataTransfer.setData('text/plain', sentence);
-    e.dataTransfer.effectAllowed = 'move';
-    const rect = e.currentTarget.getBoundingClientRect();
-    setDragOffset({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
 
   const handleImageStyle = (imageStyle: string) => {
     switch (imageStyle) {
@@ -87,33 +82,6 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
         setSelectedImageStyle('dreamscape');
         break;
     }
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const data = e.dataTransfer.getData('text/plain');
-
-    const rect = imageContainerRef.current!.getBoundingClientRect();
-    setDroppedText({
-      text: data,
-      x: e.clientX - rect.left - dragOffset.x,
-      y: e.clientY - rect.top - dragOffset.y,
-      color: selectedColor,
-      fontSize: selectedFontSize,
-    });
-
-    // console.log(
-    //   `현재 창의 너비와 높이 : ${window.innerWidth}, ${window.innerHeight}`,
-    // );
-    // console.log(`마우스의 위치 : ${e.clientX} ${e.clientY}`);
-    // console.log(`이미지 컨테이너의 위치 : ${rect.left}, ${rect.top}`);
-    // console.log(
-    //   `드랍되는 위치 ${e.clientX - rect.left - dragOffset.x}, ${e.clientY - rect.top - dragOffset.y}`,
-    // );
-  };
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
   };
 
   const handleFontSize = (fontSize: string) => {
@@ -183,11 +151,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
   return (
     <>
       <Container ref={containerRef}>
-        <ImageContainer
-          ref={imageContainerRef}
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-        >
+        <ImageContainer ref={imageContainerRef}>
           {!image && !isFailed && <Lottie options={defaultOptions} />}
           {isFailed && (
             <div
@@ -215,28 +179,21 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
             />
           )}
           {image && droppedText && (
-            <DroppedText
-              draggable
-              onDragStart={handleDragStart}
-              style={{
-                left: droppedText.x,
-                top: droppedText.y,
-                color: droppedText.color,
-                fontSize: selectedFontSize,
-                fontFamily: selectedFontFamily,
-              }}
-            >
-              {droppedText.text}
-            </DroppedText>
+            <Draggable bounds="parent" defaultPosition={{ x: 20, y: 20 }}>
+              <DroppedText
+                style={{
+                  color: droppedText.color,
+                  fontSize: selectedFontSize,
+                  fontFamily: selectedFontFamily,
+                }}
+              >
+                {droppedText.text}
+              </DroppedText>
+            </Draggable>
           )}
         </ImageContainer>
 
         <EditContainer>
-          {!droppedText && (
-            <TextContainer draggable onDragStart={handleDragStart}>
-              {sentence}
-            </TextContainer>
-          )}
           <OptionContainer>
             <CustomLabel>그림체</CustomLabel>
             <CustomSelector
