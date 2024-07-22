@@ -5,6 +5,8 @@ const TabsContainer = styled.div`
   margin-bottom: 10px;
   width: 100%;
   justify-content: space-between;
+  @media (max-width: 767px) {
+  }
 `;
 
 const Tab = styled.div<{ selected: boolean }>`
@@ -21,6 +23,13 @@ const Tab = styled.div<{ selected: boolean }>`
   color: ${({ selected }) => (selected ? 'white' : 'black')};
   border-bottom: ${({ selected }) => (selected ? '2px solid black' : 'none')};
   font-weight: bold;
+
+  @media (max-width: 767px) {
+    padding: 10px 4px;
+    font-size: 9px;
+    font-weight: normal;
+    white-space: nowrap;
+  }
 `;
 
 interface TabsProps {

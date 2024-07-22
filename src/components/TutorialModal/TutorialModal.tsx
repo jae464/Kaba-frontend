@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tabs from '../Tabs/Tabs';
-import { tutorials } from '../../constants/tutorials';
+import { tutorials_desk, tutorials_mobile } from '../../constants/tutorials';
 import { IoIosClose, IoIosCloseCircleOutline } from 'react-icons/io';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { useMediaQuery } from 'react-responsive';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -28,6 +29,9 @@ const ModalContent = styled.div`
   border-radius: 8px;
   width: 80%;
   height: 80%;
+
+  @media (max-width: 767px) {
+  }
 `;
 
 const CloseButton = styled.button`
@@ -38,6 +42,8 @@ const CloseButton = styled.button`
 `;
 
 const TutorialModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const [tutorials, setTutorials] = useState(tutorials_desk);
   const [selectedTab, setSelectedTab] = useState(tutorials[0].title);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -55,6 +61,15 @@ const TutorialModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
       setCurrentIndex(currentIndex - 1);
     }
   };
+
+  useEffect(() => {
+    if (isMobile) {
+      setTutorials(tutorials_mobile);
+    } else {
+      setTutorials(tutorials_desk);
+    }
+  }, [isMobile]);
+
   return (
     <ModalOverlay>
       <ModalContent>
