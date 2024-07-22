@@ -1,10 +1,12 @@
-import { useState } from 'react';
-import { FaBars, FaHome } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { FaBars, FaHome, FaRegQuestionCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { selectedItemState } from '../../atoms/sidebarState';
 import styled from 'styled-components';
 import { BsChatText } from 'react-icons/bs';
+import TutorialModal from '../TutorialModal/TutorialModal';
+import { useMediaQuery } from 'react-responsive';
 
 const HeaderContainer = styled.header`
   /* position: fixed; */
@@ -14,7 +16,7 @@ const HeaderContainer = styled.header`
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-bottom: 1px outset;
   /* background-color: black; */
@@ -85,7 +87,17 @@ const DropdownMenuItem = styled.div<{ selected: boolean }>`
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useRecoilState(selectedItemState);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
 
   const handleItemClick = (path: string) => {
     setSelectedItem(path);
@@ -93,31 +105,53 @@ const Header: React.FC = () => {
     setMenuOpen(false); // Close the menu after selection
   };
 
-  return (
-    <HeaderContainer>
-      <Logo onClick={() => navigate('/')}>KABA</Logo>
-      <MenuButton onClick={() => setMenuOpen(!isMenuOpen)}>
-        <FaBars />
-      </MenuButton>
-      {isMenuOpen && (
-        <DropdownMenu>
-          <DropdownMenuItem
-            selected={selectedItem === '/'}
-            onClick={() => handleItemClick('/')}
-          >
-            <FaHome size={24} color="white" />
-          </DropdownMenuItem>
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isModalOpen]);
 
-          <DropdownMenuItem
-            selected={selectedItem === '/chat'}
-            onClick={() => handleItemClick('/chat')}
-          >
-            <BsChatText size={24} color="white" />
-          </DropdownMenuItem>
-        </DropdownMenu>
-      )}
-    </HeaderContainer>
+  return (
+    <>
+      <HeaderContainer>
+        {isMobile && (
+          <StyledFaRegQuestionCircle size={36} onClick={handleModalOpen} />
+        )}
+        <Logo onClick={() => navigate('/')}>KABA</Logo>
+        <MenuButton onClick={() => setMenuOpen(!isMenuOpen)}>
+          <FaBars />
+        </MenuButton>
+        {!isMobile && (
+          <StyledFaRegQuestionCircle size={36} onClick={handleModalOpen} />
+        )}
+        {isMenuOpen && (
+          <DropdownMenu>
+            <DropdownMenuItem
+              selected={selectedItem === '/'}
+              onClick={() => handleItemClick('/')}
+            >
+              <FaHome size={24} color="white" />
+            </DropdownMenuItem>
+
+            <DropdownMenuItem
+              selected={selectedItem === '/chat'}
+              onClick={() => handleItemClick('/chat')}
+            >
+              <BsChatText size={24} color="white" />
+            </DropdownMenuItem>
+          </DropdownMenu>
+        )}
+      </HeaderContainer>
+      {isModalOpen && <TutorialModal onClose={handleModalClose} />}
+    </>
   );
 };
+
+const StyledFaRegQuestionCircle = styled(FaRegQuestionCircle)`
+  color: #ffd953;
+  cursor: pointer;
+`;
 
 export default Header;

@@ -40,4 +40,6 @@ const Content = styled.main`
   flex: 1;
 `;
 
+const TutorialContainer = styled.div``;
+
 export default Layout;
