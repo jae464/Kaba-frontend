@@ -145,12 +145,14 @@ const NetworkGraph = ({ page, data, isFail = false }: NetworkGraphProps) => {
         ),
       ) // This force attracts nodes to the center of the svg area
       .force('collision', d3.forceCollide().radius(100))
+      .on('tick', () => {
+        setIsLoading(false);
+        drawLink(links);
+        drawNode(nodes);
+      })
       .on('end', () => {
         console.log('end');
         console.log(links, nodes);
-        drawLink(links);
-        drawNode(nodes);
-        setIsLoading(false);
       });
   }, [nodes, links, drawLink, drawNode]);
 

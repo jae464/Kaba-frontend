@@ -141,6 +141,51 @@ const useGraph = (
           .style('font-weight', 700);
       };
 
+      const handleDrag = d3
+        .drag()
+        .on('start', function (event, d) {})
+        .on('drag', function (event, d) {
+          d.x = event.x;
+          d.y = event.y;
+          d3.select(nodeSelector)
+            .selectAll('text')
+            .filter((nd) => nd === d)
+            .attr('x', d.x)
+            .attr('y', d.y);
+          d3.select(nodeSelector)
+            .selectAll('rect')
+            .filter((nd) => nd === d)
+            .attr('x', d.x - RECT_WIDTH / 2)
+            .attr('y', d.y - RECT_HEIGHT / 2);
+          d3.select(linkSelector)
+            .selectAll('line')
+            .filter(
+              (link) =>
+                (link.source as Node).name === d.name ||
+                (link.target as Node).name === d.name,
+            )
+            .attr('x1', (link) => (link.source as Node).x)
+            .attr('y1', (link) => (link.source as Node).y)
+            .attr('x2', (link) => (link.target as Node).x)
+            .attr('y2', (link) => (link.target as Node).y);
+          d3.select(linkSelector)
+            .selectAll('text')
+            .filter(
+              (link) =>
+                (link.source as Node).name === d.name ||
+                (link.target as Node).name === d.name,
+            )
+            .attr(
+              'x',
+              (link) => ((link.source as Node).x + (link.target as Node).x) / 2,
+            )
+            .attr(
+              'y',
+              (link) => ((link.source as Node).y + (link.target as Node).y) / 2,
+            );
+        })
+        .on('end', function (event, d) {});
+
       const nodeSelection = d3
         .select(nodeSelector)
         .selectAll('rect')
@@ -155,9 +200,9 @@ const useGraph = (
         .attr('stroke', 'black') // 경계선 색상
         .attr('stroke-width', 2) // 경계선 두께
         .attr('fill', 'white')
+        .call(handleDrag)
         .on('mouseover', handleMouseOver)
-        .on('mouseout', handleMouseOut)
-        .on('click', (_, d) => d.name && addChildrensNodes(d.name));
+        .on('mouseout', handleMouseOut);
 
       d3.select(nodeSelector)
         .selectAll('text')
@@ -171,6 +216,7 @@ const useGraph = (
         .style('font-weight', 700)
         .attr('fill', 'black')
         .style('color', '#222')
+        .call(handleDrag)
         .on('mouseover', handleMouseOver)
         .on('mouseout', handleMouseOut);
     },
