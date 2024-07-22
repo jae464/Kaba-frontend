@@ -31,9 +31,10 @@ export default function useGraphData(
     });
 
     const newNodes = [
-      { name: data.mainCharacter },
+      { name: data.mainCharacter, isCenter: true },
       ...filteredCharacters.map((v) => ({
         name: v,
+        isCenter: false,
       })),
     ] as Node[];
 
