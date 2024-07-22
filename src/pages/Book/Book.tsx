@@ -15,6 +15,7 @@ import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import PDFViewerOriginal from '../../components/PdfViewer/PdfViewerOriginal';
 import { CharacterRelationShip } from '../../type/api/relation';
 import { useMediaQuery } from 'react-responsive';
+import AlertModal from '../../components/AlertModal/AlertModal';
 
 const Book = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -37,6 +38,7 @@ const Book = () => {
   const [isFetchGraphDataFailed, setIsFetchGraphDataFailed] =
     useState<boolean>(false);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { bookId } = useParams();
   const navigate = useNavigate();
@@ -194,6 +196,10 @@ const Book = () => {
                     <DropdownMenu>
                       <DropdownItem
                         onClick={() => {
+                          if (pageNumber < 10) {
+                            setIsModalOpen(true);
+                            return;
+                          }
                           setIsDropdownOpen(false);
                           setIsOpened(true);
                           setNetworkGraphPage(pageNumber);
@@ -205,6 +211,10 @@ const Book = () => {
                       </DropdownItem>
                       <DropdownItem
                         onClick={() => {
+                          if (pageNumber < 10) {
+                            setIsModalOpen(true);
+                            return;
+                          }
                           setIsDropdownOpen(false);
                           setIsOpened(true);
                           setSummaryPage(pageNumber);
@@ -274,6 +284,23 @@ const Book = () => {
           )}
         </Container>
       </Layout>
+      {isModalOpen && (
+        <AlertModal
+          children={
+            <p>
+              <span style={{ fontWeight: 'bold' }}>"인물관계도"</span> ,{' '}
+              <span style={{ fontWeight: 'bold' }}>"지난줄거리"</span> 기능은{' '}
+              <span style={{ fontWeight: 'bold', color: 'red' }}>
+                최소 10페이지 이상
+              </span>
+              부터 사용할 수 있습니다.
+            </p>
+          }
+          onClose={() => {
+            setIsModalOpen(false);
+          }}
+        />
+      )}
     </>
   );
 };
