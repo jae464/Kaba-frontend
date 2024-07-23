@@ -44,6 +44,11 @@ const Container = styled.div`
     width: 100%;
     height: 85vh;
   }
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: 80vh;
+  }
 `;
 
 const Graph = styled.svg`

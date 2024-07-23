@@ -254,9 +254,13 @@ const Container = styled.div`
   overflow: auto;
 
   @media (max-width: 1224px) {
-    /* width: 80vw; */
     width: 100%;
     height: 85vh;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: 80vh;
   }
 `;
 
