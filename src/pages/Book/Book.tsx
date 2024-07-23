@@ -41,6 +41,7 @@ const Book = () => {
   const [isFetchGraphDataFailed, setIsFetchGraphDataFailed] =
     useState<boolean>(false);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -187,6 +188,12 @@ const Book = () => {
   useEffect(() => {
     setBook({ lastReadPage: pageNumber });
   }, [pageNumber, setBook]);
+
+  useEffect(() => {
+    if (isMobile) {
+      setScale(0.4);
+    }
+  }, [isMobile]);
 
   return (
     <>
