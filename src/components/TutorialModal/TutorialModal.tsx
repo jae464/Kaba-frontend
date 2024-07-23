@@ -25,20 +25,14 @@ const ModalContent = styled.div`
   justify-content: start;
   align-items: center;
   background-color: white;
-  padding: 20px;
+  padding: 1rem;
   border-radius: 8px;
   width: 80%;
-  height: 80%;
+  height: 90%;
 
   @media (max-width: 767px) {
+    padding: 12px;
   }
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
 `;
 
 const TutorialModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -115,7 +109,7 @@ const TutorialItemContainer = styled.div`
 `;
 
 const TutorialImage = styled.img`
-  max-width: 80%;
+  max-width: 65%;
   height: auto;
   max-height: 80%;
   margin-top: 2rem;
