@@ -110,6 +110,9 @@ const Book = () => {
 
   const handlePictureDiaryClicked = (sentence: string) => {
     console.log('sentence : ' + sentence);
+    if (containerRef.current && !isOpened) {
+      setWidth(containerRef.current.offsetWidth / 2);
+    }
     setIsOpened(true);
     setSelectedTab('그림일기');
     // setSelectedText(sentence);
@@ -209,6 +212,9 @@ const Book = () => {
                             return;
                           }
                           setIsDropdownOpen(false);
+                          if (containerRef.current && !isOpened) {
+                            setWidth(containerRef.current.offsetWidth / 2);
+                          }
                           setIsOpened(true);
                           setNetworkGraphPage(pageNumber);
                           setSelectedTab('인물관계도');
@@ -222,6 +228,9 @@ const Book = () => {
                           if (pageNumber < 10) {
                             setIsModalOpen(true);
                             return;
+                          }
+                          if (containerRef.current && !isOpened) {
+                            setWidth(containerRef.current.offsetWidth / 2);
                           }
                           setIsDropdownOpen(false);
                           setIsOpened(true);
