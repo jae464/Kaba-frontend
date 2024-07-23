@@ -16,6 +16,8 @@ import PDFViewerOriginal from '../../components/PdfViewer/PdfViewerOriginal';
 import { CharacterRelationShip } from '../../type/api/relation';
 import { useMediaQuery } from 'react-responsive';
 import AlertModal from '../../components/AlertModal/AlertModal';
+import { useRecoilState } from 'recoil';
+import { bookState } from '../../atoms/bookState';
 
 const Book = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -28,7 +30,7 @@ const Book = () => {
   const [isResizing, setIsResizing] = useState(false);
   const [initialX, setInitialX] = useState(0);
   const [width, setWidth] = useState(800);
-  const [pageNumber, setPageNumber] = useState(1);
+
   const [scale, setScale] = useState<number>(1);
   const [networkGraphPage, setNetworkGraphPage] = useState(0);
   const [summaryPage, setSummaryPage] = useState(0);
@@ -43,6 +45,10 @@ const Book = () => {
 
   const { bookId } = useParams();
   const navigate = useNavigate();
+
+  //순서 중요
+  const [book, setBook] = useRecoilState(bookState(bookId));
+  const [pageNumber, setPageNumber] = useState(book.lastReadPage);
 
   const fetchBook = async () => {
     if (bookId != null) {
@@ -150,6 +156,7 @@ const Book = () => {
 
   useEffect(() => {
     fetchBook();
+    console.log(book);
   }, []);
 
   useEffect(() => {
@@ -175,6 +182,10 @@ const Book = () => {
       document.body.style.overflow = 'auto';
     }
   }, [isOpened, isTabletOrMobile]);
+
+  useEffect(() => {
+    setBook({ lastReadPage: pageNumber });
+  }, [pageNumber, setBook]);
 
   return (
     <>
