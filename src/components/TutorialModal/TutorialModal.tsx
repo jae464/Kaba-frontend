@@ -119,6 +119,7 @@ const TutorialImage = styled.img`
 const TutorialDescription = styled.p`
   font-size: 16px;
   text-align: center;
+  line-height: 1.3;
 `;
 
 const StyledIoIosCloseCircleOutline = styled(IoIosClose)`
@@ -128,9 +129,9 @@ const StyledIoIosCloseCircleOutline = styled(IoIosClose)`
   padding: 0.5rem;
   margin-bottom: 1rem;
   border-radius: 2rem;
-  &:hover {
+  /* &:hover {
     background-color: #282c34;
-  }
+  } */
 `;
 
 const PageButtonContainer = styled.div`
@@ -146,9 +147,9 @@ const StyledFaChevronLeft = styled(FaChevronLeft)`
   padding: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
-  &:hover {
+  /* &:hover {
     background-color: #282c34;
-  }
+  } */
 `;
 
 const StyledFaChevronRight = styled(FaChevronRight)`
@@ -156,9 +157,9 @@ const StyledFaChevronRight = styled(FaChevronRight)`
   padding: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
-  &:hover {
+  /* &:hover {
     background-color: #282c34;
-  }
+  } */
 `;
 
 export default TutorialModal;

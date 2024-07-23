@@ -38,7 +38,6 @@ const Logo = styled.div`
   }
   @media (max-width: 767px) {
     margin: 0 auto;
-    padding-left: 4rem;
   }
 `;
 
@@ -64,6 +63,12 @@ const MenuButton = styled.button`
   font-size: 1.5rem;
   margin-left: auto;
 
+  @media (min-width: 769px) {
+    display: none;
+  }
+`;
+
+const StyledFaBars = styled(FaBars)`
   @media (min-width: 769px) {
     display: none;
   }
@@ -128,9 +133,12 @@ const Header: React.FC = () => {
         <Logo onClick={() => navigate('/')}>
           <img src={logo} />
         </Logo>
-        <MenuButton onClick={() => setMenuOpen(!isMenuOpen)}>
-          <FaBars />
-        </MenuButton>
+        <StyledFaBars
+          size={24}
+          onClick={() => setMenuOpen(!isMenuOpen)}
+          color="#ffd953"
+        />
+
         {!isMobile && (
           <StyledFaRegQuestionCircle size={36} onClick={handleModalOpen} />
         )}
