@@ -181,11 +181,14 @@ const TextContainer = styled.p`
   padding: 1rem;
   margin: 2rem;
   min-height: 10rem;
+  min-width: 80%;
   width: 80%;
   line-height: 1.5;
   border-radius: 1rem;
   background-color: #fef7da;
+
   @media (max-width: 767px) {
+    min-width: 50%;
     width: 50%;
     height: 40%;
     overflow: auto;
