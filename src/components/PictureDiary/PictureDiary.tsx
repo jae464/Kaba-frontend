@@ -176,7 +176,7 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
               alt=""
               width={'100%'}
               height={'100%'}
-              style={{ zIndex: 1200 }}
+              style={{ zIndex: 1200, borderRadius: '1rem' }}
             />
           )}
           {image && droppedText && (
