@@ -18,7 +18,8 @@ import { getCharactersAPI, postMessageAPI } from '../../api/openai';
 import { IoMdSend } from 'react-icons/io';
 import { Chat } from '../../type/chat';
 import { Message } from '../../api/request/MessageRequest';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { FaArrowLeft, FaChevronLeft } from 'react-icons/fa';
 
 const ChatRoom = () => {
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -29,6 +30,7 @@ const ChatRoom = () => {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { bookId } = useParams();
+  const navigate = useNavigate();
 
   const fetchProfiles = async () => {
     if (bookId != null) {
@@ -94,6 +96,7 @@ const ChatRoom = () => {
       <Layout>
         <Container>
           <CharacterList>
+            <StyledFaChevronLeft size={48} onClick={() => navigate('/chat')} />
             {profiles.map((v) => (
               <ChatProfile
                 profile={v}
@@ -223,6 +226,20 @@ const ChatInput = styled.input`
   height: 3rem;
   &:disabled {
     background-color: #ddd;
+  }
+`;
+
+const StyledFaChevronLeft = styled(FaChevronLeft)`
+  color: #ffd953;
+
+  padding: 0.7rem;
+
+  cursor: pointer;
+
+  @media (max-width: 767px) {
+    &:hover {
+      background-color: transparent;
+    }
   }
 `;
 
