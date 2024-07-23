@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { BsChatText } from 'react-icons/bs';
 import TutorialModal from '../TutorialModal/TutorialModal';
 import { useMediaQuery } from 'react-responsive';
+import logo from '../../assets/images/kaba_logo.png';
 
 const HeaderContainer = styled.header`
   /* position: fixed; */
@@ -30,9 +31,14 @@ const Logo = styled.div`
   font-family: 'MangoDdobak-B';
   font-size: 24px;
   cursor: pointer;
+
+  > img {
+    width: 48px;
+    height: 48px;
+  }
   @media (max-width: 767px) {
     margin: 0 auto;
-    padding-left: 5rem;
+    padding-left: 4rem;
   }
 `;
 
@@ -119,7 +125,9 @@ const Header: React.FC = () => {
         {isMobile && (
           <StyledFaRegQuestionCircle size={36} onClick={handleModalOpen} />
         )}
-        <Logo onClick={() => navigate('/')}>KABA</Logo>
+        <Logo onClick={() => navigate('/')}>
+          <img src={logo} />
+        </Logo>
         <MenuButton onClick={() => setMenuOpen(!isMenuOpen)}>
           <FaBars />
         </MenuButton>
