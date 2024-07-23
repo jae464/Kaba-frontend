@@ -366,6 +366,11 @@ const StyledFaChevronLeft = styled(FaChevronLeft)`
   &:hover {
     background-color: #282c34;
   }
+  @media (max-width: 769px) {
+    &:hover {
+      background-color: unset;
+    }
+  }
 `;
 
 const StyledFaChevronRight = styled(FaChevronRight)`
@@ -375,6 +380,11 @@ const StyledFaChevronRight = styled(FaChevronRight)`
   cursor: pointer;
   &:hover {
     background-color: #282c34;
+  }
+  @media (max-width: 769px) {
+    &:hover {
+      background-color: unset;
+    }
   }
 `;
 

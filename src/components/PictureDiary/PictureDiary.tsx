@@ -254,8 +254,9 @@ const Container = styled.div`
   overflow: auto;
 
   @media (max-width: 1224px) {
-    width: 80vw;
-    height: 80vh;
+    /* width: 80vw; */
+    width: 100%;
+    height: 85vh;
   }
 `;
 
@@ -280,14 +281,14 @@ const EditContainer = styled.div`
   @media (max-width: 1224px) {
     width: 80%;
     /* height: 30%; */
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 1rem;
   }
 
   @media (max-width: 767px) {
     width: 80%;
     /* height: 30%; */
-    margin: 1rem;
+    margin: 0.5rem;
     padding: 1rem;
   }
 `;

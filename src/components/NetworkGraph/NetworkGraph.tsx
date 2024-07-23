@@ -41,8 +41,8 @@ const Container = styled.div`
   position: relative;
 
   @media (max-width: 1224px) {
-    width: 80vw;
-    height: 80vh;
+    width: 100%;
+    height: 85vh;
   }
 `;
 

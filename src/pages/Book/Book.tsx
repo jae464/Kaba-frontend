@@ -18,6 +18,7 @@ import { useMediaQuery } from 'react-responsive';
 import AlertModal from '../../components/AlertModal/AlertModal';
 import { useRecoilState } from 'recoil';
 import { bookState } from '../../atoms/bookState';
+import { IoIosClose } from 'react-icons/io';
 
 const Book = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -303,9 +304,11 @@ const Book = () => {
                 isOpen={isOpened}
                 shouldCloseOnOverlayClick={false}
               >
-                <CloseButton onClick={() => setIsOpened(false)}>
-                  <FaTimes size={32} />
-                </CloseButton>
+                <StyledIoIosCloseCircleOutline
+                  size={36}
+                  onClick={() => setIsOpened(false)}
+                />
+
                 {renderGenAIContainer(selectedTab)}
               </CustomReactModal>
             </>
@@ -399,6 +402,12 @@ const StyledFaChevronLeft = styled(FaArrowLeft)`
   &:hover {
     background-color: #282c34;
   }
+
+  @media (max-width: 767px) {
+    &:hover {
+      background-color: transparent;
+    }
+  }
 `;
 
 const StyledFaBars = styled(FaBars)`
@@ -408,6 +417,11 @@ const StyledFaBars = styled(FaBars)`
   color: white;
   &:hover {
     background-color: #282c34;
+  }
+  @media (max-width: 767px) {
+    &:hover {
+      background-color: #fad346;
+    }
   }
 `;
 
@@ -473,12 +487,14 @@ const CustomReactModal = styled(ReactModal)`
   position: fixed;
   top: 50%;
   left: 50%;
-
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
+  width: 90%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: none;
   border-radius: 10px;
   background-color: white;
 `;
@@ -489,4 +505,16 @@ const CloseButton = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+const StyledIoIosCloseCircleOutline = styled(IoIosClose)`
+  cursor: pointer;
+  color: #ffd953;
+  margin-left: auto;
+  margin-bottom: 1rem;
+  border-radius: 2rem;
+  /* &:hover {
+    background-color: #282c34;
+  } */
+`;
+
 export default Book;

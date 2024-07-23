@@ -54,7 +54,7 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
     <>
       <Container>
         <Title>지난줄거리</Title>
-        <p style={{ marginTop: '1rem' }}>
+        <p style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>
           <span style={{ fontWeight: 'bold' }}>{page} 페이지</span>까지의
           줄거리입니다.
         </p>
@@ -118,8 +118,9 @@ const Container = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 1224px) {
-    width: 80vw;
-    height: 70vh;
+    width: 100%;
+    height: 85vh;
+    margin: 0;
   }
 `;
 
@@ -144,11 +145,21 @@ const ImageContainer = styled.img`
   height: 400px;
   border-radius: 1rem;
   @media (max-width: 1224px) {
+    /* width: 50%;
+    height: 40%; */
+    width: 400px;
+    height: 400px;
+    > img {
+      object-fit: contain;
+      border-radius: 1rem;
+    }
+  }
+  @media (max-width: 767px) {
     width: 50%;
     height: 50%;
     > img {
       object-fit: contain;
-      border-radius: 1rem;
+      border-radius: 0.5;
     }
   }
 `;
@@ -156,7 +167,6 @@ const ImageContainer = styled.img`
 const StoryContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 90%;
 `;
 
 const TextContainer = styled.p`
@@ -169,6 +179,11 @@ const TextContainer = styled.p`
   line-height: 1.5;
   border-radius: 1rem;
   background-color: #fef7da;
+  @media (max-width: 767px) {
+    width: 50%;
+    height: 40%;
+    overflow: auto;
+  }
 `;
 
 const ChevronContainer = styled.div`
@@ -187,6 +202,11 @@ const StyledFaChevronLeft = styled(FaChevronLeft)`
   &:hover {
     background-color: #282c34;
   }
+  @media (max-width: 767px) {
+    &:hover {
+      background-color: unset;
+    }
+  }
 `;
 
 const StyledFaChevronRight = styled(FaChevronRight)`
@@ -197,6 +217,11 @@ const StyledFaChevronRight = styled(FaChevronRight)`
   cursor: pointer;
   &:hover {
     background-color: #282c34;
+  }
+  @media (max-width: 767px) {
+    &:hover {
+      background-color: unset;
+    }
   }
 `;
 
