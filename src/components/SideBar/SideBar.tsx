@@ -5,9 +5,7 @@ import { FaBaby, FaHome, FaSearch } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { selectedItemState } from '../../atoms/sidebarState';
-import { FaPerson, FaPersonRifle } from 'react-icons/fa6';
 import { BsChatText, BsPeople } from 'react-icons/bs';
-import { CgProfile } from 'react-icons/cg';
 
 const SideBarContainer = styled.aside`
   display: flex;

@@ -4,7 +4,7 @@ import { FaArrowLeft, FaBars, FaMinus, FaPlus, FaTimes } from 'react-icons/fa';
 
 import NetworkGraph from '../../components/NetworkGraph/NetworkGraph';
 import ReactModal from 'react-modal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Layout from '../../components/Layout/Layout';
 import { getBookAPI, getNetworkGraphDataAPI } from '../../api/openai';
 import PictureDiary from '../../components/PictureDiary/PictureDiary';
@@ -39,6 +39,7 @@ const Book = () => {
     useState<boolean>(false);
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' });
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const { bookId } = useParams();
   const navigate = useNavigate();
@@ -90,12 +91,19 @@ const Book = () => {
   };
 
   const handleMouseMove = (e: MouseEvent) => {
-    if (isResizing) {
+    if (isResizing && containerRef.current) {
       const newWidth = width + e.clientX - initialX;
+      const containerWidth = containerRef.current.offsetWidth;
+
       setInitialX(e.clientX);
-      if (newWidth >= 600 && newWidth <= 2000) {
-        console.log(newWidth);
-        setWidth(newWidth);
+
+      if (newWidth >= 600 && newWidth <= containerWidth) {
+        if (newWidth > containerWidth * 0.9) {
+          setIsOpened(false);
+          setWidth(800);
+        } else {
+          setWidth(newWidth);
+        }
       }
     }
   };
@@ -168,7 +176,7 @@ const Book = () => {
   return (
     <>
       <Layout>
-        <Container>
+        <Container ref={containerRef}>
           <LeftArea width={width} isOpened={isOpened}>
             <PDFContainer>
               <TopBar>
@@ -319,7 +327,11 @@ const Container = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+
   background-color: #fef7da;
+  @media (min-width: 1224px) {
+    max-width: 97vw;
+  }
 `;
 
 const LeftArea = styled.div<{ width: number; isOpened: boolean }>`
