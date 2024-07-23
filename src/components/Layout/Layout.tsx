@@ -26,8 +26,8 @@ const Layout = ({ children }: LayoutProps) => {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 100vw;
-  height: 100vh;
+  max-width: 100dvw;
+  height: 100dvh;
   overflow-x: auto;
 `;
 

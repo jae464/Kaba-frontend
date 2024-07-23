@@ -47,7 +47,7 @@ const Container = styled.div`
 
   @media (max-width: 767px) {
     width: 100%;
-    height: 80vh;
+    height: 80dvh;
   }
 `;
 

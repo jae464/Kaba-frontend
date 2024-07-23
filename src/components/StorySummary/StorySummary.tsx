@@ -120,12 +120,12 @@ const Container = styled.div`
   @media (max-width: 1224px) {
     width: 100%;
     height: 85vh;
-    marign: 0;
+    margin: 0;
   }
 
   @media (max-width: 767px) {
     width: 100%;
-    height: 80vh;
+    height: 80dvh;
     margin: 0;
   }
 `;
