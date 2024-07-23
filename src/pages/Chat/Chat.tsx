@@ -29,7 +29,7 @@ const Chat = () => {
           <Layer style={{ backgroundColor: '#F7FBFF' }}>
             <Title>감상한 작품</Title>
             <BookList>
-              {books?.books.slice(0, 1).map((book, index) => (
+              {books?.books.slice(0, 2).map((book, index) => (
                 <BookThumbnail
                   key={index}
                   id={book.id}
@@ -74,6 +74,13 @@ const BookList = styled.div`
   margin-top: 1rem;
   // flex-wrap: wrap;
   // justify-content: center;
+  flex-wrap: wrap;
+  justify-content: start;
+  gap: 1.5rem;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export default Chat;

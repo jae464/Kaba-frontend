@@ -6,6 +6,9 @@ import {
   diaryImage,
   diaryImages,
   peopleDatas,
+  profilesData_1,
+  profilesData_2,
+  profilesDatas,
   sampleChats,
   storyData,
   wikiData,
@@ -17,6 +20,7 @@ import { WikiData } from '../type/api/wiki';
 import { ChatData } from '../type/api/chat';
 import { CharacterRelationShip } from '../type/api/relation';
 import { MessageRequest } from './request/MessageRequest';
+import { Profile } from '../type/profile';
 
 const BASE_URL = 'https://ai.kaba.team';
 
@@ -142,4 +146,17 @@ export async function postMessageAPI({
   const res = await axios.post(`${BASE_URL}/ai-chat`, { character, messages });
   console.log(res.data);
   return res.data;
+}
+
+// 등장인물 프로필 가져오기
+export async function getCharactersAPI(bookId: number): Promise<Profile[]> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (bookId === 1) {
+        resolve(profilesData_1);
+      } else if (bookId === 2) {
+        resolve(profilesData_2);
+      }
+    }, 100);
+  });
 }

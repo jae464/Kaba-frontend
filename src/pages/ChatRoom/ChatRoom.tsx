@@ -5,6 +5,7 @@ import {
   diaryImages,
   profiles,
   profilesData,
+  profilesData_1,
   sampleChats,
 } from '../../constants/sampleData';
 import ChatProfile from '../../components/ChatProfile/ChatProfile';
@@ -12,42 +13,29 @@ import { useEffect, useRef, useState } from 'react';
 import { ChatData } from '../../type/api/chat';
 import { Profile } from '../../type/profile';
 import ChatBubble from '../../components/ChatBubble/ChatBubble';
-import { postMessageAPI } from '../../api/openai';
+import { getCharactersAPI, postMessageAPI } from '../../api/openai';
 
 import { IoMdSend } from 'react-icons/io';
 import { Chat } from '../../type/chat';
 import { Message } from '../../api/request/MessageRequest';
+import { useParams } from 'react-router-dom';
 
 const ChatRoom = () => {
-  const [profiles, setProfiles] = useState(profilesData);
+  const [profiles, setProfiles] = useState<Profile[]>([]);
   const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
   const [chats, setChats] = useState<Message[]>([]);
   const [message, setMessage] = useState('');
   const [isSending, setIsSending] = useState<boolean>(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-  useEffect(() => {
-    if (selectedProfile != null) {
-      // clearChatHistoryAPI(selectedProfile.name);
-      setChats([
-        {
-          role: 'assistant',
-          content: `안녕 나는 ${selectedProfile.name} 라고해! 반가워!`,
-          // name: selectedProfile.name,
-          // message: `안녕 나는 ${selectedProfile.name} 라고해! 반가워!`,
-        },
-      ]);
-    }
-  }, [selectedProfile]);
+  const { bookId } = useParams();
 
-  useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+  const fetchProfiles = async () => {
+    if (bookId != null) {
+      const data = await getCharactersAPI(Number(bookId));
+      setProfiles(data);
     }
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [chats, isSending]);
+  };
 
   const sendMessage = async () => {
     if (message !== '' && selectedProfile != null) {
@@ -74,6 +62,32 @@ const ChatRoom = () => {
       sendMessage();
     }
   };
+
+  useEffect(() => {
+    fetchProfiles();
+  }, []);
+  useEffect(() => {
+    if (selectedProfile != null) {
+      // clearChatHistoryAPI(selectedProfile.name);
+      setChats([
+        {
+          role: 'assistant',
+          content: `안녕 나는 ${selectedProfile.name} 라고해! 반가워!`,
+          // name: selectedProfile.name,
+          // message: `안녕 나는 ${selectedProfile.name} 라고해! 반가워!`,
+        },
+      ]);
+    }
+  }, [selectedProfile]);
+
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [chats, isSending]);
 
   return (
     <>

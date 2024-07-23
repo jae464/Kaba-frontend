@@ -180,7 +180,7 @@ export const diaryImages = [
   { picture_url: '/src/assets/images/diary_image_6.png' },
 ];
 
-export const profilesData: Profile[] = [
+export const profilesData_1: Profile[] = [
   {
     imageSrc: '/src/assets/images/profile_prince.jpeg',
     name: '어린 왕자',
@@ -196,7 +196,32 @@ export const profilesData: Profile[] = [
     name: '보아뱀',
     highlight: false,
   },
+  {
+    imageSrc: '/src/assets/images/profile_starlover.jpeg',
+    name: '천문학자',
+    highlight: false,
+  },
+  {
+    imageSrc: '/src/assets/images/profile_ceo.jpeg',
+    name: '사업가',
+    highlight: false,
+  },
 ];
+
+export const profilesData_2: Profile[] = [
+  {
+    imageSrc: '/src/assets/images/profile_romeo.jpeg',
+    name: '로미오',
+    highlight: false,
+  },
+  {
+    imageSrc: '/src/assets/images/profile_juliet.jpg',
+    name: '줄리엣',
+    highlight: false,
+  },
+];
+
+export const profilesDatas = [...profilesData_1, ...profilesData_2];
 
 export const wikiData: WikiData = {
   information:
