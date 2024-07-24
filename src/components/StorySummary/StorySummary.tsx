@@ -173,22 +173,26 @@ const ImageContainer = styled.img`
 const StoryContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;
 
 const TextContainer = styled.p`
   display: flex;
   flex-direction: row;
   padding: 1rem;
-  margin: 2rem;
+  margin: 1rem;
   min-height: 10rem;
-  min-width: 80%;
-  width: 80%;
+  min-width: 75%;
+  width: 75%;
+  max-width: 75%;
   line-height: 1.5;
   border-radius: 1rem;
   background-color: #fef7da;
 
   @media (max-width: 767px) {
     min-width: 50%;
+    max-width: 50%;
     width: 50%;
     height: 40%;
     overflow: auto;
@@ -208,9 +212,9 @@ const StyledFaChevronLeft = styled(FaChevronLeft)`
   padding: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
-  &:hover {
+  /* &:hover {
     background-color: #282c34;
-  }
+  } */
   @media (max-width: 767px) {
     &:hover {
       background-color: unset;
