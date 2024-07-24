@@ -31,8 +31,6 @@ const Book = () => {
   const [isResizing, setIsResizing] = useState(false);
   const [initialX, setInitialX] = useState(0);
   const [width, setWidth] = useState(800);
-
-  const [scale, setScale] = useState<number>(1);
   const [networkGraphPage, setNetworkGraphPage] = useState(0);
   const [summaryPage, setSummaryPage] = useState(0);
   const [wikiKeyword, setWikiKeyword] = useState<string>('');
@@ -186,14 +184,14 @@ const Book = () => {
   }, [isOpened, isTabletOrMobile]);
 
   useEffect(() => {
-    setBook({ lastReadPage: pageNumber });
+    setBook((prevState) => ({ ...prevState, lastReadPage: pageNumber }));
   }, [pageNumber, setBook]);
 
   useEffect(() => {
     if (isMobile) {
-      setScale(0.4);
+      setBook((prev) => ({ ...prev, scale: 0.4 }));
     }
-  }, [isMobile]);
+  }, [isMobile, setBook]);
 
   return (
     <>
@@ -207,14 +205,16 @@ const Book = () => {
                   <StyledFaMinus
                     size={48}
                     onClick={() => {
-                      setScale((prev) => prev - 0.1);
+                      // setScale((prev) => prev - 0.1);
+                      setBook((prev) => ({ ...prev, scale: prev.scale - 0.1 }));
                     }}
                   />
 
                   <StyledFaPlus
                     size={48}
                     onClick={() => {
-                      setScale((prev) => prev + 0.1);
+                      // setScale((prev) => prev + 0.1);
+                      setBook((prev) => ({ ...prev, scale: prev.scale + 0.1 }));
                     }}
                   />
                 </ZoomContainer>
@@ -268,7 +268,7 @@ const Book = () => {
                 <PDFViewerOriginal
                   path={filePath}
                   pageNumber={pageNumber}
-                  scale={scale}
+                  scale={book.scale}
                   setPageNumber={setPageNumber}
                   onClickPictureDiary={handlePictureDiaryClicked}
                   onClickKabaWiki={handleKabaWikiClicked}

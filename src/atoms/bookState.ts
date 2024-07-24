@@ -4,5 +4,6 @@ export const bookState = atomFamily({
   key: 'bookState',
   default: (id) => ({
     lastReadPage: 1,
+    scale: 1,
   }),
 });
