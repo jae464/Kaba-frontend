@@ -212,9 +212,9 @@ const StyledFaChevronLeft = styled(FaChevronLeft)`
   padding: 0.5rem;
   border-radius: 2rem;
   cursor: pointer;
-  /* &:hover {
+  &:hover {
     background-color: #282c34;
-  } */
+  }
   @media (max-width: 767px) {
     &:hover {
       background-color: unset;
