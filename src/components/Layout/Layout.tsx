@@ -33,13 +33,11 @@ const Container = styled.div`
 
 const Main = styled.div`
   display: flex;
-  height: 100%;
   flex: 1;
 `;
 
 const Content = styled.main`
   flex: 1;
-  height: 100%;
 `;
 
 const TutorialContainer = styled.div``;
