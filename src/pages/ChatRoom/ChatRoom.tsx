@@ -185,7 +185,7 @@ const ChatBubbleWrapper = styled.div`
   flex-direction: column;
   /* position: relative; */
   width: 100%;
-  height: 80vh;
+  height: 80dvh;
   /* background-color: black; */
   overflow-y: auto;
 `;
