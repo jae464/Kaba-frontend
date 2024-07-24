@@ -197,12 +197,12 @@ export const profilesData_1: Profile[] = [
     highlight: false,
   },
   {
-    imageSrc: '/src/assets/images/profile_starlover.jpeg',
+    imageSrc: '/src/assets/images/profile_star.png',
     name: '천문학자',
     highlight: false,
   },
   {
-    imageSrc: '/src/assets/images/profile_ceo.jpeg',
+    imageSrc: '/src/assets/images/profile_ceo.png',
     name: '사업가',
     highlight: false,
   },
@@ -210,12 +210,12 @@ export const profilesData_1: Profile[] = [
 
 export const profilesData_2: Profile[] = [
   {
-    imageSrc: '/src/assets/images/profile_romeo.jpeg',
+    imageSrc: '/src/assets/images/profile_romeo.png',
     name: '로미오',
     highlight: false,
   },
   {
-    imageSrc: '/src/assets/images/profile_juliet.jpg',
+    imageSrc: '/src/assets/images/profile_juliet.png',
     name: '줄리엣',
     highlight: false,
   },

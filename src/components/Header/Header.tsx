@@ -130,7 +130,12 @@ const Header: React.FC = () => {
         {isMobile && (
           <StyledFaRegQuestionCircle size={36} onClick={handleModalOpen} />
         )}
-        <Logo onClick={() => navigate('/')}>
+        <Logo
+          onClick={() => {
+            setSelectedItem('/');
+            navigate('/');
+          }}
+        >
           <img src={logo} />
         </Logo>
         <StyledFaBars
