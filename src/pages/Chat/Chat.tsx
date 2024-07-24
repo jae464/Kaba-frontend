@@ -52,6 +52,9 @@ const Chat = () => {
 
 const Container = styled.div`
   padding: 0 50px;
+  @media (max-width: 767px) {
+    padding: 0 20px;
+  }
 `;
 
 const Title = styled.h1`
@@ -59,6 +62,11 @@ const Title = styled.h1`
   font-weight: bold;
   margin-top: 1rem;
   margin-left: 0.5rem;
+
+  @media (max-width: 767px) {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 `;
 
 const Layer = styled.div`
@@ -66,6 +74,11 @@ const Layer = styled.div`
   padding: 1rem;
   margin: 3rem 0;
   width: 100%;
+
+  @media (max-width: 767px) {
+    padding: 0.5rem;
+    margin: 1rem 0;
+  }
 `;
 
 const BookList = styled.div`
