@@ -238,7 +238,7 @@ const TextContainer = styled.p`
     width: 256px;
     max-width: 256px;
     height: auto;
-    max-height: 35%;
+    max-height: 30%;
     overflow: auto;
   }
 `;
