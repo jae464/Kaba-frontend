@@ -35,7 +35,7 @@ const Home = () => {
               </LoadingContainer>
             )}
             <BookList>
-              {books?.books.slice(0, 3).map((book, index) => (
+              {books?.books.slice(0, 2).map((book, index) => (
                 <BookThumbnail
                   key={index}
                   id={book.id}

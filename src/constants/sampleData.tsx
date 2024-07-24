@@ -106,17 +106,17 @@ export const books: BooksData = {
       file_path: '/src/assets/pdfs/romeo_and_juliet.pdf',
       is_exist: true,
     },
+    // {
+    //   id: '3',
+    //   title: '이방인',
+    //   author: '알베르 카뮈',
+    //   description: '알베르 카뮈의 소설',
+    //   thumbnail_image: 'public/ebang.jpeg',
+    //   file_path: '/src/assets/pdfs/1377342678.pdf',
+    //   is_exist: false, // 실제 존재하는 파일인지 여부
+    // },
     {
       id: '3',
-      title: '이방인',
-      author: '알베르 카뮈',
-      description: '알베르 카뮈의 소설',
-      thumbnail_image: 'public/ebang.jpeg',
-      file_path: '/src/assets/pdfs/1377342678.pdf',
-      is_exist: true, // 실제 존재하는 파일인지 여부
-    },
-    {
-      id: '4',
       title: '감정의 이해',
       author: '작가 1',
       description: '감정에 대한 이해를 돕는 책',
@@ -125,7 +125,7 @@ export const books: BooksData = {
       is_exist: false,
     },
     {
-      id: '5',
+      id: '4',
       title: '나미야 잡화점의 기적',
       author: '히가시노 게이고',
       description: '히가시노 게이고의 소설',
@@ -134,7 +134,7 @@ export const books: BooksData = {
       is_exist: false,
     },
     {
-      id: '6',
+      id: '5',
       title: '과거에 붙잡힌 사람을 위한 책',
       author: '작가 2',
       description: '과거에 얽매인 사람들을 위한 책',
