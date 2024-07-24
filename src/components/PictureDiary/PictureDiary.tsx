@@ -174,8 +174,8 @@ const PictureDiary = ({ bookId, sentence }: PictureDiaryProps) => {
               draggable={false}
               src={image}
               alt=""
-              width={'100%'}
-              height={'100%'}
+              // width={'100%'}
+              // height={'100%'}
               style={{ zIndex: 1200, borderRadius: '1rem' }}
             />
           )}
@@ -362,10 +362,19 @@ const ImageContainer = styled.div`
   z-index: 1000;
   align-items: center;
 
+  > img {
+    width: 512px;
+    height: 512px;
+    object-fit: contain;
+    border-radius: 0.5;
+  }
+
   @media (max-width: 1224px) {
     width: 400px;
     height: 400px;
     > img {
+      width: 400px;
+      height: 400px;
       object-fit: contain;
       border-radius: 1rem;
     }
@@ -375,6 +384,8 @@ const ImageContainer = styled.div`
     width: 256px;
     height: 256px;
     > img {
+      width: 256px;
+      height: 256px;
       object-fit: contain;
       border-radius: 0.5;
     }

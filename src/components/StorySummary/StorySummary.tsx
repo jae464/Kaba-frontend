@@ -8,6 +8,7 @@ import Lottie from 'react-lottie';
 import animationData from '../../constants/book_loading.json';
 import FailureLottie from '../Lotties/FailureLottie';
 import LoadingLottie from '../Lotties/LoadingLottie';
+import { useMediaQuery } from 'react-responsive';
 
 interface StorySummaryProps {
   bookId: string;
@@ -18,6 +19,7 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
   const [summaryPage, setSummaryPage] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isFailed, setIsFailed] = useState<boolean>(false);
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const defaultOptions = {
     loop: true,
@@ -64,27 +66,54 @@ const StorySummary = ({ bookId, page }: StorySummaryProps) => {
             <>
               <ImageContainer src={summary.response[summaryPage].img_url[0]} />
               <StoryContainer>
-                <ChevronContainer>
-                  {summaryPage > 0 && (
-                    <StyledFaChevronLeft
-                      size={48}
-                      onClick={() => {
-                        setSummaryPage((prev) => prev - 1);
-                      }}
-                    />
-                  )}
-                </ChevronContainer>
+                {!isMobile && (
+                  <ChevronContainer>
+                    {summaryPage > 0 && (
+                      <StyledFaChevronLeft
+                        size={48}
+                        onClick={() => {
+                          setSummaryPage((prev) => prev - 1);
+                        }}
+                      />
+                    )}
+                  </ChevronContainer>
+                )}
                 <TextContainer>
                   {summary.response[summaryPage].sent}
                 </TextContainer>
-                <ChevronContainer>
-                  {summary && summaryPage < summary?.response.length - 1 && (
-                    <StyledFaChevronRight
-                      size={48}
-                      onClick={() => setSummaryPage((prev) => prev + 1)}
-                    />
-                  )}
-                </ChevronContainer>
+                {!isMobile && (
+                  <ChevronContainer>
+                    {summary && summaryPage < summary?.response.length - 1 && (
+                      <StyledFaChevronRight
+                        size={48}
+                        onClick={() => setSummaryPage((prev) => prev + 1)}
+                      />
+                    )}
+                  </ChevronContainer>
+                )}
+                {isMobile && (
+                  <ButtonContainer>
+                    <ChevronContainer>
+                      {summaryPage > 0 && (
+                        <StyledFaChevronLeft
+                          size={48}
+                          onClick={() => {
+                            setSummaryPage((prev) => prev - 1);
+                          }}
+                        />
+                      )}
+                    </ChevronContainer>
+                    <ChevronContainer>
+                      {summary &&
+                        summaryPage < summary?.response.length - 1 && (
+                          <StyledFaChevronRight
+                            size={48}
+                            onClick={() => setSummaryPage((prev) => prev + 1)}
+                          />
+                        )}
+                    </ChevronContainer>
+                  </ButtonContainer>
+                )}
               </StoryContainer>
             </>
           )}
@@ -144,6 +173,9 @@ const SummaryBox = styled.div`
   /* height: 84vh; */
   justify-content: center;
   align-items: center;
+  @media (max-width: 767px) {
+    gap: 12px;
+  }
 `;
 
 const ImageContainer = styled.img`
@@ -155,18 +187,23 @@ const ImageContainer = styled.img`
     height: 40%; */
     width: 400px;
     height: 400px;
-    > img {
+    object-fit: contain;
+    /* > img {
       object-fit: contain;
       border-radius: 1rem;
-    }
+    } */
   }
   @media (max-width: 767px) {
-    width: 50%;
-    height: 50%;
-    > img {
+    /* width: 50%;
+    height: 50%; */
+    width: 256px;
+    height: 256px;
+    object-fit: contain;
+    border-radius: 0.5;
+    /* > img {
       object-fit: contain;
       border-radius: 0.5;
-    }
+    } */
   }
 `;
 
@@ -175,6 +212,10 @@ const StoryContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    gap: 12px;
+  }
 `;
 
 const TextContainer = styled.p`
@@ -191,12 +232,22 @@ const TextContainer = styled.p`
   background-color: #fef7da;
 
   @media (max-width: 767px) {
-    min-width: 50%;
-    max-width: 50%;
-    width: 50%;
-    height: 40%;
+    /* min-width: 50%;
+    max-width: 50%; */
+    margin: 0;
+    width: 256px;
+    max-width: 256px;
+    height: auto;
+    max-height: 35%;
     overflow: auto;
   }
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const ChevronContainer = styled.div`
