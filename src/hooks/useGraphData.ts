@@ -12,7 +12,12 @@ export default function useGraphData(
   const nodes = useRef<Node[]>([]);
 
   useEffect(() => {
-    if (data == null || page === 0) {
+    if (
+      data == null ||
+      !data.mainCharacter ||
+      !data.relationMap ||
+      page === 0
+    ) {
       return;
     }
     console.log(`${data.mainCharacter} ${data.characters} ${data.relationMap}`);
