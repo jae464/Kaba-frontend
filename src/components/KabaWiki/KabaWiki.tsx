@@ -6,6 +6,7 @@ import { getWikiAPI } from '../../api/openai';
 import Draggable from 'react-draggable';
 import Lottie from 'react-lottie';
 import animationData from '../../constants/book_loading.json';
+import FailureLottie from '../Lotties/FailureLottie';
 
 interface KabaWikiProps {
   bookId: string;
@@ -16,6 +17,7 @@ interface KabaWikiProps {
 const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
   const [wiki, setWiki] = useState<WikiData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isFailed, setIsFailed] = useState<boolean>(false);
 
   const defaultOptions = {
     loop: true,
@@ -28,9 +30,18 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
 
   const fetchWikiData = async () => {
     setIsLoading(true);
-    const data = await getWikiAPI(bookId, search);
-    setWiki(data);
-    setIsLoading(false);
+    try {
+      const data = await getWikiAPI(bookId, search);
+      if (data && data.response) {
+        setWiki(data);
+        setIsFailed(false);
+        setIsLoading(false);
+      }
+    } catch {
+      console.log('catch');
+      setIsFailed(true);
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     fetchWikiData();
@@ -42,15 +53,30 @@ const KabaWiki = ({ bookId, search, onClickClose }: KabaWikiProps) => {
         <Container>
           <Header>
             <HeaderTitle className="draggable-handle">KABA 위키</HeaderTitle>
-
             <IoMdClose size={28} onClick={onClickClose} />
           </Header>
 
           <Content>
             <Title>{search}</Title>
-            {isLoading && <Lottie options={defaultOptions} />}
+            {isLoading && !isFailed && <Lottie options={defaultOptions} />}
             {!isLoading && wiki && (
               <div style={{ lineHeight: '1.5rem' }}>{wiki.response}</div>
+            )}
+            {!isLoading && isFailed && (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: '1rem',
+                }}
+              >
+                <FailureLottie />
+                <p style={{ fontSize: '1rem', alignItems: 'center' }}>
+                  서버에서 데이터를 받아오는데 실패했습니다.
+                </p>
+              </div>
             )}
           </Content>
         </Container>
