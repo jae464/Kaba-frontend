@@ -67,6 +67,8 @@ const Book = () => {
         if (
           !datas ||
           !datas.mainCharacter ||
+          !datas.characters ||
+          !datas.relationMap ||
           datas.characters.length === 0 ||
           datas.relationMap.length === 0
         ) {

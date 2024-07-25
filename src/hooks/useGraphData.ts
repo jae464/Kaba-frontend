@@ -15,6 +15,7 @@ export default function useGraphData(
     if (
       data == null ||
       !data.mainCharacter ||
+      !data.characters ||
       !data.relationMap ||
       page === 0
     ) {
