@@ -14,6 +14,11 @@ AI로 초등학생들의 책 읽기 흥미를 높이고, 건강한 독서 습관
 Mock 데이터 배포 주소 : https://kaba-frontend.vercel.app/
 <br />
 
+## 데모 영상
+
+https://github.com/user-attachments/assets/68b2e44c-00c7-4518-895c-d2d35afa53ad
+
+
 ## 핵심 기능
 
 ### 1. 인물 관계도
