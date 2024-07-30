@@ -10,6 +10,7 @@ const enableMocking = async () => {
     import.meta.env.PROD
   ) {
     console.log('process env development');
+    console.log(import.meta.env.REACT_APP_USE_MOCKS);
     const { worker } = await import('./mocks/browser');
     worker.start();
   }
