@@ -6,6 +6,7 @@
 
 AI로 초등학생들의 책 읽기 흥미를 높이고, 건강한 독서 습관을 만들어주는 교육용 AI 북메이트 서비스, KT AI Book Assistant, KABA 입니다.
 
+[디자인](https://www.figma.com/design/PMqkOetx8UcvbGMjb5OGdG/Gen-AI-GUI?node-id=0-1&t=r3TUnvxoE48GTOhm-0) | [AI서버](https://github.com/LuterGS/kaba-ai)
 <br />
 
 ## 핵심 기능
@@ -52,7 +53,7 @@ AI로 초등학생들의 책 읽기 흥미를 높이고, 건강한 독서 습관
 ## 팀원 소개
 
 
-| [이관석](https://github.com/LuterGS) | [이민재](https://github.com/jae464) | [한재호](https://github.com/JAEJAE93) | 이유련 |
+| [이관석](https://github.com/LuterGS) | [이민재](https://github.com/jae464) | [한재호](https://github.com/JAEJAE93) | [이유련](https://github.com/Leeyuryeon) |
 | :--: | :--: | :--: | :---: |
 | <img src="https://avatars.githubusercontent.com/u/19836058?v=4" width="120" />| <img src="https://avatars.githubusercontent.com/u/72593548?v=4" width="120" /> | <img src="https://github.com/user-attachments/assets/77816ee3-e463-4ee7-b4ce-0af8a61cd8b1" width="120" height="120"/> | <img src="https://github.com/user-attachments/assets/eb13a179-6318-41af-97c3-83449af92e4b" width="120" height="120" />|
 | 리더 / BE | FE | AI | Design |
