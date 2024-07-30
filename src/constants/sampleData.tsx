@@ -147,26 +147,23 @@ export const books: BooksData = {
 };
 
 export const storyData = {
-  stories: [
+  response: [
     {
-      picture: '/src/assets/images/어린 왕자_anime_0.png',
-      story:
-        '주인공은 어릴 때 만난 어른들의 무관심과 이해 부족으로 인해 화가의 꿈을 포기하고 비행기 조종사가 되었다.',
+      id: 0,
+      img_url: '/src/assets/images/어린 왕자_anime_0.png',
+      sent: '주인공은 어릴 때 만난 어른들의 무관심과 이해 부족으로 인해 화가의 꿈을 포기하고 비행기 조종사가 되었다.',
     },
     {
-      picture: '/src/assets/images/어린 왕자_anime_1.png',
-      story:
-        '사막에 불시착한 주인공은 어린 왕자를 만나 그의 별과 꽃, 그리고 그의 여정에 대해 듣게 된다.',
+      img_url: '/src/assets/images/어린 왕자_anime_1.png',
+      sent: '사막에 불시착한 주인공은 어린 왕자를 만나 그의 별과 꽃, 그리고 그의 여정에 대해 듣게 된다.',
     },
     {
-      picture: '/src/assets/images/어린 왕자_anime_2.png',
-      story:
-        '어린 왕자는 자기 별의 꽃을 사랑했지만 서로의 오해와 복잡한 감정으로 인해 떠나게 되었다.',
+      img_url: '/src/assets/images/어린 왕자_anime_2.png',
+      sent: '어린 왕자는 자기 별의 꽃을 사랑했지만 서로의 오해와 복잡한 감정으로 인해 떠나게 되었다.',
     },
     {
-      picture: '/src/assets/images/어린 왕자_anime_3.png',
-      story:
-        '주인공은 어린 왕자의 이야기를 통해 진정한 우정과 사랑의 의미를 배우게 된다.',
+      img_url: '/src/assets/images/어린 왕자_anime_3.png',
+      sent: '주인공은 어린 왕자의 이야기를 통해 진정한 우정과 사랑의 의미를 배우게 된다.',
     },
   ],
 };
@@ -224,7 +221,7 @@ export const profilesData_2: Profile[] = [
 export const profilesDatas = [...profilesData_1, ...profilesData_2];
 
 export const wikiData: WikiData = {
-  information:
+  response:
     '보아뱀은 대형 뱀의 일종으로, 주로 아프리카, 아시아, 아메리카의 열대 및 아열대 지역에서 서식합니다. 이 뱀들은 육식성으로, 주로 작은 포유류나 조류를 사냥합니다.',
 };
 

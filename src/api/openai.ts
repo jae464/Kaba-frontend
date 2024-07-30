@@ -22,7 +22,7 @@ import { CharacterRelationShip } from '../type/api/relation';
 import { MessageRequest } from './request/MessageRequest';
 import { Profile } from '../type/profile';
 
-const BASE_URL = 'https://ai.kaba.team';
+export const BASE_URL = 'https://ai.kaba.team';
 
 axios.defaults.withCredentials = true;
 
