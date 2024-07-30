@@ -58,16 +58,7 @@ export const peopleDatas: PersonData = {
 
 export const characterRelations: CharacterRelationShip = {
   mainCharacter: '어린왕자',
-  characters: [
-    '어른들',
-    '사막에서 만난 꼬마',
-    '터키 천문학자',
-    '소행성 B612의 꽃',
-    '어른들 2',
-    '사막에서 만난 꼬마 2',
-    '터키 천문학자 2',
-    '소행성 B612의 꽃 2',
-  ],
+  characters: ['어른들', '여우', '터키 천문학자', '장미', '파일럿'],
   relationMap: [
     {
       first: '어린왕자',
@@ -76,7 +67,7 @@ export const characterRelations: CharacterRelationShip = {
     },
     {
       first: '어린왕자',
-      second: '사막에서 만난 꼬마',
+      second: '여우',
       relationship: '친구',
     },
     {
@@ -86,28 +77,13 @@ export const characterRelations: CharacterRelationShip = {
     },
     {
       first: '어린왕자',
-      second: '소행성 B612의 꽃',
+      second: '장미',
       relationship: '사랑/돌봄의 대상',
     },
     {
       first: '어린왕자',
-      second: '어른들 2',
-      relationship: '무관심과 오해',
-    },
-    {
-      first: '어린왕자',
-      second: '사막에서 만난 꼬마 2',
+      second: '파일럿',
       relationship: '친구',
-    },
-    {
-      first: '어린왕자',
-      second: '터키 천문학자 2',
-      relationship: '관련 이야기 등장 인물',
-    },
-    {
-      first: '어린왕자',
-      second: '소행성 B612의 꽃 2',
-      relationship: '사랑/돌봄의 대상',
     },
   ],
 };

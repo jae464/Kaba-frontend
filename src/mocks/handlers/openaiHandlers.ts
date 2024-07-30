@@ -21,8 +21,9 @@ export const openaiHandlers = [
     const url = new URL(request.url);
     const sentence = url.searchParams.get('sentence');
     const imgStyle = url.searchParams.get('img_style');
+    const shuffledImages = { urls: shuffleArray(diaryImages.urls) };
     await sleep(3000);
-    return HttpResponse.json(diaryImages);
+    return HttpResponse.json(shuffledImages);
   }),
 
   http.post(`${BASE_URL}/ai-chat`, async ({ request }) => {
@@ -57,4 +58,12 @@ async function sleep(timeout: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, timeout);
   });
+}
+
+function shuffleArray(array: string[]) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
