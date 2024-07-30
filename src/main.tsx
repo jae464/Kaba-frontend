@@ -8,7 +8,6 @@ const enableMocking = async () => {
     process.env.NODE_ENV === 'development' ||
     process.env.USE_MOCKS === 'true'
   ) {
-    console.log('process env development');
     const { worker } = await import('./mocks/browser');
     worker.start();
   }

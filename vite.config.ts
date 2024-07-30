@@ -24,6 +24,12 @@ export default defineConfig({
     }),
     svgr(),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
+    },
+  },
   // assetsInclude: ['**/*.pdf'],
   build: {
     rollupOptions: {
