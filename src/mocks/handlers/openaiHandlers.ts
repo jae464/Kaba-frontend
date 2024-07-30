@@ -1,66 +1,56 @@
 // src/mocks/handlers.ts
 import { http, HttpResponse } from 'msw';
 import {
-  books,
   characterRelations,
   diaryImages,
   sampleChats,
   storyData,
   wikiData,
-  profilesData_1,
-  profilesData_2,
 } from '../../constants/sampleData';
 import { BASE_URL } from '../../api/openai';
 
 export const openaiHandlers = [
-  http.get(`${BASE_URL}/character-map/:bookId`, async ({ req, res, ctx }) => {
-    console.log('인물관계도 요청');
-    await sleep(5000);
+  http.get(`${BASE_URL}/character-map/:bookId`, async ({ params }) => {
+    const { bookId } = params;
+    await sleep(3000);
     return HttpResponse.json(characterRelations);
   }),
 
-  http.get('/diary-img-url/:bookId', (req, res, ctx) => {
-    const { bookId } = req.params;
-    const sentence = req.url.searchParams.get('sentence');
-    const imgStyle = req.url.searchParams.get('img_style');
-    return res(ctx.status(200), ctx.json(diaryImages[bookId]));
+  http.get(`${BASE_URL}/diary-img-url/:bookId`, async ({ params, request }) => {
+    const { bookId } = params;
+    const url = new URL(request.url);
+    const sentence = url.searchParams.get('sentence');
+    const imgStyle = url.searchParams.get('img_style');
+    await sleep(3000);
+    return HttpResponse.json(diaryImages);
   }),
 
-  http.get('/ai-chat', (req, res, ctx) => {
-    const character = req.url.searchParams.get('character');
-    const question = req.url.searchParams.get('question');
-    return res(ctx.status(200), ctx.json(sampleChats[character]));
+  http.post(`${BASE_URL}/ai-chat`, async ({ request }) => {
+    const randomIndex = Math.floor(Math.random() * sampleChats.length);
+    const response = sampleChats[randomIndex];
+    await sleep(3000);
+    return HttpResponse.json({ response });
   }),
 
-  http.get('/recap-generator/:bookId', (req, res, ctx) => {
-    const { bookId } = req.params;
-    const endPage = req.url.searchParams.get('end_page');
-    const imgStyle = req.url.searchParams.get('img_style');
-    return res(ctx.status(200), ctx.json(storyData));
-  }),
+  http.get(
+    `${BASE_URL}/recap-generator/:bookId`,
+    async ({ params, request }) => {
+      const { bookId } = params;
+      const url = new URL(request.url);
+      const endPage = url.searchParams.get('end_page');
+      const imgStyle = url.searchParams.get('img_style');
+      await sleep(3000);
+      return HttpResponse.json(storyData);
+    },
+  ),
 
-  http.get('/kaba-wiki/:bookId', (req, res, ctx) => {
-    const { bookId } = req.params;
-    const sentence = req.url.searchParams.get('sentence');
-    return res(ctx.status(200), ctx.json(wikiData));
+  http.get(`${BASE_URL}/kaba-wiki/:bookId`, async ({ params, request }) => {
+    const { bookId } = params;
+    const url = new URL(request.url);
+    const sentence = url.searchParams.get('sentence');
+    await sleep(3000);
+    return HttpResponse.json(wikiData);
   }),
-
-  http.post('/ai-chat/clear', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ message: 'Chat history cleared' }));
-  }),
-
-  http.post('/ai-chat', (req, res, ctx) => {
-    const { character, messages } = req.body;
-    return res(ctx.status(200), ctx.json(sampleChats[0]));
-  }),
-
-  http.get('/characters/:bookId', (req, res, ctx) => {
-    const { bookId } = req.params;
-    const data = bookId === '1' ? profilesData_1 : profilesData_2;
-    return res(ctx.status(200), ctx.json(data));
-  }),
-
-  // Add more handlers as needed
 ];
 
 async function sleep(timeout: number) {

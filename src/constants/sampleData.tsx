@@ -1,6 +1,8 @@
 import { BooksData } from '../type/api/book';
+import { DiaryData } from '../type/api/diary';
 import { PersonData } from '../type/api/network';
 import { CharacterRelationShip } from '../type/api/relation';
+import { StoryData } from '../type/api/story';
 import { WikiData } from '../type/api/wiki';
 import { Profile } from '../type/profile';
 
@@ -42,7 +44,6 @@ export const characterRelations: CharacterRelationShip = {
     '소행성 B612의 꽃 2',
   ],
   relationMap: [
-    // { start_character: '나', end_character: '어린 왕자', relationship: '친구' },
     {
       first: '어린왕자',
       second: '어른들',
@@ -146,36 +147,45 @@ export const books: BooksData = {
   ],
 };
 
-export const storyData = {
+export const storyData: StoryData = {
   response: [
     {
       id: 0,
-      img_url: '/src/assets/images/어린 왕자_anime_0.png',
+      img_url: ['/src/assets/images/어린 왕자_anime_0.png'],
       sent: '주인공은 어릴 때 만난 어른들의 무관심과 이해 부족으로 인해 화가의 꿈을 포기하고 비행기 조종사가 되었다.',
+      keyword: [],
     },
     {
-      img_url: '/src/assets/images/어린 왕자_anime_1.png',
+      id: 1,
+      img_url: ['/src/assets/images/어린 왕자_anime_1.png'],
       sent: '사막에 불시착한 주인공은 어린 왕자를 만나 그의 별과 꽃, 그리고 그의 여정에 대해 듣게 된다.',
+      keyword: [],
     },
     {
-      img_url: '/src/assets/images/어린 왕자_anime_2.png',
+      id: 2,
+      img_url: ['/src/assets/images/어린 왕자_anime_2.png'],
       sent: '어린 왕자는 자기 별의 꽃을 사랑했지만 서로의 오해와 복잡한 감정으로 인해 떠나게 되었다.',
+      keyword: [],
     },
     {
-      img_url: '/src/assets/images/어린 왕자_anime_3.png',
+      id: 3,
+      img_url: ['/src/assets/images/어린 왕자_anime_3.png'],
       sent: '주인공은 어린 왕자의 이야기를 통해 진정한 우정과 사랑의 의미를 배우게 된다.',
+      keyword: [],
     },
   ],
 };
 
-export const diaryImages = [
-  { picture_url: '/src/assets/images/diary_image_1.png' },
-  { picture_url: '/src/assets/images/diary_image_2.png' },
-  { picture_url: '/src/assets/images/diary_image_3.png' },
-  { picture_url: '/src/assets/images/diary_image_4.png' },
-  { picture_url: '/src/assets/images/diary_image_5.png' },
-  { picture_url: '/src/assets/images/diary_image_6.png' },
-];
+export const diaryImages: DiaryData = {
+  urls: [
+    '/src/assets/images/diary_image_1.png',
+    '/src/assets/images/diary_image_2.png',
+    '/src/assets/images/diary_image_3.png',
+    '/src/assets/images/diary_image_4.png',
+    '/src/assets/images/diary_image_5.png',
+    '/src/assets/images/diary_image_6.png',
+  ],
+};
 
 export const profilesData_1: Profile[] = [
   {
@@ -237,3 +247,5 @@ export const sampleChats = [
   '도서관 가는 길 좀 알려주세요.',
   '오늘 몇 시에 만날까요?',
 ];
+
+export const sampleUserProfileImage = '/src/assets/images/diary_image_1.png';

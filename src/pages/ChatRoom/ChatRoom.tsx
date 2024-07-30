@@ -7,6 +7,7 @@ import {
   profilesData,
   profilesData_1,
   sampleChats,
+  sampleUserProfileImage,
 } from '../../constants/sampleData';
 import ChatProfile from '../../components/ChatProfile/ChatProfile';
 import { useEffect, useRef, useState } from 'react';
@@ -118,7 +119,7 @@ const ChatRoom = () => {
                     name={selectedProfile.name}
                     profileImage={
                       v.role === 'user'
-                        ? diaryImages[0].picture_url
+                        ? sampleUserProfileImage
                         : selectedProfile?.imageSrc
                     }
                     message={v.content}
