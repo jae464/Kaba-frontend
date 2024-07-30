@@ -7,6 +7,11 @@
 AI로 초등학생들의 책 읽기 흥미를 높이고, 건강한 독서 습관을 만들어주는 교육용 AI 북메이트 서비스, KT AI Book Assistant, KABA 입니다.
 
 [디자인](https://www.figma.com/design/PMqkOetx8UcvbGMjb5OGdG/Gen-AI-GUI?node-id=0-1&t=r3TUnvxoE48GTOhm-0) | [AI서버](https://github.com/LuterGS/kaba-ai)
+
+
+현재는 Azure Open AI API 사용이 중지되어 Mock 데이터로 배포하였습니다.
+
+Mock 데이터 배포 주소 : https://kaba-frontend.vercel.app/
 <br />
 
 ## 핵심 기능
